@@ -1,18 +1,32 @@
 from app.models import db, User, environment, SCHEMA
 
+users = [
+    {
+        "full_name": "Demo User",
+        "email": "demo_user@email.com",
+        "password": "demouserpw"
+    },
+    {
+        "full_name": "Daniel Wong",
+        "email": "daniel_wong@email.com",
+        "password": "danielwongpw"
+    },
+    {
+        "full_name": "Stanley Ou",
+        "email": "stanley_ou@email.com",
+        "password": "stanleyoupw"
+    },
+    {
+        "full_name": "Larry Liao",
+        "email": "larry_liao@email.com",
+        "password": "larryliaopw"
+    },
+]
+
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    demo = User(
-        full_name='Demo User', email='demo_user@email.com', password='demouserpw')
-    marnie = User(
-        full_name='marnie', email='marnie@email.com', password='marniepw')
-    bobbie = User(
-        full_name='bobbie', email='bobbie@email.com', password='bobbiepw')
-
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
+    db.session.add_all([User(**user) for user in users])
     db.session.commit()
 
 
