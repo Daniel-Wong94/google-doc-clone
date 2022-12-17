@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .documents import seed_documents, undo_documents
 from .user_documents import seed_user_documents, undo_user_documents
 from .comments import seed_comments, undo_comments
+from .messages import seed_messages, undo_messages
 
 from app.models.db import db, environment, SCHEMA
 
@@ -24,6 +25,7 @@ def seed():
     seed_documents()
     seed_user_documents()
     seed_comments()
+    seed_messages()
     # Add other seed functions here
 
 
@@ -34,4 +36,5 @@ def undo():
     undo_documents()
     undo_user_documents()
     undo_comments()
+    undo_messages()
     # Add other undo functions here

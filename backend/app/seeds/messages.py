@@ -1,46 +1,46 @@
-from app.models import db, Document, User, Comment, environment, SCHEMA
+from app.models import db, Document, User, Message, environment, SCHEMA
 
-comments = [
+messages = [
     {
         # id: 1
         "user_id": 1,
         "document_id": 1,
-        "comment": "Demo user comments on document 1"
+        "message": "Demo user messages in document 1"
     },
     {
         # id: 2
         "user_id": 2,
         "document_id": 1,
-        "comment": "Daniel Wong comments on document 1"
+        "message": "Daniel Wong messages in document 1"
     },
     {
         # id: 3
         "user_id": 3,
         "document_id": 1,
-        "comment": "Stanley Ou comments on document 1"
+        "message": "Stanley Ou messages in document 1"
     },
     {
         # id: 4
         "user_id": 3,
         "document_id": 3,
-        "comment": "Stanley Ou comments on document 3"
+        "message": "Stanley Ou messages in document 3"
     },
     {
         # id: 5
         "user_id": 2,
         "document_id": 2,
-        "comment": "Daniel Wong comments on document 2"
+        "message": "Daniel Wong messages in document 2"
     },
     {
         # id: 6
         "user_id": 4,
         "document_id": 1,
-        "comment": "Jeremiah Lu comments on document 1"
+        "message": "Jeremiah Lu messages in document 1"
     },
 ]
 
-def seed_comments():
-    db.session.add_all([Comment(**comment) for comment in comments])
+def seed_messages():
+    db.session.add_all([Message(**message) for message in messages])
     db.session.commit()
 
 
@@ -50,10 +50,10 @@ def seed_comments():
 # incrementing primary key, CASCADE deletes any dependent entities.  With
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
-def undo_comments():
+def undo_messages():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.comments RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.messages RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute("DELETE FROM comments")
+        db.session.execute("DELETE FROM messages")
 
     db.session.commit()
