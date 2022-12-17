@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
 
     owned_documents = db.relationship("Document", back_populates="owner", cascade="all, delete-orphan")
     documents = db.relationship("User_Document", back_populates="user", cascade="all, delete-orphan")
+    comments = db.relationship("Comment", back_populates="user", cascade="all, delete-orphan")
 
     @property
     def password(self):

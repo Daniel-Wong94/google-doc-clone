@@ -1,4 +1,4 @@
-from app.models import db, User_Document, environment, SCHEMA, User
+from app.models import db, User_Document, Document, environment, SCHEMA, User
 
 user_documents = [
     {

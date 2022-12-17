@@ -22,3 +22,4 @@ class Document(db.Model):
 
     owner = db.relationship("User", back_populates="owned_documents")
     users = db.relationship("User_Document", back_populates="document", cascade="all, delete-orphan")
+    comments = db.relationship("Comment", back_populates="document", cascade="all, delete-orphan")

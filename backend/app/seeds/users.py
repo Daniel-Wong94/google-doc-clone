@@ -2,24 +2,46 @@ from app.models import db, User, environment, SCHEMA
 
 users = [
     {
+        # id: 1
         "full_name": "Demo User",
         "email": "demo_user@email.com",
         "password": "demouserpw"
     },
     {
+        # id: 2
         "full_name": "Daniel Wong",
         "email": "daniel_wong@email.com",
         "password": "danielwongpw"
     },
     {
+        # id: 3
         "full_name": "Stanley Ou",
         "email": "stanley_ou@email.com",
         "password": "stanleyoupw"
     },
     {
+        # id: 4
         "full_name": "Larry Liao",
         "email": "larry_liao@email.com",
         "password": "larryliaopw"
+    },
+    {
+        # id: 5
+        "full_name": "Jeremiah Lu",
+        "email": "jeremiah_lu@email.com",
+        "password": "jeremiahlupw"
+    },
+    {
+        # id: 6
+        "full_name": "Reyhaneh Abdollahi",
+        "email": "reyhaneh_abdollahi@email.com",
+        "password": "reyhanehabdollahipw"
+    },
+    {
+        # id: 7
+        "full_name": "Michael Reyes",
+        "email": "michael_reyes@email.com",
+        "password": "michaelreyespw"
     },
 ]
 
