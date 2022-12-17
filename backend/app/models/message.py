@@ -21,3 +21,12 @@ class Message(db.Model):
 
     user = db.relationship("User", back_populates="messages")
     document = db.relationship("Document", back_populates="messages")
+
+    def to_dict(self):
+      return {
+        'id': self.id,
+        'message': self.message,
+        'user_id': self.user_id,
+        'document_id': self.document_id,
+        'sent_at': self.sent_at
+      }

@@ -13,3 +13,10 @@ class User_Document(db.Model):
 
     user = db.relationship("User", back_populates="documents")
     document = db.relationship("Document", back_populates="users")
+
+    def to_dict(self):
+      return {
+        'user_id': self.user_id,
+        'document_id': self.document_id,
+        'role': self.role
+      }

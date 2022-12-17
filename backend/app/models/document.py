@@ -16,6 +16,7 @@ class Document(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, default="Untitled document")
     text = db.Column(db.Text())
+    thumbnail = db.Column(db.String, nullable=False)
     last_edited = db.Column(db.DateTime(timezone=True), server_default=func.now())
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
@@ -24,3 +25,14 @@ class Document(db.Model):
     users = db.relationship("User_Document", back_populates="document", cascade="all, delete-orphan")
     comments = db.relationship("Comment", back_populates="document", cascade="all, delete-orphan")
     messages = db.relationship("Message", back_populates="document", cascade="all, delete-orphan")
+
+    def to_dict(self):
+      return {
+        "id": self.id,
+        "name": self.id,
+        "text": self.text,
+        "thumbnail": self.thumbnail,
+        "last_edited": self.last_edited,
+        "created_at": self.created_at,
+        "owner_id": self.owner_id
+      }
