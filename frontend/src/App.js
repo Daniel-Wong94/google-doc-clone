@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LoginForm from "./components/auth/LoginForm";
+import { SignIn } from "./Login";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
+import { Splash } from "./splash";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { authenticate } from "./store/session";
 
@@ -29,10 +31,11 @@ function App() {
       {/* delete route above later */}
       <Switch>
         <Route path="/" exact={true}>
-          {"splashpage"}
+          {/* <Splash /> */}
         </Route>
         <Route path="/login" exact={true}>
-          <LoginForm />
+          {/* <LoginForm /> */}
+          <SignIn />
         </Route>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
