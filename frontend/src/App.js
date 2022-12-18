@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import LoginForm from './components/auth/LoginForm';
-import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
-import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
-import User from './components/User';
-import { authenticate } from './store/session';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import LoginForm from "./components/auth/LoginForm";
+import { SignIn } from "./Login";
+import SignUpForm from "./components/auth/SignUpForm";
+import NavBar from "./components/NavBar";
+import { Splash } from "./splash";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import { authenticate } from "./store/session";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -27,22 +28,28 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
+      {/* delete route above later */}
       <Switch>
-        <Route path='/login' exact={true}>
-          <LoginForm />
+        <Route path="/" exact={true}>
+          {/* <Splash /> */}
         </Route>
-        <Route path='/sign-up' exact={true}>
+        <Route path="/login" exact={true}>
+          {/* <LoginForm /> */}
+          <SignIn />
+        </Route>
+        <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
+        <ProtectedRoute>
+          <Route path="/documents" exact={true}>
+            {"home page with all documents"}
+          </Route>
         </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
+        <ProtectedRoute>
+          <Route path="/documents/:documentId" exact={true}>
+            {"document text editor"}
+          </Route>
         </ProtectedRoute>
-        <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
-        </Route>
       </Switch>
     </BrowserRouter>
   );

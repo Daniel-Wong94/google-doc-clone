@@ -1,1 +1,16 @@
-/* TODO Add site wide styles */
+@import url("./reset.css");
+
+:root {
+    /* buttons */
+  --btn-primary-bg: #1A73E8;
+  --btn-primary-bg-hover: #185abc;
+  --btn-primary-text: #FFFFFF;
+
+    /* brand colors */
+  --brand-red: #EA4335;
+  --brand-blue: #4185F4;
+  --brand-green: #35A854;
+  --brand-yellow: #FBBC08;
+  --button-hover-grey:#F1F1F2;
+  --document-edit-hover-grey: #DADCE0;
+}
