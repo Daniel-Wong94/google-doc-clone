@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import LoginForm from './components/auth/LoginForm';
-import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
-import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
-import User from './components/User';
-import { authenticate } from './store/session';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Login } from "./Login";
+import NavBar from "./components/NavBar";
+// import { Splash } from "./splash";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import { authenticate } from "./store/session";
+import { Signup } from "./Signup";
+import { HomePage } from "./homepage";
+import { Box } from "@mui/material";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
+  // const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -26,23 +28,43 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
+      {/* delete route above later */}
       <Switch>
-        <Route path='/login' exact={true}>
-          <LoginForm />
+        <Route path="/" exact={true}>
+          <NavBar />
+          {/* <Splash /> */}
         </Route>
-        <Route path='/sign-up' exact={true}>
-          <SignUpForm />
+        <Route path="/login" exact={true}>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            minHeight="100vh"
+          >
+            <Login />
+          </Box>
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
+        <Route path="/sign-up" exact={true}>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            minHeight="100vh"
+          >
+            <Signup />
+          </Box>
+        </Route>
+        <ProtectedRoute>
+          <Route path="/documents" exact={true}>
+            <HomePage />
+          </Route>
         </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
+        <ProtectedRoute>
+          <Route path="/documents/:documentId" exact={true}>
+            {"document text editor"}
+          </Route>
         </ProtectedRoute>
-        <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
-        </Route>
+        <Route>404 Not Found</Route>
       </Switch>
     </BrowserRouter>
   );
