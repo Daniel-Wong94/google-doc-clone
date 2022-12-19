@@ -9,22 +9,43 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useState } from "react";
+import { login } from "../store/session";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 const theme = createTheme();
 
-export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+const Login = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await dispatch(login(email, password));
+
+    // error handler here
   };
+
+  if (user) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        component="main"
+        maxWidth="xs"
+        sx={{
+          border: "1px solid #C4C4C4",
+          borderRadius: "4px",
+          paddingBottom: "12px",
+        }}
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -39,7 +60,7 @@ export default function SignIn() {
             width="75"
             height="24"
             xmlns="http://www.w3.org/2000/svg"
-            ariaHidden="true"
+            aria-hidden="true"
             className="BFr46e xduoyf"
           >
             <g id="qaEJec">
@@ -79,7 +100,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Typography component="h1" variant="h7">
+          <Typography component="h1" variant="subtitle1">
             to continue to Docs
           </Typography>
           <Box
@@ -96,7 +117,10 @@ export default function SignIn() {
               label="Email"
               name="email"
               autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               autoFocus
+              size="small"
             />
             <TextField
               margin="normal"
@@ -104,12 +128,21 @@ export default function SignIn() {
               fullWidth
               name="password"
               label="Enter your password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
+              size="small"
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={
+                <Checkbox
+                  value="showPassword"
+                  checked={showPassword}
+                  onChange={() => setShowPassword((prev) => !prev)}
+                />
+              }
               label="Show password"
             />
             <Button
@@ -132,4 +165,6 @@ export default function SignIn() {
       </Container>
     </ThemeProvider>
   );
-}
+};
+
+export default Login;

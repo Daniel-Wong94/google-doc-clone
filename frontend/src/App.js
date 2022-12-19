@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import LoginForm from "./components/auth/LoginForm";
-import { SignIn } from "./Login";
+import { Login } from "./Login";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
 import { Splash } from "./splash";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { authenticate } from "./store/session";
+import { Signup } from "./Signup";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -35,10 +35,11 @@ function App() {
         </Route>
         <Route path="/login" exact={true}>
           {/* <LoginForm /> */}
-          <SignIn />
+          <Login />
         </Route>
         <Route path="/sign-up" exact={true}>
-          <SignUpForm />
+          {/* <SignUpForm /> */}
+          <Signup />
         </Route>
         <ProtectedRoute>
           <Route path="/documents" exact={true}>
