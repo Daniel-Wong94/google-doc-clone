@@ -21,6 +21,16 @@ documents = [
         "text": "Testing text of document 4",
         "owner_id": 1
     },
+    {
+        "name": "Document 5",
+        "text": "Testing text of document 5",
+        "owner_id": 5
+    },
+    {
+        "name": "Document 6",
+        "text": "Testing text of document 6",
+        "owner_id": 6
+    },
 ]
 
 def seed_documents():
