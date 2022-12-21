@@ -3,7 +3,8 @@ import EditorNavBar from "./EditorNavBar";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { loadCurrentDocument } from "../store/documents";
+import TextEditor from "./TextEditor";
+import { loadCurrentDocument, loadAllDocuments } from "../store/documents";
 
 const Editor = () => {
   const { documentId } = useParams();
@@ -19,7 +20,7 @@ const Editor = () => {
   return (
     <CssBaseline>
       <EditorNavBar document={document} />
-      {/* <TextEditor /> */}
+      <TextEditor document={document} />
     </CssBaseline>
   );
 };

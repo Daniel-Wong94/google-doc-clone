@@ -31,13 +31,14 @@ const Signup = () => {
     e.preventDefault();
 
     if (password === confirmPassword) {
-      await dispatch(signUp(fullName, email, password));
+      try {
+        await dispatch(signUp(fullName, email, password));
+        return history.push("/documents");
+      } catch (e) {
+        console.log("error", e);
+      }
     }
-
-    // error handling
   };
-
-  if (user) return history.push("/documents");
 
   return (
     <Container

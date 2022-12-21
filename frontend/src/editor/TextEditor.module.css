@@ -1,0 +1,32 @@
+body {
+  background-color: #F8F9FA;
+
+}
+
+/* .editorContainer {
+
+} */
+
+.quillToolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #FFFFFF;
+}
+
+.quillEditingArea {
+  box-shadow: 0 0 5px 0 rbga(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none !important;
+}
+
+.quillPaper {
+  background-color: #FFFFFF;
+  width: 8.5in;
+  min-height: 11in;
+  padding: .8in;
+  margin: 1.4rem;
+  box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.4);
+}

@@ -29,7 +29,7 @@ export const loadAllDocuments =
     if (response.ok) {
       const normalizedData = {};
       documents.forEach((document) => (normalizedData[document.id] = document));
-      dispatch(setDocuments(normalizedData));
+      await dispatch(setDocuments(normalizedData));
       return normalizedData;
     }
   };
@@ -39,7 +39,7 @@ export const loadCurrentDocument = (documentId) => async (dispatch) => {
   const { Document: document } = await response.json();
 
   if (response.ok) {
-    dispatch(setCurrentDocument(document));
+    await dispatch(setCurrentDocument(document));
   }
 };
 
@@ -58,7 +58,7 @@ export const editCurrentDocument =
   (payload, documentId) => async (dispatch) => {
     const response = await fetch(`/api/documents/${documentId}`, {
       method: "PUT",
-      header: {
+      headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(payload),
@@ -66,7 +66,7 @@ export const editCurrentDocument =
 
     if (response.ok) {
       const data = await response.json();
-      console.log("DATA UPDATE", data);
+      await dispatch(updateCurrentDocument(data));
     }
   };
 
@@ -74,11 +74,14 @@ export const editCurrentDocument =
 const initialState = {};
 
 const documentsReducer = (state = initialState, action) => {
+  let newState = { ...state };
   switch (action.type) {
     case SET_DOCUMENTS:
       return { ...action.payload };
     case SET_CURRENT_DOCUMENT:
-      const newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState;
+    case UPDATE_CURRENT_DOCUMENT:
       newState[action.payload.id] = action.payload;
       return newState;
     default:
