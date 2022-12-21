@@ -56,7 +56,7 @@ function App() {
         </Route>
         <ProtectedRoute>
           <Route path="/documents" exact={true}>
-            <HomePage />
+            <HomePage sx={{ width: "100%" }} />
           </Route>
         </ProtectedRoute>
         <ProtectedRoute>

@@ -14,9 +14,9 @@ class Document(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False, default="Untitled document")
+    name = db.Column(db.String(50), default="Untitled document")
     text = db.Column(db.Text())
-    thumbnail = db.Column(db.String, nullable=False)
+    thumbnail = db.Column(db.String)
     last_edited = db.Column(db.DateTime(timezone=True), server_default=func.now())
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
@@ -29,10 +29,25 @@ class Document(db.Model):
     def to_dict(self):
       return {
         "id": self.id,
+        "name": self.name,
+        "text": self.text,
+        "thumbnail": self.thumbnail,
+        "last_edited": self.last_edited,
+        "created_at": self.created_at,
+        "owner_id": self.owner_id,
+        # "users": [user.to_dict() for user in self.users]
+      }
+
+    def to_dict_detail(self):
+      return {
+        "id": self.id,
         "name": self.id,
         "text": self.text,
         "thumbnail": self.thumbnail,
         "last_edited": self.last_edited,
         "created_at": self.created_at,
-        "owner_id": self.owner_id
+        "owner_id": self.owner_id,
+        "users": [user.to_dict() for user in self.users],
+        "comments": [comment.to_dict() for comment in self.comments],
+        "messages": [message.to_dict() for message in self.messages]
       }

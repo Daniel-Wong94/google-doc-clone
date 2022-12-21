@@ -26,6 +26,16 @@ user_documents = [
         "document_id": 1,
         "role": "Editor"
     },
+    {
+        "user_id": 1,
+        "document_id": 5,
+        "role": "Viewer"
+    },
+    {
+        "user_id": 1,
+        "document_id": 6,
+        "role": "Viewer"
+    },
 ]
 
 def seed_user_documents():

@@ -12,12 +12,13 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { login } from "../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 const theme = createTheme();
 
 const Login = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -155,7 +156,11 @@ const Login = () => {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/sign-up" variant="body2" underline="none">
+                <Link
+                  onClick={() => history.push("/sign-up")}
+                  variant="body2"
+                  underline="none"
+                >
                   {"Create account"}
                 </Link>
               </Grid>
