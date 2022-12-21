@@ -1,9 +1,15 @@
 // constants
 const SET_DOCUMENTS = "documents/SET_DOCUMENTS";
+const SET_CURRENT_DOCUMENT = "documents/SET_CURRENT_DOCUMENT";
 
 const setDocuments = (documents) => ({
   type: SET_DOCUMENTS,
   payload: documents,
+});
+
+const setCurrentDocument = (document) => ({
+  type: SET_CURRENT_DOCUMENT,
+  payload: document,
 });
 
 export const loadAllDocuments =
@@ -14,12 +20,20 @@ export const loadAllDocuments =
 
     if (response.ok) {
       const normalizedData = {};
-      console.log("DOCUMENTS", documents);
       documents.forEach((document) => (normalizedData[document.id] = document));
       dispatch(setDocuments(normalizedData));
       return normalizedData;
     }
   };
+
+export const loadCurrentDocument = (documentId) => async (dispatch) => {
+  const response = await fetch(`/api/documents/${documentId}`);
+  const { Document: document } = await response.json();
+
+  if (response.ok) {
+    dispatch(setCurrentDocument(document));
+  }
+};
 
 export const createDocument = () => async (dispatch) => {
   const response = await fetch(`/api/documents/`, {
@@ -39,6 +53,10 @@ const documentsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_DOCUMENTS:
       return { ...action.payload };
+    case SET_CURRENT_DOCUMENT:
+      const newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState;
     default:
       return state;
   }

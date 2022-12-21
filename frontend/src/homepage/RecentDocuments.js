@@ -1,5 +1,5 @@
-import { Container, Stack, Typography, Grid, ImageList } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Container, Stack, Typography, Grid } from "@mui/material";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { loadAllDocuments } from "../store/documents";
@@ -11,7 +11,7 @@ const RecentDocuments = () => {
   const documents = useSelector((state) => Object.values(state.documents));
 
   useEffect(() => {
-    (async () => dispatch(loadAllDocuments("me")))();
+    (async () => dispatch(loadAllDocuments("anyone")))();
   }, [dispatch]);
 
   return (

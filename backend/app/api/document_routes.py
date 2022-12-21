@@ -59,13 +59,12 @@ def documents():
   #             .all()
 
   owned_by = request.args.get('owned_by')
-  query = Document.query.join(User_Document, Document.id == User_Document.document_id)
+  query = Document.query.outerjoin(User_Document, Document.id == User_Document.document_id)
 
   if owned_by == "me":
     query = query.filter(Document.owner_id == current_user.id)
   elif owned_by == "not_me":
-    query = query.filter(Document.owner_id != current_user.id,
-                         User_Document.user_id == current_user.id)
+    query = query.filter(User_Document.user_id == current_user.id)
   else:
     query = query.filter(or_(User_Document.user_id == current_user.id,
                       Document.owner_id == current_user.id))
@@ -85,7 +84,7 @@ def document_detail(document):
     Current user must be either an owner or part of the document's users
   '''
 
-  return document.to_dict_detail()
+  return {"Document" : document.to_dict_detail()}
 
 
 @document_routes.route('/', methods=["POST"])
