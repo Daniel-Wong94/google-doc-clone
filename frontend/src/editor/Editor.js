@@ -18,7 +18,7 @@ const Editor = () => {
 
   return (
     <CssBaseline>
-      <EditorNavBar documentName={document?.name} />
+      <EditorNavBar document={document} />
       {/* <TextEditor /> */}
     </CssBaseline>
   );

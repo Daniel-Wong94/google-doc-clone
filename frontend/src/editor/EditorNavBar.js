@@ -2,13 +2,18 @@ import { AppBar, Toolbar, IconButton, TextField } from "@mui/material";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { editCurrentDocument } from "../store/documents";
 
-const EditorNavBar = ({ documentName }) => {
+const EditorNavBar = ({ document }) => {
   const history = useHistory();
-  const [name, setName] = useState(documentName);
+  const dispatch = useDispatch();
+  const [name, setName] = useState(document?.name);
 
-  const handleUpdateName = (e) => {
-    console.log("HERE BLUE");
+  console.log("DOCUMENT HERE", document);
+
+  const handleUpdateName = () => {
+    dispatch(editCurrentDocument({ name }, document?.id));
   };
 
   return (
@@ -24,7 +29,6 @@ const EditorNavBar = ({ documentName }) => {
           <DescriptionIcon fontSize="large" />
         </IconButton>
         <TextField
-          gutterBottom
           variant="standard"
           size="medium"
           value={name}

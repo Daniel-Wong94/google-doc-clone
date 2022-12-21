@@ -1,7 +1,9 @@
 // constants
 const SET_DOCUMENTS = "documents/SET_DOCUMENTS";
 const SET_CURRENT_DOCUMENT = "documents/SET_CURRENT_DOCUMENT";
+const UPDATE_CURRENT_DOCUMENT = "documents/UPDATE_CURRENT_DOCUMENT";
 
+// ACTION CREATORS
 const setDocuments = (documents) => ({
   type: SET_DOCUMENTS,
   payload: documents,
@@ -12,6 +14,12 @@ const setCurrentDocument = (document) => ({
   payload: document,
 });
 
+const updateCurrentDocument = (document) => ({
+  type: UPDATE_CURRENT_DOCUMENT,
+  payload: document,
+});
+
+// THUNKS
 export const loadAllDocuments =
   (owned_by = "me") =>
   async (dispatch) => {
@@ -42,11 +50,27 @@ export const createDocument = () => async (dispatch) => {
 
   if (response.ok) {
     const { Document: document } = await response.json();
-    console.log("BACKEND", document);
     return document;
   }
 };
 
+export const editCurrentDocument =
+  (payload, documentId) => async (dispatch) => {
+    const response = await fetch(`/api/documents/${documentId}`, {
+      method: "PUT",
+      header: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("DATA UPDATE", data);
+    }
+  };
+
+// REDUCER
 const initialState = {};
 
 const documentsReducer = (state = initialState, action) => {
