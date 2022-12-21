@@ -13,7 +13,7 @@ import {
 
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { signUp } from "../store/session";
 
 const Signup = () => {
@@ -31,13 +31,14 @@ const Signup = () => {
     e.preventDefault();
 
     if (password === confirmPassword) {
-      const data = await dispatch(signUp(fullName, email, password));
+      try {
+        await dispatch(signUp(fullName, email, password));
+        return history.push("/documents");
+      } catch (e) {
+        console.log("error", e);
+      }
     }
-
-    // error handling
   };
-
-  if (user) return history.push("/documents");
 
   return (
     <Container

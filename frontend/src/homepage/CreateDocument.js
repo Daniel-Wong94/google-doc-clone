@@ -12,7 +12,6 @@ const CreateDocument = () => {
 
     try {
       const document = await dispatch(createDocument());
-      console.log("new document", document);
       return history.push(`/documents/${document.id}`);
     } catch (e) {
       console.log("ERROR", e);
@@ -20,10 +19,7 @@ const CreateDocument = () => {
   };
 
   return (
-    <Box
-      sx={{ flexGrow: 1, backgroundColor: "#F1F3F4", padding: "24px 0" }}
-      onClick={handleCreateDocument}
-    >
+    <Box sx={{ flexGrow: 1, backgroundColor: "#F1F3F4", padding: "24px 0" }}>
       <Container>
         <Stack direction="row">
           <Typography gutterBottom>Start a new document</Typography>
@@ -31,6 +27,7 @@ const CreateDocument = () => {
         <Stack direction="row">
           <Box>
             <Box
+              onClick={handleCreateDocument}
               sx={{
                 width: "133px",
                 height: "169px",

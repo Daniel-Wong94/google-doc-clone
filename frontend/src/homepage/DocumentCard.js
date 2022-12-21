@@ -16,7 +16,7 @@ const DocumentCard = ({ document }) => {
         },
       }}
     >
-      <Box>{document?.text}</Box>
+      <Box>{document?.name}</Box>
     </Box>
   );
 };

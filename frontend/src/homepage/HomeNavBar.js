@@ -71,7 +71,7 @@ const HomeNavBar = () => {
             color="inherit"
             aria-label="open drawer"
           >
-            <DescriptionIcon />
+            <DescriptionIcon fontSize="large" />
             <Typography
               variant="h5"
               noWrap
