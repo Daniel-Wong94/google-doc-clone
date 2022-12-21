@@ -29,7 +29,7 @@ class Document(db.Model):
     def to_dict(self):
       return {
         "id": self.id,
-        "name": self.id,
+        "name": self.name,
         "text": self.text,
         "thumbnail": self.thumbnail,
         "last_edited": self.last_edited,

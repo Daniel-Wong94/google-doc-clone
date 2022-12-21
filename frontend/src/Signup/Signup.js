@@ -13,12 +13,13 @@ import {
 
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { signUp } from "../store/session";
 
 const Signup = () => {
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [showPassword, setShowPassword] = useState(false);
   const [fullName, setFullName] = useState("");
@@ -30,15 +31,13 @@ const Signup = () => {
     e.preventDefault();
 
     if (password === confirmPassword) {
-      console.log("Sign up info", { fullName, email, password });
       const data = await dispatch(signUp(fullName, email, password));
-      console.log("sign up data", data);
     }
 
     // error handling
   };
 
-  if (user) return <Redirect to="/documents" />;
+  if (user) return history.push("/documents");
 
   return (
     <Container
@@ -169,7 +168,11 @@ const Signup = () => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Link href="/login" variant="body2" underline="none">
+              <Link
+                onClick={() => history.push("/login")}
+                variant="body2"
+                underline="none"
+              >
                 {"Sign in instead"}
               </Link>
               <Button
