@@ -1,12 +1,21 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useState, useRef, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styles from "./TextEditor.module.css";
+import { editCurrentDocument } from "../store/documents";
 
 const TextEditor = ({ document }) => {
-  const [text, setText] = useState(document?.text);
+  const dispatch = useDispatch();
   const quillRef = useRef(null);
   const canvasRef = useRef(null);
+  const [text, setText] = useState(document?.text);
+
+  const handleUpdate = async () => {
+    await dispatch(
+      editCurrentDocument({ name: document.name, text }, document?.id)
+    );
+  };
 
   const modules = {
     toolbar: [
@@ -30,6 +39,10 @@ const TextEditor = ({ document }) => {
       styles.quillToolbar
     );
   }, []);
+
+  useEffect(() => {
+    setText(document?.text);
+  }, [document]);
 
   const handleClick = () => {
     // create a hidden canvas for 2D image creation
@@ -57,7 +70,7 @@ const TextEditor = ({ document }) => {
         modules={modules}
       />
       <canvas ref={canvasRef} />
-      <button onClick={handleClick}>Click here</button>
+      <button onClick={handleUpdate}>Click here</button>
     </>
   );
 };

@@ -10,18 +10,14 @@ const EditorNavBar = ({ document }) => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
 
-  // const handleUpdateName = async () => {
-  //   const formData = new FormData();
-  //   formData.append("name", name || "Untitled Document");
-  //   await dispatch(editCurrentDocument(formData, document?.id));
-  // };
-
   useEffect(() => {
     setName(document?.name);
   }, [document]);
 
   const handleUpdateName = async () => {
-    await dispatch(editCurrentDocument({ name }, document?.id));
+    await dispatch(
+      editCurrentDocument({ name, text: document.text }, document?.id)
+    );
   };
 
   return (

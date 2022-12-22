@@ -108,9 +108,10 @@ def create_document():
 def edit_document(document):
   form = DocumentForm()
   form['csrf_token'].data = request.cookies['csrf_token']
+  print("HERE", form.data.items())
   if form.validate_on_submit():
     for key, val in form.data.items():
-      if val is not None:
+      if val is not None or False:
         setattr(document, key, val)
     db.session.commit()
     return document.to_dict()
