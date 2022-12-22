@@ -1,11 +1,22 @@
-import { AppBar, Toolbar, IconButton, TextField } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  TextField,
+  Avatar,
+  Box,
+  Button,
+  Typography,
+} from "@mui/material";
 import DescriptionIcon from "@mui/icons-material/Description";
+import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { editCurrentDocument } from "../store/documents";
 
 const EditorNavBar = ({ document }) => {
+  const user = useSelector((state) => state.session.user);
   const history = useHistory();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
@@ -22,23 +33,52 @@ const EditorNavBar = ({ document }) => {
 
   return (
     <AppBar position="static" variant="dense">
-      <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          onClick={() => history.push("/documents")}
+      <Toolbar
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+          }}
         >
-          <DescriptionIcon fontSize="large" />
-        </IconButton>
-        <TextField
-          variant="standard"
-          size="medium"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          onBlur={handleUpdateName}
-        />
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={() => history.push("/documents")}
+          >
+            <DescriptionIcon fontSize="large" />
+          </IconButton>
+          <TextField
+            variant="standard"
+            value={name}
+            sx={{ width: "300px" }}
+            onChange={(e) => setName(e.target.value)}
+            onBlur={handleUpdateName}
+          />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Button variant="contained">
+            <PeopleOutlineOutlinedIcon />
+            <Typography variant="button">Share</Typography>
+          </Button>
+          <IconButton>
+            <Avatar sx={{ bgcolor: "#D35400", height: "32px", width: "32px" }}>
+              {user.full_name[0]}
+            </Avatar>
+          </IconButton>
+        </Box>
       </Toolbar>
     </AppBar>
   );
