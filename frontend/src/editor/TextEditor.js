@@ -44,20 +44,19 @@ const TextEditor = ({ document }) => {
     setText(document?.text);
   }, [document]);
 
-  const handleClick = () => {
-    // create a hidden canvas for 2D image creation
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    const contents = quillRef.current.getEditor().getContents();
-    const text = contents.ops.map((op) => op.insert).join("");
-    ctx.fillText(text, 10, 10);
-    const img = new Image();
-    img.onload = () => {
-      ctx.drawImage(img, 0, 0);
-    };
-    img.src = canvas.toDataURL();
-    console.log("HERE", contents);
-  };
+  // const handleClick = () => {
+  //   // create a hidden canvas for 2D image creation
+  //   const canvas = canvasRef.current;
+  //   const ctx = canvas.getContext("2d");
+  //   const contents = quillRef.current.getEditor().getContents();
+  //   const text = contents.ops.map((op) => op.insert).join("");
+  //   ctx.fillText(text, 10, 10);
+  //   const img = new Image();
+  //   img.onload = () => {
+  //     ctx.drawImage(img, 0, 0);
+  //   };
+  //   img.src = canvas.toDataURL();
+  // };
 
   return (
     <>
@@ -71,6 +70,7 @@ const TextEditor = ({ document }) => {
       />
       <canvas ref={canvasRef} />
       <button onClick={handleUpdate}>Click here</button>
+      {/* <ShareModal document={document} /> */}
     </>
   );
 };

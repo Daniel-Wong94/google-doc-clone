@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import func
+from . import User
 
 class Document(db.Model):
     '''
@@ -46,7 +47,7 @@ class Document(db.Model):
         "thumbnail": self.thumbnail,
         "last_edited": self.last_edited,
         "created_at": self.created_at,
-        "owner_id": self.owner_id,
+        "owner": User.query.get(self.owner_id).to_dict(),
         "users": [user.to_dict() for user in self.users],
         "comments": [comment.to_dict() for comment in self.comments],
         "messages": [message.to_dict() for message in self.messages]

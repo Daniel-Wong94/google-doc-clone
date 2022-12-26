@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from . import User
 from sqlalchemy import func
 
 class User_Document(db.Model):
@@ -18,5 +19,6 @@ class User_Document(db.Model):
       return {
         'user_id': self.user_id,
         'document_id': self.document_id,
-        'role': self.role
+        'role': self.role,
+        'user': User.query.get(self.user_id).to_dict()
       }

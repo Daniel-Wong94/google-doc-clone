@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect, url_for, jsonify
 from flask_login import login_required, current_user
-from app.models import Document, User_Document, db
-from app.forms import DocumentForm
+from app.models import Document, User_Document, User, db
+from app.forms import DocumentForm, UserDocumentForm
 from sqlalchemy import or_
 from app.api.auth_routes import validation_errors_to_error_messages
 
@@ -108,7 +108,7 @@ def create_document():
 def edit_document(document):
   form = DocumentForm()
   form['csrf_token'].data = request.cookies['csrf_token']
-  print("HERE", form.data.items())
+
   if form.validate_on_submit():
     for key, val in form.data.items():
       if val is not None or False:
@@ -128,3 +128,35 @@ def delete_document(document_id):
     db.session.commit()
     return jsonify({"message": "Succesfully deleted document"})
   return redirect("../auth/unauthorized")
+
+
+@document_routes.route('/<int:document_id>/users')
+@login_required
+def user_documents(document_id):
+  document = Document.query.get_or_404(document_id)
+  user_document = User_Document.query.filter_by(document_id=document.id).all()
+
+  return {"Users": [user.to_dict() for user in user_document]}
+
+
+@document_routes.route('/<int:document_id>/users', methods=["POST"])
+@login_required
+def add_user(document_id):
+  # Validation to check if user already exists, NOT WORKING
+  document = Document.query.get_or_404(document_id);
+
+  if document.owner_id == current_user.id:
+    form = UserDocumentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+      user = User.query.filter(User.email == form.data['email']).first()
+      if user in document.users:
+        return {'errors': 'User already exists in this document'}
+      user_document = User_Document(document_id=document.id, user_id=user.id, role=form.data['role'])
+      db.session.add(user_document)
+      db.session.commit()
+      return user_document.to_dict()
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+  return {'errors': "Only the owner can add users to document"}
