@@ -150,13 +150,28 @@ def add_user(document_id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-      user = User.query.filter(User.email == form.data['email']).first()
-      if user in document.users:
-        return {'errors': 'User already exists in this document'}
+      user = User.query.filter_by(email=form.data['email']).first()
+      # print("USER", user)
+      # user_exists = User_Document.query.filter_by(document_id=document.id, user_id=user.id).first()
+      # if user_exists is not None:
+      #   return {'errors': ['email : User already exists in this document']}
       user_document = User_Document(document_id=document.id, user_id=user.id, role=form.data['role'])
       db.session.add(user_document)
       db.session.commit()
       return user_document.to_dict()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-  return {'errors': "Only the owner can add users to document"}
+  return {'errors': "Only the owner can add users to document"}, 403
+
+
+@document_routes.route('/<int:document_id>/users/<int:user_id>', methods=["DELETE"])
+@login_required
+def remove_user(document_id, user_id):
+  document = Document.query.get_or_404(document_id)
+
+  if document.owner_id == current_user.id:
+    user_document = User_Document.query.filter_by(document_id=document_id, user_id=user_id).first_or_404()
+    db.session.delete(user_document)
+    db.session.commit()
+    return {"message": "Succesfully removed user from document"}
+  return {"errors": "Only the owner can remove users from a document"}, 403

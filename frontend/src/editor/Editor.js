@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import TextEditor from "./TextEditor";
 import { loadCurrentDocument } from "../store/documents";
+import { loadUserDocuments } from "../store/userDocuments";
 import ShareModal from "./ShareModal";
 
 const Editor = () => {
@@ -16,6 +17,7 @@ const Editor = () => {
   useEffect(() => {
     (async () => {
       await dispatch(loadCurrentDocument(documentId));
+      await dispatch(loadUserDocuments(documentId));
     })();
   }, [dispatch, documentId]);
 
