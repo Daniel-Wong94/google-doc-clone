@@ -1,24 +1,43 @@
-import { Container, Stack, Typography, Grid } from "@mui/material";
-import { useEffect } from "react";
+import {
+  Container,
+  Stack,
+  Typography,
+  Grid,
+  Select,
+  MenuItem,
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { loadAllDocuments } from "../store/documents";
 import DocumentCard from "./DocumentCard";
 
 const RecentDocuments = () => {
   const dispatch = useDispatch();
   const documents = useSelector((state) => Object.values(state.documents));
+  const [searchFilter, setSearchFilter] = useState("anyone");
 
   useEffect(() => {
-    (async () => dispatch(loadAllDocuments("anyone")))();
-  }, [dispatch]);
+    (async () => dispatch(loadAllDocuments(searchFilter)))();
+  }, [dispatch, searchFilter]);
 
   return (
     <Container maxWidth="lg" sx={{ marginTop: "36px" }}>
-      <Stack direction="row" justifyContent="space-between">
-        <Typography variant="h5" gutterBottom>
-          Recent documents
-        </Typography>
+      <Stack direction="row" justifyContent="space-between" mb="12px">
+        <Typography variant="h5">Recent documents</Typography>
+        <Select
+          size="small"
+          variant="standard"
+          value={searchFilter}
+          onChange={(e) => setSearchFilter(e.target.value)}
+          sx={{
+            "&:before": { borderBottom: "none" },
+            "&:after": { borderBottom: "none" },
+          }}
+        >
+          <MenuItem value="anyone">Owned by anyone</MenuItem>
+          <MenuItem value="me">Owned by me</MenuItem>
+          <MenuItem value="not_me">Not owned by me</MenuItem>
+        </Select>
       </Stack>
       <Grid container spacing={2}>
         {documents.map((document) => {

@@ -7,6 +7,7 @@ import TextEditor from "./TextEditor";
 import { loadCurrentDocument } from "../store/documents";
 import { loadUserDocuments } from "../store/userDocuments";
 import ShareModal from "./ShareModal";
+import styles from "./Editor.module.css";
 
 const Editor = () => {
   const { documentId } = useParams();
@@ -28,18 +29,20 @@ const Editor = () => {
       <CssBaseline>
         <EditorNavBar document={document} setShowModal={setShowModal} />
         <TextEditor document={document} />
+        <Modal
+          open={showModal}
+          onClose={onClose}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div className={styles.shareModalWrapper}>
+            <ShareModal document={document} onClose={onClose} />
+          </div>
+        </Modal>
       </CssBaseline>
-      <Modal
-        open={showModal}
-        onClose={onClose}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <ShareModal document={document} onClose={onClose} />
-      </Modal>
     </>
   );
 };

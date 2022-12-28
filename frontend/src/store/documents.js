@@ -2,6 +2,7 @@
 const SET_DOCUMENTS = "documents/SET_DOCUMENTS";
 const SET_CURRENT_DOCUMENT = "documents/SET_CURRENT_DOCUMENT";
 const UPDATE_CURRENT_DOCUMENT = "documents/UPDATE_CURRENT_DOCUMENT";
+const REMOVE_DOCUMENT = "documents/REMOVE_DOCUMENT";
 
 // ACTION CREATORS
 const setDocuments = (documents) => ({
@@ -17,6 +18,11 @@ const setCurrentDocument = (document) => ({
 const updateCurrentDocument = (document) => ({
   type: UPDATE_CURRENT_DOCUMENT,
   payload: document,
+});
+
+export const removeDocument = (documentId) => ({
+  type: REMOVE_DOCUMENT,
+  payload: documentId,
 });
 
 // THUNKS
@@ -70,6 +76,19 @@ export const editCurrentDocument =
     }
   };
 
+export const deleteDocument = (documentId) => async (dispatch) => {
+  const response = await fetch(`/api/documents/${documentId}`, {
+    method: "DELETE",
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    await dispatch(removeDocument(documentId));
+    return data;
+  }
+};
+
 // REDUCER
 const initialState = {};
 
@@ -83,6 +102,9 @@ const documentsReducer = (state = initialState, action) => {
       return newState;
     case UPDATE_CURRENT_DOCUMENT:
       newState[action.payload.id] = action.payload;
+      return newState;
+    case REMOVE_DOCUMENT:
+      delete newState[action.payload];
       return newState;
     default:
       return state;

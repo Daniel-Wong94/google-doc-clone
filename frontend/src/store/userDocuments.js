@@ -20,10 +20,9 @@ const removeUserDocuments = (payload) => ({
   payload,
 });
 
-const updateUserDocuments = ({ userId, role }) => ({
+const updateUserDocuments = (payload) => ({
   type: UPDATE_USER_DOCUMENTS,
-  userId,
-  role,
+  payload,
 });
 
 // THUNKS
@@ -69,7 +68,7 @@ export const deleteUserDocuments = (documentId, userId) => async (dispatch) => {
     method: "DELETE",
   });
 
-  const data = await response.json();
+  await response.json();
 
   if (response.ok) {
     await dispatch(removeUserDocuments(userId));
@@ -92,7 +91,7 @@ export const editUserDocuments =
     const data = await response.json();
 
     if (response.ok) {
-      console.log("DAATAAA", data);
+      await dispatch(updateUserDocuments(data));
     }
   };
 
@@ -105,6 +104,12 @@ const userDocumentsReducer = (state = initialState, action) => {
     case SET_USER_DOCUMENTS:
       return { ...action.payload };
     case ADD_USER_DOCUMENTS:
+      newState[action.payload["user_id"]] = action.payload;
+      return newState;
+    case UPDATE_USER_DOCUMENTS:
+      newState[action.payload["user_id"]] = {
+        ...state[action.payload["user_id"]],
+      };
       newState[action.payload["user_id"]] = action.payload;
       return newState;
     case REMOVE_USER_DOCUMENTS:

@@ -48,15 +48,16 @@ const ShareModal = ({ document, onClose }) => {
   }, [email]);
 
   return (
-    <Box
-      sx={{
-        bgcolor: "#FFFFFF",
-        width: "100%",
-        maxWidth: "512px",
-        borderRadius: "8px",
-        padding: "24px",
-      }}
-    >
+    // <Box
+    //   sx={{
+    //     bgcolor: "#FFFFFF",
+    //     width: "100%",
+    //     maxWidth: "512px",
+    //     borderRadius: "8px",
+    //     padding: "24px",
+    //   }}
+    // >
+    <>
       <Stack direction="row" pb="12px">
         <Typography
           variant="h5"
@@ -125,7 +126,8 @@ const ShareModal = ({ document, onClose }) => {
         message="Update Saved!"
         autoHideDuration={2000}
       />
-    </Box>
+    </>
+    // </Box>
   );
 };
 

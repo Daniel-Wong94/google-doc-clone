@@ -183,7 +183,7 @@ def update_user(document_id, user_id):
 def remove_user(document_id, user_id):
   document = Document.query.get_or_404(document_id)
 
-  if document.owner_id == current_user.id:
+  if document.owner_id == current_user.id or current_user.id == user_id:
     user_document = User_Document.query.filter_by(document_id=document_id, user_id=user_id).first_or_404()
     db.session.delete(user_document)
     db.session.commit()
