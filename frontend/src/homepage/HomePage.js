@@ -1,22 +1,20 @@
 import HomeNavBar from "./HomeNavBar";
 import CreateDocument from "./CreateDocument";
 import RecentDocuments from "./RecentDocuments";
-import { CssBaseline, Stack } from "@mui/material";
+import { CssBaseline } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
+  const user = useSelector((state) => state.session.user);
+
   return (
-    <CssBaseline>
-      {/* <Stack
-        direction="column"
-        spacing={1}
-        alignContent="center"
-        justifyContent="center"
-      > */}
-      <HomeNavBar />
-      <CreateDocument />
-      <RecentDocuments />
-      {/* </Stack> */}
-    </CssBaseline>
+    user && (
+      <CssBaseline>
+        <HomeNavBar />
+        <CreateDocument />
+        <RecentDocuments />
+      </CssBaseline>
+    )
   );
 };
 

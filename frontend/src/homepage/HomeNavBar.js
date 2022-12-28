@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import {
@@ -7,10 +6,12 @@ import {
   Typography,
   InputBase,
   AppBar,
+  Avatar,
 } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
 import DescriptionIcon from "@mui/icons-material/Description";
+import { useSelector } from "react-redux";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -52,6 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const HomeNavBar = () => {
+  const user = useSelector((state) => state.session.user);
   return (
     <Box
       sx={{
@@ -72,7 +74,7 @@ const HomeNavBar = () => {
             color="inherit"
             aria-label="open drawer"
           >
-            <DescriptionIcon />
+            <DescriptionIcon fontSize="large" />
             <Typography
               variant="h5"
               noWrap
@@ -92,16 +94,12 @@ const HomeNavBar = () => {
             />
           </Search>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              // aria-controls={menuId}
-              aria-haspopup="true"
-              // onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
+            <IconButton>
+              <Avatar
+                sx={{ bgcolor: "#D35400", height: "32px", width: "32px" }}
+              >
+                {user.full_name[0]}
+              </Avatar>
             </IconButton>
           </Box>
         </Toolbar>

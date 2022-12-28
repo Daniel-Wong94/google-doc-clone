@@ -9,6 +9,7 @@ import { authenticate } from "./store/session";
 import { Signup } from "./Signup";
 import { HomePage } from "./homepage";
 import { Box } from "@mui/material";
+import { Editor } from "./Editor";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -28,7 +29,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* delete route above later */}
       <Switch>
         <Route path="/" exact={true}>
           <NavBar />
@@ -54,15 +54,11 @@ function App() {
             <Signup />
           </Box>
         </Route>
-        <ProtectedRoute>
-          <Route path="/documents" exact={true}>
-            <HomePage />
-          </Route>
+        <ProtectedRoute path="/documents" exact={true}>
+          <HomePage />
         </ProtectedRoute>
-        <ProtectedRoute>
-          <Route path="/documents/:documentId" exact={true}>
-            {"document text editor"}
-          </Route>
+        <ProtectedRoute path="/documents/:documentId" exact={true}>
+          <Editor />
         </ProtectedRoute>
         <Route>404 Not Found</Route>
       </Switch>
