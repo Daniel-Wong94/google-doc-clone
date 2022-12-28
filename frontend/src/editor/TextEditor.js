@@ -9,12 +9,16 @@ const TextEditor = ({ document }) => {
   const dispatch = useDispatch();
   const quillRef = useRef(null);
   const canvasRef = useRef(null);
-  const [text, setText] = useState(document?.text);
+  const [text, setText] = useState("");
 
   const handleUpdate = async () => {
     await dispatch(
       editCurrentDocument({ name: document.name, text }, document?.id)
     );
+  };
+
+  const handleChange = (value) => {
+    setText(value);
   };
 
   const modules = {
@@ -65,7 +69,7 @@ const TextEditor = ({ document }) => {
         className={styles.editorContainer}
         theme="snow"
         value={text}
-        onChange={setText}
+        onChange={handleChange}
         modules={modules}
       />
       <canvas ref={canvasRef} />
