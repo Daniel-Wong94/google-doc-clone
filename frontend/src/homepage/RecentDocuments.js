@@ -1,7 +1,6 @@
 import { Container, Stack, Typography, Grid } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { loadAllDocuments } from "../store/documents";
 import DocumentCard from "./DocumentCard";
 

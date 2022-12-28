@@ -10,19 +10,19 @@ import ArticleIcon from "@mui/icons-material/Article";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { dateFormat } from "../../src/helpers";
+import { deleteDocument } from "../store/documents";
+import { deleteUserDocuments } from "../store/userDocuments";
+import { loadAllDocuments } from "../store/documents";
 
 const DocumentCard = ({ document }) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
   const history = useHistory();
-  const dateFormat = (stringDate) =>
-    new Date(stringDate).toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-
   const [menuAnchor, setMenuAnchor] = useState(null);
+
   const openMenu = (e) => {
     e.stopPropagation();
     setMenuAnchor(e.currentTarget);
@@ -37,8 +37,14 @@ const DocumentCard = ({ document }) => {
     return history.push(`/documents/${document?.id}`);
   };
 
-  const handleRemove = (e) => {
+  const handleRemove = async (e) => {
     e.stopPropagation();
+    if (document?.owner_id === user.id) {
+      await dispatch(deleteDocument(document?.id));
+    } else {
+      await dispatch(deleteUserDocuments(document?.id, user.id));
+      await dispatch(loadAllDocuments("anyone"));
+    }
   };
 
   return (
@@ -79,10 +85,7 @@ const DocumentCard = ({ document }) => {
               open={Boolean(menuAnchor)}
               onClose={closeMenu}
             >
-              <MenuItem
-                onClick={() => setMenuAnchor(null)}
-                sx={{ color: "red" }}
-              >
+              <MenuItem onClick={handleRemove} sx={{ color: "red" }}>
                 Remove
               </MenuItem>
             </Menu>
