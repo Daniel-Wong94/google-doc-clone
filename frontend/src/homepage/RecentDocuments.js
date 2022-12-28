@@ -7,7 +7,6 @@ import DocumentCard from "./DocumentCard";
 
 const RecentDocuments = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const documents = useSelector((state) => Object.values(state.documents));
 
   useEffect(() => {
@@ -24,11 +23,7 @@ const RecentDocuments = () => {
       <Grid container spacing={2}>
         {documents.map((document) => {
           return (
-            <Grid
-              item
-              key={document.id}
-              onClick={() => history.push(`/documents/${document.id}`)}
-            >
+            <Grid item key={document.id}>
               <DocumentCard document={document} />
             </Grid>
           );

@@ -1,38 +1,67 @@
-import { Box, Container, Grid, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Menu,
+  Grid,
+  IconButton,
+  Typography,
+  MenuItem,
+} from "@mui/material";
 import ArticleIcon from "@mui/icons-material/Article";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const DocumentCard = ({ document }) => {
+  const history = useHistory();
   const dateFormat = (stringDate) =>
-    new Date(document?.last_edited).toLocaleDateString(undefined, {
+    new Date(stringDate).toLocaleDateString(undefined, {
       year: "numeric",
       month: "short",
       day: "numeric",
     });
+
+  const [menuAnchor, setMenuAnchor] = useState(null);
+  const openMenu = (e) => {
+    e.stopPropagation();
+    setMenuAnchor(e.currentTarget);
+  };
+
+  const closeMenu = (e) => {
+    e.stopPropagation();
+    setMenuAnchor(null);
+  };
+
+  const openDocument = () => {
+    return history.push(`/documents/${document?.id}`);
+  };
+
+  const handleRemove = (e) => {
+    e.stopPropagation();
+  };
 
   return (
     <Box
       sx={{
         width: 210,
         height: 340,
-        backgroundColor: "#FFFFFF",
         border: "1px solid #DEE1E5",
         borderRadius: "4px",
         "&:hover": {
           cursor: "pointer",
           border: "1px solid #4284F3",
-          opacity: [0.9, 0.8, 0.7],
         },
       }}
+      onClick={openDocument}
     >
       <Box sx={{ height: "263px", borderBottom: "1px solid #DEE1E5" }}></Box>
-      <Container sx={{ padding: "16px 0" }}>
+      <Box padding="12px">
         <Typography variant="body2" noWrap>
           {document?.name}
         </Typography>
         <Grid container alignItems="center" justifyContent="space-between">
-          <Grid item>
+          <Grid item sx={{ display: "flex", alignItems: "center" }}>
             <ArticleIcon color="primary" />
             <PeopleOutlineOutlinedIcon />
           </Grid>
@@ -42,12 +71,24 @@ const DocumentCard = ({ document }) => {
             </Typography>
           </Grid>
           <Grid item>
-            <IconButton size="small">
+            <IconButton size="small" onClick={openMenu}>
               <MoreVertOutlinedIcon />
             </IconButton>
+            <Menu
+              anchorEl={menuAnchor}
+              open={Boolean(menuAnchor)}
+              onClose={closeMenu}
+            >
+              <MenuItem
+                onClick={() => setMenuAnchor(null)}
+                sx={{ color: "red" }}
+              >
+                Remove
+              </MenuItem>
+            </Menu>
           </Grid>
         </Grid>
-      </Container>
+      </Box>
     </Box>
   );
 };
