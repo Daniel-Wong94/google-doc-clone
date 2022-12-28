@@ -21,6 +21,8 @@ const Editor = () => {
     })();
   }, [dispatch, documentId]);
 
+  const onClose = () => setShowModal(false);
+
   return (
     <>
       <CssBaseline>
@@ -29,14 +31,14 @@ const Editor = () => {
       </CssBaseline>
       <Modal
         open={showModal}
-        onClose={() => setShowModal(false)}
+        onClose={onClose}
         sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <ShareModal document={document} />
+        <ShareModal document={document} onClose={onClose} />
       </Modal>
     </>
   );

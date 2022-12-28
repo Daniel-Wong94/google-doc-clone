@@ -11,11 +11,11 @@ import {
   Button,
 } from "@mui/material";
 import UserCard from "./UserCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createUserDocuments } from "../store/userDocuments";
 
-const ShareModal = ({ document }) => {
+const ShareModal = ({ document, onClose }) => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const userDocuments = useSelector((state) =>
@@ -42,6 +42,10 @@ const ShareModal = ({ document }) => {
       setErrors(e.errors);
     }
   };
+
+  useEffect(() => {
+    if (!email.length) setErrors({});
+  }, [email]);
 
   return (
     <Box
@@ -107,7 +111,11 @@ const ShareModal = ({ document }) => {
         ))}
       </Stack>
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button variant="contained" size="small" onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          size="small"
+          onClick={email.length ? handleSubmit : onClose}
+        >
           {email.length ? "Submit" : "Cancel"}
         </Button>
       </Box>

@@ -1,6 +1,9 @@
 import { Stack, Typography, Avatar, Select, MenuItem } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { deleteUserDocuments } from "../store/userDocuments";
+import { editUserDocuments } from "../store/userDocuments";
 
 const UserCard = ({
   user,
@@ -9,20 +12,22 @@ const UserCard = ({
   ownerId,
   ownerCard = false,
 }) => {
+  const dispatch = useDispatch();
+  const { documentId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
   const [role, setRole] = useState(currentRole);
   const isOwner = sessionUser.id === ownerId;
 
-  const updateRole = (e) => {
+  const updateRole = async (e) => {
     e.preventDefault();
     setRole(e.target.value);
-    if (role === "Remove") {
-      // dispatch remove
+
+    if (e.target.value === "Remove") {
+      await dispatch(deleteUserDocuments(documentId, user.id));
+    } else {
+      await dispatch(editUserDocuments(documentId, user.id, e.target.value));
     }
-
     onShowUpdate(true);
-
-    //dispatch update role
   };
 
   return (

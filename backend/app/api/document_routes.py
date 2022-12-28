@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect, url_for, jsonify
 from flask_login import login_required, current_user
 from app.models import Document, User_Document, User, db
-from app.forms import DocumentForm, UserDocumentForm
+from app.forms import DocumentForm, UserDocumentForm, UpdateUserDocumentForm
 from sqlalchemy import or_
 from app.api.auth_routes import validation_errors_to_error_messages
 
@@ -142,7 +142,6 @@ def user_documents(document_id):
 @document_routes.route('/<int:document_id>/users', methods=["POST"])
 @login_required
 def add_user(document_id):
-  # Validation to check if user already exists, NOT WORKING
   document = Document.query.get_or_404(document_id);
 
   if document.owner_id == current_user.id:
@@ -151,17 +150,32 @@ def add_user(document_id):
 
     if form.validate_on_submit():
       user = User.query.filter_by(email=form.data['email']).first()
-      # print("USER", user)
-      # user_exists = User_Document.query.filter_by(document_id=document.id, user_id=user.id).first()
-      # if user_exists is not None:
-      #   return {'errors': ['email : User already exists in this document']}
       user_document = User_Document(document_id=document.id, user_id=user.id, role=form.data['role'])
       db.session.add(user_document)
       db.session.commit()
       return user_document.to_dict()
-
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
   return {'errors': "Only the owner can add users to document"}, 403
+
+
+@document_routes.route('/<int:document_id>/users/<int:user_id>', methods=["PUT"])
+@login_required
+def update_user(document_id, user_id):
+  document = Document.query.get_or_404(document_id);
+
+  form = UpdateUserDocumentForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+
+  if form.validate_on_submit():
+    if document.owner_id == current_user.id:
+      user_documents = User_Document.query.filter_by(document_id=document_id, user_id=user_id).first()
+      user_documents.role = form.data['role'];
+      db.session.commit();
+      return user_documents.to_dict();
+
+    return {'errors': "Only the owner can add users to document"}, 403
+  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @document_routes.route('/<int:document_id>/users/<int:user_id>', methods=["DELETE"])
