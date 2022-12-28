@@ -5,7 +5,10 @@ import {
   IconButton,
   Typography,
   MenuItem,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ArticleIcon from "@mui/icons-material/Article";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
@@ -85,8 +88,11 @@ const DocumentCard = ({ document }) => {
               open={Boolean(menuAnchor)}
               onClose={closeMenu}
             >
-              <MenuItem onClick={handleRemove} sx={{ color: "red" }}>
-                Remove
+              <MenuItem onClick={handleRemove}>
+                <ListItemIcon>
+                  <DeleteIcon />
+                </ListItemIcon>
+                <ListItemText>Remove</ListItemText>
               </MenuItem>
             </Menu>
           </Grid>
