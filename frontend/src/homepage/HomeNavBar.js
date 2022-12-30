@@ -8,7 +8,6 @@ import {
   AppBar,
   Avatar,
 } from "@mui/material";
-import { AccountCircle } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { useSelector } from "react-redux";

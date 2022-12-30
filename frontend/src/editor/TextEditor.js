@@ -9,7 +9,7 @@ const TextEditor = ({ document }) => {
   const dispatch = useDispatch();
   const quillRef = useRef(null);
   const canvasRef = useRef(null);
-  const [text, setText] = useState("");
+  const [text, setText] = useState(document?.text);
 
   const handleUpdate = async () => {
     await dispatch(
@@ -33,15 +33,18 @@ const TextEditor = ({ document }) => {
       ["image", "blockquote", "code-block"],
       ["clean"],
     ],
+    // highlight: true,
   };
 
+  // add style classes to quill sub components
   useEffect(() => {
-    quillRef.current.editingArea.classList.add(styles.quillEditingArea);
-    const editor = quillRef.current.editingArea.childNodes[0];
-    editor.classList.add(styles.quillPaper);
-    quillRef.current.editingArea.parentNode.childNodes[0].classList.add(
-      styles.quillToolbar
-    );
+    const editingArea = quillRef.current.editingArea;
+    editingArea.classList.add(styles.quillEditingArea);
+
+    const paper = quillRef.current.editingArea.childNodes[0];
+    paper.classList.add(styles.quillPaper);
+
+    editingArea.parentNode.childNodes[0].classList.add(styles.quillToolbar);
   }, []);
 
   useEffect(() => {
@@ -74,7 +77,6 @@ const TextEditor = ({ document }) => {
       />
       <canvas ref={canvasRef} />
       <button onClick={handleUpdate}>Click here</button>
-      {/* <ShareModal document={document} /> */}
     </>
   );
 };

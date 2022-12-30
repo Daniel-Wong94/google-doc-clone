@@ -12,12 +12,11 @@ import {
 } from "@mui/material";
 
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signUp } from "../store/session";
 
 const Signup = () => {
-  const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -173,8 +172,9 @@ const Signup = () => {
                 onClick={() => history.push("/login")}
                 variant="body2"
                 underline="none"
+                sx={{ "&:hover": { cursor: "pointer" } }}
               >
-                {"Sign in instead"}
+                Sign in instead
               </Link>
               <Button
                 type="submit"
