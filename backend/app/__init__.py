@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, request, session, redirect
+from flask_socketio import SocketIO, emit, join_room, leave_room, send
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
@@ -35,6 +36,17 @@ Migrate(app, db)
 
 # Application Security
 CORS(app)
+
+origins = []
+
+if os.environ.get('FLASK_ENV') == 'production':
+    origins = [
+        # http/https urls of rendered application
+    ]
+else:
+    origins = '*'
+
+socketio = SocketIO(app, cors_allowed_origins=origins)
 
 
 # Since we are deploying with Docker and Flask,
@@ -91,3 +103,37 @@ def react_root(path):
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
+
+@socketio.on("connect")
+def on_connect():
+    print("CONNECTED")
+    return;
+
+@socketio.on('disconnect')
+def on_disconnect():
+    print("DISCONNECTED")
+    pass;
+
+@socketio.on('join')
+def on_join(data):
+    # print("DATATAAA", data)
+    name = data['name']
+    room = data['room']
+    join_room(room)
+    socketio.emit('room-joined', {'message': f'{name} has joined room {room}!'}, to=room, broadcast=True, include_self=False)
+
+@socketio.on("message")
+def handle_message(message):
+    print("message: ", message)
+    return;
+
+
+@socketio.on("send-changes")
+def handle_changes(data):
+    room = data['room']
+    delta = data['delta']
+    print(f'SENDING DELTA({delta}) TO ROOM {room}')
+    socketio.emit('receive-changes', {'delta': delta}, to=room, include_self=False)
+
+if __name__ == '__main__':
+    socketio.run(app)
