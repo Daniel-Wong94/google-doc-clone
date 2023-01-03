@@ -33,7 +33,8 @@ const EditorNavBar = ({ document, setShowModal }) => {
 
   return (
     <>
-      <AppBar position="static" variant="dense">
+      {/* <AppBar position="static" variant="dense"> */}
+      <AppBar position="sticky" variant="dense">
         <Toolbar
           sx={{
             display: "flex",

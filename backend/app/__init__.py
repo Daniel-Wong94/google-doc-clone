@@ -106,21 +106,19 @@ def not_found(e):
 
 @socketio.on("connect")
 def on_connect():
-    print("CONNECTED")
-    return;
+    room = request.args.get('room')
+    name = request.args.get('name')
+    join_room(room)
+    print("JOINED ROOM")
+    socketio.emit('room-joined', {'message': f'{name} has joiend room {room}!'}, to=room, broadcast=True, include_self=False)
 
 @socketio.on('disconnect')
 def on_disconnect():
-    print("DISCONNECTED")
-    pass;
-
-@socketio.on('join')
-def on_join(data):
-    # print("DATATAAA", data)
-    name = data['name']
-    room = data['room']
-    join_room(room)
-    socketio.emit('room-joined', {'message': f'{name} has joined room {room}!'}, to=room, broadcast=True, include_self=False)
+    print("DISCONNECTED", session.get('room'))
+    room = session.get('room')
+    if room is not None:
+        leave_room(room)
+        print("LEFT ROOM")
 
 @socketio.on("message")
 def handle_message(message):
