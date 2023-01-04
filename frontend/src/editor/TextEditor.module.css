@@ -7,14 +7,14 @@ body {
   top: 0;
   z-index: 10;
   background-color: #FFFFFF;
-  padding: 12px !important;
+  padding: 11px !important;
 }
 
 .quillEditingArea {
   box-shadow: 0 0 5px 0 rbga(0, 0, 0, .5);
   display: flex;
   justify-content: center;
-  /* border: none !important; */
+  border: none !important;
   /* border: 1px solid red !important; */
 }
 

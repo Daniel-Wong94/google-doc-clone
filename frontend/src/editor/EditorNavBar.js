@@ -31,6 +31,13 @@ const EditorNavBar = ({ document, setShowModal }) => {
     );
   };
 
+  // const saveDocument = async () => {
+  //   console.log("UPDATING", document?.name, documentId);
+  //   await dispatch(
+  //     editCurrentDocument({ name: document?.name, text }, documentId)
+  //   );
+  // };
+
   return (
     <>
       {/* <AppBar position="static" variant="dense"> */}

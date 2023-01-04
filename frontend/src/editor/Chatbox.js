@@ -11,53 +11,41 @@ import {
   Divider,
   Tabs,
   Tab,
+  Avatar,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { createMessage, getMessages } from "../store/messages";
 
 const Chatbox = ({ socket }) => {
-  const messages = [
-    "hey",
-    "hello how are you",
-    "i'm okay how about you",
-    "just testing this chatbox",
-    "hey",
-    "hello how are you",
-    "i'm okay how about you",
-    "just testing this chatbox",
-    "hey",
-    "hello how are you",
-    "i'm okay how about you",
-    "just testing this chatbox",
-    "hey",
-    "hello how are you",
-    "i'm okay how about you",
-    "just testing this chatbox",
-    "hey",
-    "hello how are you",
-    "i'm okay how about you",
-    "just testing this chatbox",
-    "hey",
-    "hello how are you",
-    "i'm okay how about you",
-    "just testing this chatbox",
-    "hey",
-    "hello how are you",
-    "i'm okay how about you",
-    "just testing this chatbox",
-    "hey",
-    "hello how are you",
-    "i'm okay how about you",
-    "just testing this chatbox",
-    "hey",
-    "hello how are you",
-    "i'm okay how about you",
-    "just testing this chatbox",
-    "hey",
-    "hello how are you",
-    "i'm okay how about you",
-    "just testing this chatbox",
-  ];
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
+  const messages = useSelector((state) => state.messages);
+  const { documentId } = useParams();
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      const messages = await dispatch(getMessages(documentId));
+    })();
+  }, [dispatch]);
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+
+    const data = await dispatch(
+      createMessage(documentId, {
+        message,
+        user_id: user.id,
+        document_id: documentId,
+      })
+    );
+
+    console.log("DATAT", data);
+    setMessage("");
+  };
 
   return (
     <Paper
@@ -83,28 +71,34 @@ const Chatbox = ({ socket }) => {
           // border: "1px solid red",
         }}
       >
-        {/* <Box padding={1}>
+        <Box padding={1}>
           <Typography variant="h6">Chatbox</Typography>
-        </Box> */}
-        <Tabs>
+        </Box>
+        {/* <Tabs>
           <Tab label="Chat">Chat</Tab>
           <Tab label="Comments">Comments</Tab>
-        </Tabs>
+        </Tabs> */}
         <Divider />
         <Box
           sx={{
             // flex: "1",
             height: "100%",
             overflow: "scroll",
-            // marginBottom: "86px",
-            // border: "1px solid red",
           }}
         >
           <List>
-            {messages.map((msg, idx) => {
+            {messages.map(({ id, user, message, sent_at }) => {
               return (
-                <ListItem key={idx}>
-                  <ListItemText primary={msg} />
+                <ListItem key={id}>
+                  <Avatar
+                    sx={{ bgcolor: "#D35400", height: "32px", width: "32px" }}
+                  >
+                    {user.full_name[0]}
+                  </Avatar>
+                  <ListItemText
+                    primary={message}
+                    secondary={`Sent at ${sent_at}`}
+                  />
                 </ListItem>
               );
             })}
@@ -123,10 +117,20 @@ const Chatbox = ({ socket }) => {
             padding: "24px",
           }}
         >
-          <Button variant="contained" endIcon={<SendIcon />} disableElevation>
+          <Button
+            onClick={sendMessage}
+            variant="contained"
+            endIcon={<SendIcon />}
+            disableElevation
+          >
             Send
           </Button>
-          <TextField size="small" fullWidth />
+          <TextField
+            size="small"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            fullWidth
+          />
         </Container>
       </Box>
     </Paper>
