@@ -14,38 +14,51 @@ import {
   Avatar,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { createMessage, getMessages } from "../store/messages";
+import { getMessages, addMessage } from "../store/messages";
 
 const Chatbox = ({ socket }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const messages = useSelector((state) => state.messages);
+  const chatboxRef = useRef(null);
   const { documentId } = useParams();
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     (async () => {
-      const messages = await dispatch(getMessages(documentId));
+      await dispatch(getMessages(documentId));
     })();
   }, [dispatch]);
 
+  // socket emit for outgoing message
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    const data = await dispatch(
-      createMessage(documentId, {
-        message,
-        user_id: user.id,
-        document_id: documentId,
-      })
-    );
+    socket.emit("message", {
+      message,
+      user_id: user.id,
+      document_id: documentId,
+    });
 
-    console.log("DATAT", data);
     setMessage("");
   };
+
+  // socket listen for incoming message
+  useEffect(() => {
+    if (!socket) return;
+    const getMessage = (message) => dispatch(addMessage(message));
+    socket.once("receive-message", getMessage);
+
+    return () => socket.off(getMessage);
+  }, [socket]);
+
+  // scroll to bottom on new message
+  useEffect(() => {
+    chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
+  }, [messages]);
 
   return (
     <Paper
@@ -57,7 +70,7 @@ const Chatbox = ({ socket }) => {
         position: "sticky",
         top: "0",
         // overflow: "scroll",
-        // flex: "1",
+        flex: "1",
       }}
       elevation={3}
     >
@@ -81,10 +94,10 @@ const Chatbox = ({ socket }) => {
         <Divider />
         <Box
           sx={{
-            // flex: "1",
             height: "100%",
             overflow: "scroll",
           }}
+          ref={chatboxRef}
         >
           <List>
             {messages.map(({ id, user, message, sent_at }) => {
@@ -95,10 +108,12 @@ const Chatbox = ({ socket }) => {
                   >
                     {user.full_name[0]}
                   </Avatar>
-                  <ListItemText
-                    primary={message}
-                    secondary={`Sent at ${sent_at}`}
-                  />
+                  <Container>
+                    <ListItemText
+                      primary={message}
+                      secondary={`Sent at ${sent_at}`}
+                    />
+                  </Container>
                 </ListItem>
               );
             })}
@@ -107,20 +122,18 @@ const Chatbox = ({ socket }) => {
         <Divider />
         <Container
           sx={{
-            // border: "1px solid red",
-            // position: "fixed",
-            // bottom: "0",
             width: "100%",
             display: "flex",
             gap: "12px",
-            // alignItems: "center",
             padding: "24px",
           }}
+          component={"form"}
+          onSubmit={sendMessage}
         >
           <Button
-            onClick={sendMessage}
             variant="contained"
             endIcon={<SendIcon />}
+            onClick={sendMessage}
             disableElevation
           >
             Send
@@ -129,6 +142,7 @@ const Chatbox = ({ socket }) => {
             size="small"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            inputProps={{ maxLength: 255 }}
             fullWidth
           />
         </Container>

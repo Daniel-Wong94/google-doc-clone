@@ -5,7 +5,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-from .models import db, User
+from .models import db, User, Message
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.document_routes import document_routes
@@ -109,8 +109,8 @@ def on_connect():
     room = request.args.get('room')
     name = request.args.get('name')
     join_room(room)
-    print("JOINED ROOM")
-    socketio.emit('room-joined', {'message': f'{name} has joiend room {room}!'}, to=room, broadcast=True, include_self=False)
+    print("JOINED ROOM", type(room))
+    emit('room-joined', {'message': f'{name} has joined room {room}!'}, to=room, include_self=False)
 
 @socketio.on('disconnect')
 def on_disconnect():
@@ -120,10 +120,16 @@ def on_disconnect():
         leave_room(room)
         print("LEFT ROOM")
 
+
 @socketio.on("message")
-def handle_message(message):
-    print("message: ", message)
-    return;
+def handle_message(data):
+    print("message data: ", data)
+    message = Message(**data)
+    db.session.add(message)
+    db.session.commit()
+    room = str(message.document_id)
+    print('new message created', message)
+    emit('receive-message', message.to_dict(), to=room)
 
 
 @socketio.on("send-changes")

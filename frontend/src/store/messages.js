@@ -6,7 +6,7 @@ const setMessages = (messages) => ({
   payload: messages,
 });
 
-const addMessage = (message) => ({
+export const addMessage = (message) => ({
   type: ADD_MESSAGE,
   payload: message,
 });
