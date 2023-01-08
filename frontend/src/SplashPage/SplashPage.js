@@ -6,8 +6,6 @@ import {
   Typography,
   Box,
   Button,
-  AppBar,
-  Toolbar,
 } from "@mui/material";
 import SplashNav from "./SplashNav";
 import HeroContent from "./HeroContent";

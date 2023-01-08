@@ -1,5 +1,5 @@
 import { Screenshot } from "../elements";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 const ContentItem = ({ content, idx }) => {
   const reverseOrder = idx % 2 === 1 ? "row-reverse" : "row";

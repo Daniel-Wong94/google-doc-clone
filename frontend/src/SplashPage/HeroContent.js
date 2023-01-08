@@ -1,4 +1,4 @@
-import { Grid, Typography, Box, Button, Divider } from "@mui/material";
+import { Grid, Typography, Button } from "@mui/material";
 import heroImage from "../assets/Screenshot 2023-01-08 at 11.58.00 AM.png";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
