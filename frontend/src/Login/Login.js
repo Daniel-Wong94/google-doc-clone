@@ -1,13 +1,15 @@
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { login } from "../store/session";
@@ -35,6 +37,12 @@ const Login = () => {
   if (user) {
     return <Redirect to="/documents" />;
   }
+
+  const handleDemoLogin = async (e) => {
+    e.preventDefault();
+
+    await dispatch(login("demo_user@email.com", "demouserpw"));
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -154,14 +162,24 @@ const Login = () => {
             >
               Sign In
             </Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mb: 2 }}
+              onClick={handleDemoLogin}
+            >
+              Sign in as Demo User
+            </Button>
             <Grid container>
               <Grid item>
                 <Link
                   onClick={() => history.push("/sign-up")}
                   variant="body2"
                   underline="none"
+                  sx={{ "&:hover": { cursor: "pointer" } }}
                 >
-                  {"Create account"}
+                  Create account
                 </Link>
               </Grid>
             </Grid>

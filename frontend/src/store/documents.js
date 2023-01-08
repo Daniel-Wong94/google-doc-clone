@@ -72,7 +72,9 @@ export const editCurrentDocument =
 
     if (response.ok) {
       const data = await response.json();
+      console.log("data / payload", data, payload);
       await dispatch(updateCurrentDocument(data));
+      return data;
     }
   };
 

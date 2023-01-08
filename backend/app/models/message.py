@@ -28,5 +28,6 @@ class Message(db.Model):
         'message': self.message,
         'user_id': self.user_id,
         'document_id': self.document_id,
-        'sent_at': self.sent_at
+        'sent_at': self.sent_at.strftime('%-d %b, %Y %-I:%M %p'),
+        'user': self.user.to_dict()
       }
