@@ -30,6 +30,9 @@ const ShareModal = ({ document, onClose }) => {
 
   const closeUpdate = () => setShowUpdate(false);
 
+  console.log("owner", owner);
+  console.log("user docs", userDocuments);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -48,15 +51,6 @@ const ShareModal = ({ document, onClose }) => {
   }, [email]);
 
   return (
-    // <Box
-    //   sx={{
-    //     bgcolor: "#FFFFFF",
-    //     width: "100%",
-    //     maxWidth: "512px",
-    //     borderRadius: "8px",
-    //     padding: "24px",
-    //   }}
-    // >
     <>
       <Stack direction="row" pb="12px">
         <Typography
@@ -127,7 +121,6 @@ const ShareModal = ({ document, onClose }) => {
         autoHideDuration={2000}
       />
     </>
-    // </Box>
   );
 };
 

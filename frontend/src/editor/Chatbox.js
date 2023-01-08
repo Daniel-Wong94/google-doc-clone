@@ -104,7 +104,7 @@ const Chatbox = ({ socket }) => {
               return (
                 <ListItem key={id}>
                   <Avatar
-                    sx={{ bgcolor: "#D35400", height: "32px", width: "32px" }}
+                    sx={{ bgcolor: user?.color, height: "32px", width: "32px" }}
                   >
                     {user.full_name[0]}
                   </Avatar>

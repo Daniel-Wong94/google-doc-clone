@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google";
 
 const SplashContainer = () => {
   return (
@@ -33,9 +32,9 @@ const SplashContainer = () => {
         <Grid item>
           <Box py={4} display="flex" alignItems="center">
             <Typography variant="body2" color="textSecondary" align="center">
-              {
-                "This website is a clone of the original and is for educational purposes only. All logos, trademarks, and content belong to their respective owners."
-              }
+              This website is a clone of Google Docs and is for educational
+              purposes only. All logos, trademarks, and content belong to their
+              respective owners.
             </Typography>
           </Box>
         </Grid>
