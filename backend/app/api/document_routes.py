@@ -4,8 +4,10 @@ from app.models import Document, User_Document, User, db
 from app.forms import DocumentForm, UserDocumentForm, UpdateUserDocumentForm
 from sqlalchemy import or_
 from app.api.auth_routes import validation_errors_to_error_messages
+from .message_routes import message_routes
 
 document_routes = Blueprint('documents', __name__)
+document_routes.register_blueprint(message_routes, url_prefix='/<int:document_id>/messages')
 
 def authorized_user(cb):
   '''
@@ -111,7 +113,8 @@ def edit_document(document):
 
   if form.validate_on_submit():
     for key, val in form.data.items():
-      if val is not None or False:
+      if val:
+        print("HEREEEEEEEEEE", key, val)
         setattr(document, key, val)
     db.session.commit()
     return document.to_dict()

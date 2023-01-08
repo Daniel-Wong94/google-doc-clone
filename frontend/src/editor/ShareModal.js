@@ -22,7 +22,7 @@ const ShareModal = ({ document, onClose }) => {
     Object.values(state.userDocuments)
   );
   const owner = document?.owner;
-  const isOwner = sessionUser.id === owner.id;
+  const isOwner = sessionUser.id === owner?.id;
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("Editor");
   const [showUpdate, setShowUpdate] = useState(false);
