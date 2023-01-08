@@ -1,3 +1,3 @@
-import Button from "./Button";
+import Screenshot from "./Screenshot";
 
-export { Button };
+export { Screenshot };
