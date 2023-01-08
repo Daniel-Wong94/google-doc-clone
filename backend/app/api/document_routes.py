@@ -113,7 +113,8 @@ def edit_document(document):
 
   if form.validate_on_submit():
     for key, val in form.data.items():
-      if val is not None or False:
+      if val:
+        print("HEREEEEEEEEEE", key, val)
         setattr(document, key, val)
     db.session.commit()
     return document.to_dict()

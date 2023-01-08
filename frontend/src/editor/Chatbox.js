@@ -50,7 +50,7 @@ const Chatbox = ({ socket }) => {
   useEffect(() => {
     if (!socket) return;
     const getMessage = (message) => dispatch(addMessage(message));
-    socket.once("receive-message", getMessage);
+    socket.on("receive-message", getMessage);
 
     return () => socket.off(getMessage);
   }, [socket]);

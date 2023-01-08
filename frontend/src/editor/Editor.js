@@ -18,6 +18,7 @@ const Editor = () => {
   const document = useSelector((state) => state.documents[documentId]);
   const [showModal, setShowModal] = useState(false);
   const [socket, setSocket] = useState();
+  const [text, setText] = useState(document?.text);
 
   useEffect(() => {
     (async () => {
@@ -28,10 +29,15 @@ const Editor = () => {
 
   // create socket, assign room
   useEffect(() => {
-    const sio = io({ query: { room: documentId, name: user.full_name } });
+    const sio = io({
+      query: { room: documentId, name: user.full_name },
+    });
     setSocket(sio);
 
-    return () => sio.disconnect();
+    return () =>
+      sio.disconnect({
+        query: { room: documentId, name: user.full_name },
+      });
   }, []);
 
   const onClose = () => setShowModal(false);
@@ -46,7 +52,11 @@ const Editor = () => {
           // border: "1px solid red",
         }}
       >
-        <EditorNavBar document={document} setShowModal={setShowModal} />
+        <EditorNavBar
+          document={document}
+          setShowModal={setShowModal}
+          text={text}
+        />
         <Box
           sx={{
             // border: "1px solid red",
@@ -56,7 +66,12 @@ const Editor = () => {
             overflow: "scroll",
           }}
         >
-          <TextEditor document={document} socket={socket} />
+          <TextEditor
+            document={document}
+            socket={socket}
+            text={text}
+            setText={setText}
+          />
           <Chatbox socket={socket} />
         </Box>
         <Modal

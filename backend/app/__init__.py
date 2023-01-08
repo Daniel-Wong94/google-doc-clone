@@ -109,13 +109,16 @@ def on_connect():
     room = request.args.get('room')
     name = request.args.get('name')
     join_room(room)
-    print("JOINED ROOM", type(room))
+    print("JOINED ROOM", (room))
     emit('room-joined', {'message': f'{name} has joined room {room}!'}, to=room, include_self=False)
 
 @socketio.on('disconnect')
 def on_disconnect():
-    print("DISCONNECTED", session.get('room'))
-    room = session.get('room')
+    print("DISCONNECTED")
+    name = request.args.get('name')
+    room = request.args.get('room')
+    print("NAME", name, "ROOM", room)
+    emit('left-room', {'message': f'{name} has left room {room}!'}, to=room, include_self=False)
     if room is not None:
         leave_room(room)
         print("LEFT ROOM")
@@ -137,7 +140,15 @@ def handle_changes(data):
     room = data['room']
     delta = data['delta']
     print(f'SENDING DELTA({delta}) TO ROOM {room}')
-    socketio.emit('receive-changes', {'delta': delta}, to=room, include_self=False)
+    emit('receive-changes',  delta, to=room, include_self=False)
+
+
+@socketio.on("sync-document")
+def sync_document(data):
+    room = data['room']
+    change = data['change']
+    print(f'SYNC DOCUMENT WITH CHANGE OBJECT: {data}')
+    emit('sync-document', change, to=room, include_self=False)
 
 if __name__ == '__main__':
     socketio.run(app)

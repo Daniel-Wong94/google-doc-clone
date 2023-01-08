@@ -15,7 +15,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { editCurrentDocument } from "../store/documents";
 
-const EditorNavBar = ({ document, setShowModal }) => {
+const EditorNavBar = ({ document, setShowModal, text }) => {
   const user = useSelector((state) => state.session.user);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -27,7 +27,8 @@ const EditorNavBar = ({ document, setShowModal }) => {
 
   const handleUpdateName = async () => {
     await dispatch(
-      editCurrentDocument({ name, text: document.text }, document?.id)
+      // editCurrentDocument({ name, text: document?.text }, document?.id)
+      editCurrentDocument({ name, text }, document?.id)
     );
   };
 
@@ -78,6 +79,9 @@ const EditorNavBar = ({ document, setShowModal }) => {
               alignItems: "center",
             }}
           >
+            {/* <Button variant="contained" onClick={() => setShowModal(true)}>
+              <Typography variant="button">Save</Typography>
+            </Button> */}
             <Button variant="contained" onClick={() => setShowModal(true)}>
               <PeopleOutlineOutlinedIcon />
               <Typography variant="button">Share</Typography>
