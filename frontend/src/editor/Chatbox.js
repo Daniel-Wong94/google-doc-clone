@@ -1,7 +1,5 @@
 import {
   Box,
-  Paper,
-  Typography,
   List,
   ListItem,
   ListItemText,
@@ -9,8 +7,6 @@ import {
   Button,
   Container,
   Divider,
-  Tabs,
-  Tab,
   Avatar,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
@@ -61,93 +57,62 @@ const Chatbox = ({ socket }) => {
   }, [messages]);
 
   return (
-    <Paper
-      sx={{
-        // height: "100%",
-        minWidth: "300px",
-        // maxHeight: "100vh",
-        // border: "1px solid red",
-        position: "sticky",
-        top: "0",
-        // overflow: "scroll",
-        flex: "1",
-      }}
-      elevation={3}
-    >
+    <>
       <Box
         sx={{
           height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "space-between",
-          // position: "relative",
-          // border: "1px solid red",
+          overflow: "scroll",
         }}
+        ref={chatboxRef}
       >
-        <Box padding={1}>
-          <Typography variant="h6">Chatbox</Typography>
-        </Box>
-        {/* <Tabs>
-          <Tab label="Chat">Chat</Tab>
-          <Tab label="Comments">Comments</Tab>
-        </Tabs> */}
-        <Divider />
-        <Box
-          sx={{
-            height: "100%",
-            overflow: "scroll",
-          }}
-          ref={chatboxRef}
-        >
-          <List>
-            {messages.map(({ id, user, message, sent_at }) => {
-              return (
-                <ListItem key={id}>
-                  <Avatar
-                    sx={{ bgcolor: user?.color, height: "32px", width: "32px" }}
-                  >
-                    {user.full_name[0]}
-                  </Avatar>
-                  <Container>
-                    <ListItemText
-                      primary={message}
-                      secondary={`Sent at ${sent_at}`}
-                    />
-                  </Container>
-                </ListItem>
-              );
-            })}
-          </List>
-        </Box>
-        <Divider />
-        <Container
-          sx={{
-            width: "100%",
-            display: "flex",
-            gap: "12px",
-            padding: "24px",
-          }}
-          component={"form"}
-          onSubmit={sendMessage}
-        >
-          <Button
-            variant="contained"
-            endIcon={<SendIcon />}
-            onClick={sendMessage}
-            disableElevation
-          >
-            Send
-          </Button>
-          <TextField
-            size="small"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            inputProps={{ maxLength: 255 }}
-            fullWidth
-          />
-        </Container>
+        <List>
+          {messages.map(({ id, user, message, sent_at }) => {
+            return (
+              <ListItem key={id}>
+                <Avatar
+                  sx={{ bgcolor: user?.color, height: "32px", width: "32px" }}
+                >
+                  {user.full_name[0]}
+                </Avatar>
+                <Container>
+                  <ListItemText
+                    primary={message}
+                    secondary={`Sent at ${sent_at}`}
+                  />
+                </Container>
+              </ListItem>
+            );
+          })}
+        </List>
       </Box>
-    </Paper>
+      <Divider />
+      <Container
+        sx={{
+          width: "100%",
+          display: "flex",
+          gap: "12px",
+          padding: "24px",
+        }}
+        component={"form"}
+        onSubmit={sendMessage}
+      >
+        <Button
+          variant="contained"
+          endIcon={<SendIcon />}
+          onClick={sendMessage}
+          display="inline-block"
+        >
+          Send
+        </Button>
+        <TextField
+          size="small"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          inputProps={{ maxLength: 255 }}
+          sx={{ flex: 1 }}
+        />
+      </Container>
+    </>
   );
 };
 

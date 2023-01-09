@@ -14,6 +14,7 @@ class Comment(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Text(), default="testing comment")
     comment = db.Column(db.Text(), nullable=False)
     row_number = db.Column(db.Integer, default=0)
     line_number = db.Column(db.Integer, default=0)
@@ -28,7 +29,12 @@ class Comment(db.Model):
       return {
         'id': self.id,
         'comment': self.comment,
+        'text': self.text,
+        'row_number': self.row_number,
+        'line_number': self.line_number,
         'user_id': self.user_id,
+        'user': self.user.to_dict(),
         'document_id': self.document_id,
-        'created_at': self.created_at
+        # 'created_at': self.created_at,
+        'created_at': self.created_at.strftime('%-d %b, %Y %-I:%M %p'),
       }

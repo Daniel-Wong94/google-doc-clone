@@ -10,6 +10,8 @@ import Chatbox from "./Chatbox";
 import ShareModal from "./ShareModal";
 import styles from "./Editor.module.css";
 import { io } from "socket.io-client";
+import { getComments } from "../store/comments";
+import SideBar from "./SideBar";
 
 const Editor = () => {
   const user = useSelector((state) => state.session.user);
@@ -24,12 +26,11 @@ const Editor = () => {
   const isEditor = userRole && userRole.role === "Editor";
   const readOnly = !isOwner && !isEditor;
 
-  console.log("READ ONLY?", readOnly);
-
   useEffect(() => {
     (async () => {
       await dispatch(loadCurrentDocument(documentId));
       await dispatch(loadUserDocuments(documentId));
+      await dispatch(getComments(documentId));
     })();
   }, [dispatch, documentId]);
 
@@ -79,7 +80,8 @@ const Editor = () => {
             setText={setText}
             readOnly={readOnly}
           />
-          <Chatbox socket={socket} />
+          {/* <Chatbox socket={socket} /> */}
+          <SideBar socket={socket} />
         </Box>
         <Modal
           open={showModal}
