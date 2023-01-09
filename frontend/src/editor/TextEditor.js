@@ -134,6 +134,34 @@ const TextEditor = ({ document, socket, text, setText, readOnly = false }) => {
     // console.log("TEXT", text);
   };
 
+  const logSelection = (e) => {
+    e.preventDefault();
+
+    const selectedRange = editor.getSelection();
+    console.log("selectedRange: ", selectedRange);
+
+    const pageBounds = editor.getBounds(0, 0);
+
+    const selectedText = editor.getText(
+      selectedRange.index,
+      selectedRange.length
+    );
+    console.log("SELECTED TEXT: ", selectedText);
+
+    const selectedLine = editor.getLine(selectedRange.index);
+    const selectedLineNumber = selectedLine[0].offset(editor.scroll);
+    console.log("SELECTED LINE NUMBER: ", selectedLineNumber);
+
+    const selectedBounds = editor.getBounds(
+      selectedRange.index,
+      selectedRange.length
+    );
+    const rowNumber =
+      Math.floor((selectedBounds.top - pageBounds.top) / pageBounds.height) + 1;
+
+    console.log("ROW NUMBER: ", rowNumber);
+  };
+
   // auto-save
   // useEffect(() => {
   //   if (!change || !editor) return;
@@ -204,7 +232,8 @@ const TextEditor = ({ document, socket, text, setText, readOnly = false }) => {
         readOnly={readOnly}
       />
       {/* <canvas ref={canvasRef} /> */}
-      <button onClick={saveDocument}>Click here</button>
+      <button onClick={saveDocument}>Save Document</button>
+      <button onClick={logSelection}>Log Selection</button>
     </Box>
   );
 };

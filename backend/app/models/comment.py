@@ -15,6 +15,8 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.Text(), nullable=False)
+    row_number = db.Column(db.Integer, default=0)
+    line_number = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     document_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("documents.id")), nullable=False)
