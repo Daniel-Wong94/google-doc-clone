@@ -9,9 +9,9 @@ import {
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
-const SplashContainer = () => {
+const SplashFooter = () => {
   return (
-    <Grid container bgcolor="#F8F9FA" rowSpacing={4}>
+    <Grid container bgcolor="#F8F9FA" rowSpacing={4} mt={4}>
       <Container>
         <Grid item>
           <Box py={4}>
@@ -43,4 +43,4 @@ const SplashContainer = () => {
   );
 };
 
-export default SplashContainer;
+export default SplashFooter;

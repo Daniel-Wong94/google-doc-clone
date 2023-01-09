@@ -12,7 +12,7 @@ const CreateDocument = () => {
 
     try {
       const document = await dispatch(createDocument());
-      return history.push(`/documents/${document.id}`);
+      if (document) return history.push(`/documents/${document.id}`);
     } catch (e) {
       console.log("ERROR", e);
     }

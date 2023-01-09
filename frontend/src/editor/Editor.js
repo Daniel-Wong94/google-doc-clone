@@ -16,9 +16,15 @@ const Editor = () => {
   const { documentId } = useParams();
   const dispatch = useDispatch();
   const document = useSelector((state) => state.documents[documentId]);
+  const userRole = useSelector((state) => state.userDocuments[user?.id]);
   const [showModal, setShowModal] = useState(false);
   const [socket, setSocket] = useState();
   const [text, setText] = useState(document?.text);
+  const isOwner = document?.owner?.id === user?.id;
+  const isEditor = userRole && userRole.role === "Editor";
+  const readOnly = !isOwner && !isEditor;
+
+  console.log("READ ONLY?", readOnly);
 
   useEffect(() => {
     (async () => {
@@ -71,6 +77,7 @@ const Editor = () => {
             socket={socket}
             text={text}
             setText={setText}
+            readOnly={readOnly}
           />
           <Chatbox socket={socket} />
         </Box>

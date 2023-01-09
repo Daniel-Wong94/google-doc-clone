@@ -8,7 +8,7 @@ import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import _ from "lodash";
 
-const TextEditor = ({ document, socket, text, setText }) => {
+const TextEditor = ({ document, socket, text, setText, readOnly = false }) => {
   const { documentId } = useParams();
   const dispatch = useDispatch();
   const quillRef = useRef(null);
@@ -201,6 +201,7 @@ const TextEditor = ({ document, socket, text, setText }) => {
         value={text}
         onChange={handleChange}
         modules={modules}
+        readOnly={readOnly}
       />
       {/* <canvas ref={canvasRef} /> */}
       <button onClick={saveDocument}>Click here</button>

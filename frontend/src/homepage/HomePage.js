@@ -3,6 +3,7 @@ import CreateDocument from "./CreateDocument";
 import RecentDocuments from "./RecentDocuments";
 import { CssBaseline } from "@mui/material";
 import { useSelector } from "react-redux";
+import SplashFooter from "../SplashPage/SplashFooter";
 
 const HomePage = () => {
   const user = useSelector((state) => state.session.user);
@@ -13,6 +14,7 @@ const HomePage = () => {
         <HomeNavBar />
         <CreateDocument />
         <RecentDocuments />
+        <SplashFooter />
       </CssBaseline>
     )
   );

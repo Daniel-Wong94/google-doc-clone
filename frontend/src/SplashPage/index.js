@@ -1,3 +1,4 @@
 import SplashPage from "./SplashPage";
+import SplashFooter from "./SplashFooter";
 
-export { SplashPage };
+export { SplashPage, SplashFooter };
