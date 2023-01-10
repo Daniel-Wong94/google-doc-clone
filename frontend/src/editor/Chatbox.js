@@ -98,6 +98,7 @@ const Chatbox = ({ socket }) => {
       >
         <Button
           variant="contained"
+          disabled={message.length === 0}
           endIcon={<SendIcon />}
           onClick={sendMessage}
           display="inline-block"

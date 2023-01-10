@@ -1,6 +1,6 @@
 import { Box, CssBaseline, Modal } from "@mui/material";
 import EditorNavBar from "./EditorNavBar";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import TextEditor from "./TextEditor";
@@ -14,9 +14,9 @@ import { getComments } from "../store/comments";
 import SideBar from "./SideBar";
 
 const Editor = () => {
-  const user = useSelector((state) => state.session.user);
-  const { documentId } = useParams();
   const dispatch = useDispatch();
+  const { documentId } = useParams();
+  const user = useSelector((state) => state.session.user);
   const document = useSelector((state) => state.documents[documentId]);
   const userRole = useSelector((state) => state.userDocuments[user?.id]);
   const [showModal, setShowModal] = useState(false);
@@ -25,6 +25,8 @@ const Editor = () => {
   const isOwner = document?.owner?.id === user?.id;
   const isEditor = userRole && userRole.role === "Editor";
   const readOnly = !isOwner && !isEditor;
+  const quillRef = useRef(null);
+  const [editor, setEditor] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -78,10 +80,13 @@ const Editor = () => {
             socket={socket}
             text={text}
             setText={setText}
+            editor={editor}
+            setEditor={setEditor}
+            quillRef={quillRef}
             readOnly={readOnly}
           />
           {/* <Chatbox socket={socket} /> */}
-          <SideBar socket={socket} />
+          <SideBar socket={socket} editor={editor} />
         </Box>
         <Modal
           open={showModal}

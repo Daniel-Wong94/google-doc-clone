@@ -3,7 +3,7 @@ import { useState } from "react";
 import Chatbox from "./Chatbox";
 import CommentBox from "./CommentBox";
 
-const SideBar = ({ socket }) => {
+const SideBar = ({ socket, editor }) => {
   const [tab, setTab] = useState(1);
 
   const handleTabSelect = (e, value) => setTab(value);
@@ -27,7 +27,7 @@ const SideBar = ({ socket }) => {
         </Tabs>
         <Divider />
         {tab === 1 && <Chatbox socket={socket} />}
-        {tab === 2 && <CommentBox socket={socket} />}
+        {tab === 2 && <CommentBox socket={socket} editor={editor} />}
       </Box>
     </Paper>
   );
