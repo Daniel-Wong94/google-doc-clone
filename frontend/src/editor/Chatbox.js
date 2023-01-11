@@ -1,7 +1,5 @@
 import {
   Box,
-  Paper,
-  Typography,
   List,
   ListItem,
   ListItemText,
@@ -9,9 +7,10 @@ import {
   Button,
   Container,
   Divider,
-  Tabs,
-  Tab,
   Avatar,
+  Card,
+  CardContent,
+  Typography,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useState, useEffect, useRef } from "react";
@@ -21,7 +20,7 @@ import { getMessages, addMessage } from "../store/messages";
 
 const Chatbox = ({ socket }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
+  const sessionUser = useSelector((state) => state.session.user);
   const messages = useSelector((state) => state.messages);
   const chatboxRef = useRef(null);
   const { documentId } = useParams();
@@ -39,7 +38,7 @@ const Chatbox = ({ socket }) => {
 
     socket.emit("message", {
       message,
-      user_id: user.id,
+      user_id: sessionUser.id,
       document_id: documentId,
     });
 
@@ -61,93 +60,82 @@ const Chatbox = ({ socket }) => {
   }, [messages]);
 
   return (
-    <Paper
-      sx={{
-        // height: "100%",
-        minWidth: "300px",
-        // maxHeight: "100vh",
-        // border: "1px solid red",
-        position: "sticky",
-        top: "0",
-        // overflow: "scroll",
-        flex: "1",
-      }}
-      elevation={3}
-    >
+    <>
       <Box
         sx={{
           height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "space-between",
-          // position: "relative",
-          // border: "1px solid red",
+          overflowY: "scroll",
+          overflowX: "hidden",
         }}
+        ref={chatboxRef}
       >
-        <Box padding={1}>
-          <Typography variant="h6">Chatbox</Typography>
-        </Box>
-        {/* <Tabs>
-          <Tab label="Chat">Chat</Tab>
-          <Tab label="Comments">Comments</Tab>
-        </Tabs> */}
-        <Divider />
-        <Box
-          sx={{
-            height: "100%",
-            overflow: "scroll",
-          }}
-          ref={chatboxRef}
-        >
-          <List>
-            {messages.map(({ id, user, message, sent_at }) => {
-              return (
-                <ListItem key={id}>
-                  <Avatar
-                    sx={{ bgcolor: "#D35400", height: "32px", width: "32px" }}
-                  >
-                    {user.full_name[0]}
-                  </Avatar>
-                  <Container>
-                    <ListItemText
-                      primary={message}
-                      secondary={`Sent at ${sent_at}`}
-                    />
-                  </Container>
-                </ListItem>
-              );
-            })}
-          </List>
-        </Box>
-        <Divider />
-        <Container
-          sx={{
-            width: "100%",
-            display: "flex",
-            gap: "12px",
-            padding: "24px",
-          }}
-          component={"form"}
-          onSubmit={sendMessage}
-        >
-          <Button
-            variant="contained"
-            endIcon={<SendIcon />}
-            onClick={sendMessage}
-            disableElevation
-          >
-            Send
-          </Button>
-          <TextField
-            size="small"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            inputProps={{ maxLength: 255 }}
-            fullWidth
-          />
-        </Container>
+        <List>
+          {messages.map(({ id, user, message, sent_at }) => {
+            const isOwner = user.id === sessionUser.id;
+
+            return (
+              <ListItem
+                key={id}
+                alignItems="flex-start"
+                sx={{ flexDirection: isOwner && "row-reverse" }}
+              >
+                <Avatar
+                  sx={{ bgcolor: user?.color, height: "32px", width: "32px" }}
+                >
+                  {user.full_name[0]}
+                </Avatar>
+                <Card sx={{ margin: "0 10px", width: "100%" }}>
+                  <CardContent>
+                    <Typography variant="h3" fontSize={14} gutterBottom>
+                      {isOwner ? "You" : user.full_name} messaged:
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      fontSize={14}
+                      sx={{ wordWrap: "break-word" }}
+                      gutterBottom
+                    >
+                      {message}
+                    </Typography>
+                    <Typography variant="caption">Sent at {sent_at}</Typography>
+                  </CardContent>
+                </Card>
+              </ListItem>
+            );
+          })}
+        </List>
       </Box>
-    </Paper>
+      <Divider />
+      <Container
+        sx={{
+          width: "100%",
+          display: "flex",
+          gap: "12px",
+          padding: "24px",
+        }}
+        component={"form"}
+        onSubmit={sendMessage}
+      >
+        <TextField
+          size="small"
+          value={message}
+          autoComplete="off"
+          maxLength={255}
+          onChange={(e) => setMessage(e.target.value)}
+          inputProps={{ maxLength: 255 }}
+          sx={{ flex: 1 }}
+        />
+        <Button
+          variant="contained"
+          disabled={message.length === 0}
+          endIcon={<SendIcon />}
+          onClick={sendMessage}
+          display="inline-block"
+        >
+          Send
+        </Button>
+      </Container>
+    </>
   );
 };
 

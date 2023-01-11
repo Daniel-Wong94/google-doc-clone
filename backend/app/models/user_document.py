@@ -20,5 +20,6 @@ class User_Document(db.Model):
         'user_id': self.user_id,
         'document_id': self.document_id,
         'role': self.role,
+        # 'user': self.user.to_dict(),
         'user': User.query.get(self.user_id).to_dict()
       }

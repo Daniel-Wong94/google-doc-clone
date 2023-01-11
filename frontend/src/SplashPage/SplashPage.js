@@ -7,14 +7,14 @@ import {
   Box,
   Button,
 } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import SplashNav from "./SplashNav";
 import HeroContent from "./HeroContent";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ContentItem from "./ContentItem";
 import SplashContainer from "./SplashFooter";
 import heroImage from "../assets/Screenshot 2023-01-08 at 11.58.00 AM.png";
-import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const contents = [
   {
@@ -74,7 +74,7 @@ const SplashPage = () => {
             </Box>
           </Grid>
           {contents.map((content, idx) => (
-            <Grid item mb={"10%"}>
+            <Grid item mb={"10%"} key={idx}>
               <ContentItem content={content} idx={idx} />
             </Grid>
           ))}

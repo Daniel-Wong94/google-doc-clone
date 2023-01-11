@@ -135,6 +135,13 @@ def handle_message(data):
     emit('receive-message', message.to_dict(), to=room)
 
 
+@socketio.on("comment")
+def handle_comment(data):
+    print("COMMENT DATA: ", data)
+    room = str(data['document_id'])
+    emit("receive-comment", data, to=room, include_self=False)
+
+
 @socketio.on("send-changes")
 def handle_changes(data):
     room = data['room']

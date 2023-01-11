@@ -5,38 +5,30 @@ comments = [
         # id: 1
         "user_id": 1,
         "document_id": 1,
-        "comment": "Demo user comments on document 1"
+        "comment": "Highlight a sentence from the document, then click into the comment box, and submit your comment!",
+        "text": "How do I use this comment section?"
     },
     {
         # id: 2
         "user_id": 2,
         "document_id": 1,
-        "comment": "Daniel Wong comments on document 1"
+        "comment": "The preview of the text that you're commenting on, will display above the comment input field.",
+        "text": "Tip 1"
     },
     {
         # id: 3
         "user_id": 3,
         "document_id": 1,
-        "comment": "Stanley Ou comments on document 1"
+        "comment": "'Row' is where the text starts and 'Line' is the character position of the first character of the text.",
+        "text": "Tip 2"
     },
     {
         # id: 4
         "user_id": 3,
-        "document_id": 3,
-        "comment": "Stanley Ou comments on document 3"
-    },
-    {
-        # id: 5
-        "user_id": 2,
-        "document_id": 2,
-        "comment": "Daniel Wong comments on document 2"
-    },
-    {
-        # id: 6
-        "user_id": 4,
         "document_id": 1,
-        "comment": "Jeremiah Lu comments on document 1"
-    },
+        "comment": "And here is a dummy comment",
+        "text": "Here is a dummy text"
+    }
 ]
 
 def seed_comments():

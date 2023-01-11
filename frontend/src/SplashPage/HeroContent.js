@@ -20,7 +20,12 @@ const HeroContent = () => {
       mb={12}
     >
       <Grid item>
-        <Typography variant="h1" fontSize="60px" align="center">
+        <Typography
+          variant="h1"
+          fontSize="60px"
+          fontWeight={400}
+          align="center"
+        >
           Build your best ideas together, in Google Docs
         </Typography>
       </Grid>

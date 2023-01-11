@@ -5,43 +5,50 @@ users = [
         # id: 1
         "full_name": "Demo User",
         "email": "demo_user@email.com",
-        "password": "demouserpw"
+        "password": "demouserpw",
+        "color": "#D35400"
     },
     {
         # id: 2
         "full_name": "Daniel Wong",
         "email": "daniel_wong@email.com",
-        "password": "danielwongpw"
+        "password": "danielwongpw",
+        "color": "#4caf50"
     },
     {
         # id: 3
         "full_name": "Stanley Ou",
         "email": "stanley_ou@email.com",
-        "password": "stanleyoupw"
+        "password": "stanleyoupw",
+        "color": "#03a9f4"
     },
     {
         # id: 4
         "full_name": "Larry Liao",
         "email": "larry_liao@email.com",
-        "password": "larryliaopw"
+        "password": "larryliaopw",
+        "color": "#795548"
     },
     {
         # id: 5
         "full_name": "Jeremiah Lu",
         "email": "jeremiah_lu@email.com",
-        "password": "jeremiahlupw"
+        "password": "jeremiahlupw",
+        "color": "#673ab7"
     },
     {
         # id: 6
         "full_name": "Reyhaneh Abdollahi",
         "email": "reyhaneh_abdollahi@email.com",
-        "password": "reyhanehabdollahipw"
+        "password": "reyhanehabdollahipw",
+        "color": "#03a9f4"
     },
     {
         # id: 7
         "full_name": "Michael Reyes",
         "email": "michael_reyes@email.com",
-        "password": "michaelreyespw"
+        "password": "michaelreyespw",
+        "color":"#009688"
     },
 ]
 

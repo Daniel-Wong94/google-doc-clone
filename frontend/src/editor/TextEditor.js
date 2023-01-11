@@ -8,14 +8,23 @@ import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import _ from "lodash";
 
-const TextEditor = ({ document, socket, text, setText }) => {
+const TextEditor = ({
+  document,
+  socket,
+  text,
+  setText,
+  quillRef,
+  editor,
+  setEditor,
+  readOnly = false,
+}) => {
   const { documentId } = useParams();
   const dispatch = useDispatch();
-  const quillRef = useRef(null);
+  // const quillRef = useRef(null);
   // const canvasRef = useRef(null);
   // const [text, setText] = useState(document?.text || "");
   // const editor = quillRef.current.getEditor();
-  const [editor, setEditor] = useState(null);
+  // const [editor, setEditor] = useState(null);
   const Delta = Quill.import("delta");
   const change = useRef(new Delta());
 
@@ -44,7 +53,6 @@ const TextEditor = ({ document, socket, text, setText }) => {
   // receives the delta and updates the quill instance
   useEffect(() => {
     if (!socket || !quillRef) return;
-    // const editor = quillRef.current.getEditor();
 
     const onUpdate = (delta) => {
       console.log("receiving changes", delta);
@@ -61,7 +69,6 @@ const TextEditor = ({ document, socket, text, setText }) => {
   // when user joins room:
   useEffect(() => {
     if (!socket || !quillRef) return;
-    // const editor = quillRef.current.getEditor();
 
     const onRoomJoined = (data) => {
       console.log("CHANGE", change);
@@ -80,7 +87,7 @@ const TextEditor = ({ document, socket, text, setText }) => {
 
     const onSyncDocument = (incomingChange) => {
       const incomingDelta = new Delta(incomingChange.current);
-      // const diffDelta = change.current.diff(incomingDelta);
+
       if (!_.isEqual(incomingDelta, change.current)) {
         editor.updateContents(incomingChange.current);
         setText(editor.getContents());
@@ -109,15 +116,12 @@ const TextEditor = ({ document, socket, text, setText }) => {
 
   // handler to save document
   const saveDocument = async () => {
-    // console.log("SAVING DOCUMENT: ", document?.name, text);
     console.log("SAVING DOCUMENT");
-    // setText(editor.getContents());
+
     const data = await dispatch(
       editCurrentDocument({ name: document?.name, text }, documentId)
     );
-    // WHY WON'T IT SAVE WITH THE NEWEST STATE OF TEXT?
     change.current = new Delta();
-    // setText(data?.text);
 
     console.log("SAVE DOCUMENT: ", data);
   };
@@ -128,11 +132,35 @@ const TextEditor = ({ document, socket, text, setText }) => {
   }, [document]);
 
   // handler to update text state
-  const handleChange = (value) => {
-    setText(value);
-    // console.log("VALUE", value);
-    // console.log("TEXT", text);
-  };
+  const handleChange = (value) => setText(value);
+
+  // const logSelection = (e) => {
+  //   e.preventDefault();
+
+  //   const selectedRange = editor.getSelection();
+  //   console.log("selectedRange: ", selectedRange);
+
+  //   const pageBounds = editor.getBounds(0, 0);
+
+  //   const selectedText = editor.getText(
+  //     selectedRange.index,
+  //     selectedRange.length
+  //   );
+  //   console.log("SELECTED TEXT: ", selectedText);
+
+  //   const selectedLine = editor.getLine(selectedRange.index);
+  //   const selectedLineNumber = selectedLine[0].offset(editor.scroll);
+  //   console.log("SELECTED LINE NUMBER: ", selectedLineNumber);
+
+  //   const selectedBounds = editor.getBounds(
+  //     selectedRange.index,
+  //     selectedRange.length
+  //   );
+  //   const rowNumber =
+  //     Math.floor((selectedBounds.top - pageBounds.top) / pageBounds.height) + 1;
+
+  //   console.log("ROW NUMBER: ", rowNumber);
+  // };
 
   // auto-save
   // useEffect(() => {
@@ -201,9 +229,11 @@ const TextEditor = ({ document, socket, text, setText }) => {
         value={text}
         onChange={handleChange}
         modules={modules}
+        readOnly={readOnly}
       />
       {/* <canvas ref={canvasRef} /> */}
-      <button onClick={saveDocument}>Click here</button>
+      <button onClick={saveDocument}>Save Document</button>
+      {/* <button onClick={logSelection}>Log Selection</button> */}
     </Box>
   );
 };
