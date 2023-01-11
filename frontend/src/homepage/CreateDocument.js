@@ -12,14 +12,14 @@ const CreateDocument = () => {
 
     try {
       const document = await dispatch(createDocument());
-      return history.push(`/documents/${document.id}`);
+      if (document) return history.push(`/documents/${document.id}`);
     } catch (e) {
       console.log("ERROR", e);
     }
   };
 
   return (
-    <Box sx={{ flexGrow: 1, backgroundColor: "#F1F3F4", padding: "24px 0" }}>
+    <Box sx={{ backgroundColor: "#F1F3F4", padding: "24px 0" }}>
       <Container>
         <Stack direction="row">
           <Typography gutterBottom>Start a new document</Typography>

@@ -33,7 +33,7 @@ const UserCard = ({
   return (
     <Stack direction="row" justifyContent="space-between" alignItems="center">
       <Stack direction="row" alignItems="center" gap="12px">
-        <Avatar sx={{ bgcolor: "#D35400", height: "32px", width: "32px" }}>
+        <Avatar sx={{ bgcolor: user?.color, height: "32px", width: "32px" }}>
           {user?.full_name[0]}
         </Avatar>
         <Stack>

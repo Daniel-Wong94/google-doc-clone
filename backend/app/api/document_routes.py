@@ -5,9 +5,11 @@ from app.forms import DocumentForm, UserDocumentForm, UpdateUserDocumentForm
 from sqlalchemy import or_
 from app.api.auth_routes import validation_errors_to_error_messages
 from .message_routes import message_routes
+from .comment_routes import comment_routes
 
 document_routes = Blueprint('documents', __name__)
 document_routes.register_blueprint(message_routes, url_prefix='/<int:document_id>/messages')
+document_routes.register_blueprint(comment_routes, url_prefix='/<int:document_id>/comments')
 
 def authorized_user(cb):
   '''

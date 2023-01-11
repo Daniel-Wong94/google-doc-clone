@@ -4,12 +4,14 @@ import session from "./session";
 import documents from "./documents";
 import messages from "./messages";
 import userDocuments from "./userDocuments";
+import comments from "./comments";
 
 const rootReducer = combineReducers({
   session,
   documents,
   userDocuments,
   messages,
+  comments,
 });
 
 let enhancer;

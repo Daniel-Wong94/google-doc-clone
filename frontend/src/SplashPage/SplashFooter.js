@@ -8,11 +8,10 @@ import {
 } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google";
 
-const SplashContainer = () => {
+const SplashFooter = () => {
   return (
-    <Grid container bgcolor="#F8F9FA" rowSpacing={4}>
+    <Grid container bgcolor="#F8F9FA" rowSpacing={4} mt={4}>
       <Container>
         <Grid item>
           <Box py={4}>
@@ -33,9 +32,9 @@ const SplashContainer = () => {
         <Grid item>
           <Box py={4} display="flex" alignItems="center">
             <Typography variant="body2" color="textSecondary" align="center">
-              {
-                "This website is a clone of the original and is for educational purposes only. All logos, trademarks, and content belong to their respective owners."
-              }
+              This website is a clone of Google Docs and is for educational
+              purposes only. All logos, trademarks, and content belong to their
+              respective owners.
             </Typography>
           </Box>
         </Grid>
@@ -44,4 +43,4 @@ const SplashContainer = () => {
   );
 };
 
-export default SplashContainer;
+export default SplashFooter;

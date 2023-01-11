@@ -5,19 +5,19 @@ messages = [
         # id: 1
         "user_id": 1,
         "document_id": 1,
-        "message": "Demo user messages in document 1"
+        "message": "This is a live chat box!"
     },
     {
         # id: 2
         "user_id": 2,
         "document_id": 1,
-        "message": "Daniel Wong messages in document 1"
+        "message": "Click the share button on top to add users to this document."
     },
     {
         # id: 3
         "user_id": 3,
         "document_id": 1,
-        "message": "Stanley Ou messages in document 1"
+        "message": "All users that enter this document will be up to date with the currently unsaved changes."
     },
     {
         # id: 4
@@ -35,7 +35,7 @@ messages = [
         # id: 6
         "user_id": 4,
         "document_id": 1,
-        "message": "Jeremiah Lu messages in document 1"
+        "message": "Try pasting an image into the document!"
     },
 ]
 

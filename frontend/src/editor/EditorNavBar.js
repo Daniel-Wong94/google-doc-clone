@@ -88,7 +88,7 @@ const EditorNavBar = ({ document, setShowModal, text }) => {
             </Button>
             <IconButton>
               <Avatar
-                sx={{ bgcolor: "#D35400", height: "32px", width: "32px" }}
+                sx={{ bgcolor: user?.color, height: "32px", width: "32px" }}
               >
                 {user.full_name[0]}
               </Avatar>

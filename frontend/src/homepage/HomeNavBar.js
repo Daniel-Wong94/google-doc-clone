@@ -8,7 +8,7 @@ import {
   AppBar,
   Avatar,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+// import SearchIcon from "@mui/icons-material/Search";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { useSelector } from "react-redux";
 
@@ -53,12 +53,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const HomeNavBar = () => {
   const user = useSelector((state) => state.session.user);
+
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-      }}
-    >
+    <Box>
       <AppBar position="static">
         <Toolbar
           sx={{
@@ -83,7 +80,7 @@ const HomeNavBar = () => {
               Docs
             </Typography>
           </IconButton>
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -91,11 +88,11 @@ const HomeNavBar = () => {
               placeholder="Search"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          </Search> */}
+          <Box display={{ xs: "none", md: "flex" }}>
             <IconButton>
               <Avatar
-                sx={{ bgcolor: "#D35400", height: "32px", width: "32px" }}
+                sx={{ bgcolor: user?.color, height: "32px", width: "32px" }}
               >
                 {user.full_name[0]}
               </Avatar>
