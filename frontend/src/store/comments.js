@@ -6,7 +6,7 @@ const setComments = (comments) => ({
   payload: comments,
 });
 
-const addComment = (comment) => ({
+export const addComment = (comment) => ({
   type: ADD_COMMENT,
   payload: comment,
 });
@@ -32,7 +32,8 @@ export const createComment = (documentId, payload) => async (dispatch) => {
 
   if (response.ok) {
     const { Comment: comment } = await response.json();
-    await dispatch(addComment(comment));
+    dispatch(addComment(comment));
+    return comment;
   }
 };
 

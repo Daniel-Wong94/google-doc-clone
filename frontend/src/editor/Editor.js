@@ -85,7 +85,6 @@ const Editor = () => {
             quillRef={quillRef}
             readOnly={readOnly}
           />
-          {/* <Chatbox socket={socket} /> */}
           <SideBar socket={socket} editor={editor} />
         </Box>
         <Modal

@@ -19,7 +19,7 @@ const CreateDocument = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, backgroundColor: "#F1F3F4", padding: "24px 0" }}>
+    <Box sx={{ backgroundColor: "#F1F3F4", padding: "24px 0" }}>
       <Container>
         <Stack direction="row">
           <Typography gutterBottom>Start a new document</Typography>

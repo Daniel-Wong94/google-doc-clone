@@ -8,6 +8,9 @@ import {
   Container,
   Divider,
   Avatar,
+  Card,
+  CardContent,
+  Typography,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useState, useEffect, useRef } from "react";
@@ -17,7 +20,7 @@ import { getMessages, addMessage } from "../store/messages";
 
 const Chatbox = ({ socket }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
+  const sessionUser = useSelector((state) => state.session.user);
   const messages = useSelector((state) => state.messages);
   const chatboxRef = useRef(null);
   const { documentId } = useParams();
@@ -35,7 +38,7 @@ const Chatbox = ({ socket }) => {
 
     socket.emit("message", {
       message,
-      user_id: user.id,
+      user_id: sessionUser.id,
       document_id: documentId,
     });
 
@@ -61,25 +64,42 @@ const Chatbox = ({ socket }) => {
       <Box
         sx={{
           height: "100%",
-          overflow: "scroll",
+          overflowY: "scroll",
+          overflowX: "hidden",
         }}
         ref={chatboxRef}
       >
         <List>
           {messages.map(({ id, user, message, sent_at }) => {
+            const isOwner = user.id === sessionUser.id;
+
             return (
-              <ListItem key={id}>
+              <ListItem
+                key={id}
+                alignItems="flex-start"
+                sx={{ flexDirection: isOwner && "row-reverse" }}
+              >
                 <Avatar
                   sx={{ bgcolor: user?.color, height: "32px", width: "32px" }}
                 >
                   {user.full_name[0]}
                 </Avatar>
-                <Container>
-                  <ListItemText
-                    primary={message}
-                    secondary={`Sent at ${sent_at}`}
-                  />
-                </Container>
+                <Card sx={{ margin: "0 10px", width: "100%" }}>
+                  <CardContent>
+                    <Typography variant="h3" fontSize={14} gutterBottom>
+                      {isOwner ? "You" : user.full_name} messaged:
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      fontSize={14}
+                      sx={{ wordWrap: "break-word" }}
+                      gutterBottom
+                    >
+                      {message}
+                    </Typography>
+                    <Typography variant="caption">Sent at {sent_at}</Typography>
+                  </CardContent>
+                </Card>
               </ListItem>
             );
           })}
@@ -96,6 +116,15 @@ const Chatbox = ({ socket }) => {
         component={"form"}
         onSubmit={sendMessage}
       >
+        <TextField
+          size="small"
+          value={message}
+          autoComplete="off"
+          maxLength={255}
+          onChange={(e) => setMessage(e.target.value)}
+          inputProps={{ maxLength: 255 }}
+          sx={{ flex: 1 }}
+        />
         <Button
           variant="contained"
           disabled={message.length === 0}
@@ -105,13 +134,6 @@ const Chatbox = ({ socket }) => {
         >
           Send
         </Button>
-        <TextField
-          size="small"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          inputProps={{ maxLength: 255 }}
-          sx={{ flex: 1 }}
-        />
       </Container>
     </>
   );

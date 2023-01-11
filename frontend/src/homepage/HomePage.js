@@ -1,7 +1,7 @@
 import HomeNavBar from "./HomeNavBar";
 import CreateDocument from "./CreateDocument";
 import RecentDocuments from "./RecentDocuments";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import SplashFooter from "../SplashPage/SplashFooter";
 
@@ -10,12 +10,14 @@ const HomePage = () => {
 
   return (
     user && (
-      <CssBaseline>
-        <HomeNavBar />
-        <CreateDocument />
-        <RecentDocuments />
-        <SplashFooter />
-      </CssBaseline>
+      <Box display="flex" flexDirection="column" minHeight="100vh">
+        <CssBaseline>
+          <HomeNavBar />
+          <CreateDocument />
+          <RecentDocuments />
+          <SplashFooter />
+        </CssBaseline>
+      </Box>
     )
   );
 };

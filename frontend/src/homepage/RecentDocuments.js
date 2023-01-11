@@ -21,7 +21,7 @@ const RecentDocuments = () => {
   }, [dispatch, searchFilter]);
 
   return (
-    <Container maxWidth="lg" sx={{ marginTop: "36px" }}>
+    <Container maxWidth="lg" sx={{ marginTop: "36px", flex: "1" }}>
       <Stack direction="row" justifyContent="space-between" mb="12px">
         <Typography variant="h5">Recent documents</Typography>
         <Select

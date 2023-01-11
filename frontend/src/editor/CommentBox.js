@@ -16,11 +16,11 @@ import {
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { createComment } from "../store/comments";
+import { addComment, createComment } from "../store/comments";
 
 const CommentBox = ({ socket, editor }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
+  const sessionUser = useSelector((state) => state.session.user);
   const { documentId } = useParams();
   const commentBoxRef = useRef(null);
   const comments = useSelector((state) => state.comments);
@@ -35,31 +35,33 @@ const CommentBox = ({ socket, editor }) => {
 
   const handleSelection = () => {
     const selectedRange = editor.getSelection();
-    // console.log("selectedRange: ", selectedRange);
 
-    const pageBounds = editor.getBounds(0, 0);
+    if (selectedRange) {
+      const pageBounds = editor.getBounds(0, 0);
 
-    const selectedText = editor.getText(
-      selectedRange.index,
-      selectedRange.length
-    );
-    console.log("SELECTED TEXT: ", selectedText);
-    setDocumentText(selectedText);
+      const selectedText = editor.getText(
+        selectedRange.index,
+        selectedRange.length
+      );
+      // console.log("SELECTED TEXT: ", selectedText);
+      setDocumentText(selectedText);
 
-    const selectedLine = editor.getLine(selectedRange.index);
-    const selectedLineNumber = selectedLine[0].offset(editor.scroll);
-    console.log("SELECTED LINE NUMBER: ", selectedLineNumber);
-    setLineNumber(selectedLineNumber);
+      const selectedLine = editor.getLine(selectedRange.index);
+      const selectedLineNumber = selectedLine[0].offset(editor.scroll);
+      // console.log("SELECTED LINE NUMBER: ", selectedLineNumber);
+      setLineNumber(selectedLineNumber);
 
-    const selectedBounds = editor.getBounds(
-      selectedRange.index,
-      selectedRange.length
-    );
-    const rowNumber =
-      Math.floor((selectedBounds.top - pageBounds.top) / pageBounds.height) + 1;
+      const selectedBounds = editor.getBounds(
+        selectedRange.index,
+        selectedRange.length
+      );
+      const rowNumber =
+        Math.floor((selectedBounds.top - pageBounds.top) / pageBounds.height) +
+        1;
 
-    console.log("ROW NUMBER: ", rowNumber);
-    setRowNumber(rowNumber);
+      // console.log("ROW NUMBER: ", rowNumber);
+      setRowNumber(rowNumber);
+    }
   };
 
   const handleComment = async (e) => {
@@ -70,30 +72,48 @@ const CommentBox = ({ socket, editor }) => {
       comment,
       row_number: rowNumber,
       line_number: lineNumber,
-      user_id: user.id,
+      user_id: sessionUser.id,
       document_id: documentId,
     };
 
-    console.log("PAYLOAD", payload);
+    console.log("payload", payload);
 
     const data = await dispatch(createComment(documentId, payload));
 
     if (data) {
-      console.log("COMMENT", data);
+      socket.emit("comment", data);
     }
 
     setDocumentText("");
     setComment("");
   };
 
+  useEffect(() => {
+    if (!socket) return;
+
+    const getComment = (comment) => dispatch(addComment(comment));
+    socket.on("receive-comment", getComment);
+
+    return () => socket.off(getComment);
+  }, [socket]);
+
   return (
     <>
-      <Box sx={{ height: "100%", overflow: "scroll" }} ref={commentBoxRef}>
+      <Box
+        sx={{ height: "100%", overflowY: "scroll", overflowX: "hidden" }}
+        ref={commentBoxRef}
+      >
         <List>
           {comments.map((comment) => {
             const user = comment.user;
+            const isOwner = user.id === sessionUser.id;
+
             return (
-              <ListItem key={comment.id} alignItems="flex-start">
+              <ListItem
+                key={comment.id}
+                alignItems="flex-start"
+                sx={{ flexDirection: isOwner && "row-reverse" }}
+              >
                 <Avatar
                   sx={{
                     bgcolor: user?.color,
@@ -103,7 +123,7 @@ const CommentBox = ({ socket, editor }) => {
                 >
                   {user?.full_name[0]}
                 </Avatar>
-                <Card sx={{ margin: "0 0 10px 10px", width: "100%" }}>
+                <Card sx={{ margin: "0 10px", width: "100%" }}>
                   <CardContent>
                     <Typography variant="h4" fontSize={14}>
                       {user.full_name} commented on:
@@ -127,6 +147,7 @@ const CommentBox = ({ socket, editor }) => {
                       variant="body2"
                       color="textSecondary"
                       component="p"
+                      sx={{ wordBreak: "break-word" }}
                     >
                       {comment.comment}
                     </Typography>
@@ -155,25 +176,26 @@ const CommentBox = ({ socket, editor }) => {
       <Container
         sx={{ width: "100%", display: "flex", gap: "12px", padding: "24px" }}
         component={"form"}
+        onSubmit={handleComment}
       >
-        <Button
-          variant="contained"
-          // endIcon={<SendIcon />}
-          display="inline-block"
-          disabled={documentText.length === 0}
-          onClick={handleComment}
-        >
-          Comment
-        </Button>
         <TextField
           size="small"
           value={comment}
           autoComplete="off"
+          maxLength={255}
           onChange={(e) => setComment(e.target.value)}
           inputProps={{ maxLength: 255 }}
           sx={{ flex: 1 }}
           onFocus={handleSelection}
         />
+        <Button
+          variant="contained"
+          disabled={documentText.length === 0}
+          display="inline-block"
+          onClick={handleComment}
+        >
+          Comment
+        </Button>
       </Container>
     </>
   );

@@ -55,11 +55,7 @@ const HomeNavBar = () => {
   const user = useSelector((state) => state.session.user);
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-      }}
-    >
+    <Box>
       <AppBar position="static">
         <Toolbar
           sx={{
@@ -93,7 +89,7 @@ const HomeNavBar = () => {
               inputProps={{ "aria-label": "search" }}
             />
           </Search> */}
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box display={{ xs: "none", md: "flex" }}>
             <IconButton>
               <Avatar
                 sx={{ bgcolor: user?.color, height: "32px", width: "32px" }}
