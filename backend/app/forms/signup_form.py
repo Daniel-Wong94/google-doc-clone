@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import StringField, SelectField
 from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import User
+import random
 
 
 def user_exists(form, field):
@@ -20,8 +21,13 @@ def username_exists(form, field):
         raise ValidationError('Username is already in use.')
 
 
+
 class SignUpForm(FlaskForm):
-    username = StringField(
-        'username', validators=[DataRequired(), username_exists])
+    color_choices = ['#ff4081', '#f44336', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3',
+                        '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39',
+                        '#ffeb3b', '#ffc107', '#ff9800', '#D35400', '#795548']
+    full_name = StringField(
+        'fullname', validators=[DataRequired()])
     email = StringField('email', validators=[DataRequired(), user_exists])
     password = StringField('password', validators=[DataRequired()])
+    color = SelectField('Color', choices=color_choices, default=random.choice(color_choices))

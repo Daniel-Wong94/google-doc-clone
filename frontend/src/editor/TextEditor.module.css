@@ -1,0 +1,57 @@
+body {
+  background-color: #F8F9FA;
+}
+
+.quillToolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #FFFFFF;
+  padding: 11px 12px 12px 12px !important;
+  border-top: none !important;
+  border-bottom: 1px solid #E0E0E0 !important;
+  border-right: 1px solid #E0E0E0 !important;
+}
+
+.quillEditingArea {
+  box-shadow: 0 0 5px 0 rbga(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  border: none !important;
+  /* border: 1px solid red !important; */
+}
+
+.quillPaper {
+  background-color: #FFFFFF;
+  width: 8.5in;
+  min-height: 11in;
+  padding: .8in;
+  margin: 1.4rem;
+  box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.4);
+  /* border: 1px solid red; */
+}
+
+@page {
+  margin: 0;
+}
+
+@media print {
+  * {
+    visibility: hidden;
+    margin:0;
+    padding:0;
+    overflow: visible !important;
+  }
+
+  .quillEditingArea *, .quillPaper * {
+    visibility: visible;
+    display: block;
+    box-shadow: none;
+    overflow: visible;
+    page-break-inside: avoid;
+  }
+
+  .quillToolbar {
+    display: none;
+  }
+}
