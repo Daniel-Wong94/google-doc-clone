@@ -157,7 +157,8 @@ def add_user(document_id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-      user = User.query.filter_by(email=form.data['email']).first()
+      email = form.data['email']
+      user = User.query.filter(User.email.ilike(email)).first()
       user_document = User_Document(document_id=document.id, user_id=user.id, role=form.data['role'])
       db.session.add(user_document)
       db.session.commit()
