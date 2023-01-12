@@ -49,9 +49,13 @@ export const loadCurrentDocument = (documentId) => async (dispatch) => {
   }
 };
 
-export const createDocument = () => async (dispatch) => {
+export const createDocument = (text) => async (dispatch) => {
+  const form = new FormData();
+  form.append("text", text);
+
   const response = await fetch(`/api/documents/`, {
     method: "POST",
+    body: form,
   });
 
   if (response.ok) {

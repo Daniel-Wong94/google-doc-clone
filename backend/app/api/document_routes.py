@@ -99,10 +99,16 @@ def create_document():
 
     User does not have to send a form
   '''
+  form = DocumentForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  print("FORMMMMMM", form)
 
-  document = Document(owner_id = current_user.id)
-  db.session.add(document)
-  db.session.commit()
+  if form.validate_on_submit():
+    text = form.data['text']
+    print("TEXTTTTTTT", form.data)
+    document = Document(owner_id = current_user.id, text=text)
+    db.session.add(document)
+    db.session.commit()
   return{"Document": document.to_dict()}
 
 
