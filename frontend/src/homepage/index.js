@@ -1,3 +1,4 @@
 import HomePage from "./HomePage";
+import ProfileMenu from "./ProfileMenu";
 
-export { HomePage };
+export { HomePage, ProfileMenu };
