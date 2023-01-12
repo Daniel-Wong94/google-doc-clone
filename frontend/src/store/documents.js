@@ -42,10 +42,13 @@ export const loadAllDocuments =
 
 export const loadCurrentDocument = (documentId) => async (dispatch) => {
   const response = await fetch(`/api/documents/${documentId}`);
-  const { Document: document } = await response.json();
 
   if (response.ok) {
+    const { Document: document } = await response.json();
     await dispatch(setCurrentDocument(document));
+  } else {
+    const data = await response.json();
+    console.log("RESPONSE", data);
   }
 };
 

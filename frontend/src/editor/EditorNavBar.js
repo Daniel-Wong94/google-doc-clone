@@ -11,13 +11,14 @@ import {
 import DescriptionIcon from "@mui/icons-material/Description";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import { useState, useEffect, useRef } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { editCurrentDocument } from "../store/documents";
 import { ProfileMenu } from "../homepage";
 
 const EditorNavBar = ({ document, setShowModal, text }) => {
   const user = useSelector((state) => state.session.user);
+  const { documentId } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
@@ -39,12 +40,12 @@ const EditorNavBar = ({ document, setShowModal, text }) => {
     );
   };
 
-  // const saveDocument = async () => {
-  //   console.log("UPDATING", document?.name, documentId);
-  //   await dispatch(
-  //     editCurrentDocument({ name: document?.name, text }, documentId)
-  //   );
-  // };
+  const saveDocument = async () => {
+    console.log("UPDATING", document?.name, documentId);
+    await dispatch(
+      editCurrentDocument({ name: document?.name, text }, documentId)
+    );
+  };
 
   return (
     <>
@@ -84,11 +85,12 @@ const EditorNavBar = ({ document, setShowModal, text }) => {
             sx={{
               display: "flex",
               alignItems: "center",
+              gap: "24px",
             }}
           >
-            {/* <Button variant="contained" onClick={() => setShowModal(true)}>
+            <Button variant="contained" onClick={saveDocument}>
               <Typography variant="button">Save</Typography>
-            </Button> */}
+            </Button>
             <Button variant="contained" onClick={() => setShowModal(true)}>
               <PeopleOutlineOutlinedIcon />
               <Typography variant="button">Share</Typography>

@@ -1,5 +1,6 @@
 const SET_COMMENTS = "comments/SET_COMMENTS";
 const ADD_COMMENT = "comments/ADD_COMMENT";
+const REMOVE_COMMENT = "comments/REMOVE_COMMENT";
 
 const setComments = (comments) => ({
   type: SET_COMMENTS,
@@ -9,6 +10,11 @@ const setComments = (comments) => ({
 export const addComment = (comment) => ({
   type: ADD_COMMENT,
   payload: comment,
+});
+
+export const removeComment = (commentId) => ({
+  type: REMOVE_COMMENT,
+  payload: commentId,
 });
 
 export const getComments = (documentId) => async (dispatch) => {
@@ -37,6 +43,21 @@ export const createComment = (documentId, payload) => async (dispatch) => {
   }
 };
 
+export const deleteComment = (documentId, commentId) => async (dispatch) => {
+  const response = await fetch(
+    `/api/documents/${documentId}/comments/${commentId}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(removeComment(commentId));
+    return data;
+  }
+};
+
 const initialState = [];
 
 const commentsReducer = (state = initialState, action) => {
@@ -48,6 +69,8 @@ const commentsReducer = (state = initialState, action) => {
     case ADD_COMMENT:
       newState.push(action.payload);
       return newState;
+    case REMOVE_COMMENT:
+      return newState.filter((comment) => comment.id != action.payload);
     default:
       return state;
   }

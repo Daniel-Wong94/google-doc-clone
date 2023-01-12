@@ -78,10 +78,12 @@ const HomeNavBar = () => {
               edge="start"
               color="inherit"
               aria-label="open drawer"
+              sx={{ borderRadius: "0" }}
             >
               <DescriptionIcon fontSize="large" />
               <Typography
-                variant="h5"
+                variant="h1"
+                fontSize={28}
                 noWrap
                 component="span"
                 sx={{ display: { xs: "none", sm: "block" } }}

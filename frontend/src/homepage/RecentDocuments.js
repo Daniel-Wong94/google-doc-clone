@@ -40,13 +40,11 @@ const RecentDocuments = () => {
         </Select>
       </Stack>
       <Grid container spacing={2}>
-        {documents.map((document) => {
-          return (
-            <Grid item key={document.id}>
-              <DocumentCard document={document} />
-            </Grid>
-          );
-        })}
+        {documents.map((document) => (
+          <Grid item key={document.id}>
+            <DocumentCard document={document} />
+          </Grid>
+        ))}
       </Grid>
     </Container>
   );

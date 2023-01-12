@@ -2,12 +2,42 @@ from app.models import db, User_Document, Document, environment, SCHEMA, User
 
 user_documents = [
     {
-        "user_id": 4,
+        "user_id": 1,
         "document_id": 1,
-        "role": "Editor"
+        "role": "Viewer"
+    },
+    {
+        "user_id": 3,
+        "document_id": 1,
+        "role": "Viewer"
     },
     {
         "user_id": 4,
+        "document_id": 1,
+        "role": "Viewer"
+    },
+    {
+        "user_id": 5,
+        "document_id": 1,
+        "role": "Viewer"
+    },
+    {
+        "user_id": 1,
+        "document_id": 2,
+        "role": "Viewer"
+    },
+    {
+        "user_id": 3,
+        "document_id": 2,
+        "role": "Viewer"
+    },
+    {
+        "user_id": 4,
+        "document_id": 2,
+        "role": "Viewer"
+    },
+    {
+        "user_id": 5,
         "document_id": 2,
         "role": "Viewer"
     },
@@ -17,18 +47,8 @@ user_documents = [
         "role": "Editor"
     },
     {
-        "user_id": 2,
-        "document_id": 4,
-        "role": "Viewer"
-    },
-    {
-        "user_id": 3,
-        "document_id": 1,
-        "role": "Editor"
-    },
-    {
-        "user_id": 1,
-        "document_id": 5,
+        "user_id": 5,
+        "document_id": 3,
         "role": "Viewer"
     },
     {

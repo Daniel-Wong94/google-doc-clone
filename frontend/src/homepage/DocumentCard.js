@@ -7,6 +7,7 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
+  Tooltip,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArticleIcon from "@mui/icons-material/Article";
@@ -19,6 +20,7 @@ import { dateFormat } from "../../src/helpers";
 import { deleteDocument } from "../store/documents";
 import { deleteUserDocuments } from "../store/userDocuments";
 import { loadAllDocuments } from "../store/documents";
+import { Screenshot } from "../elements";
 
 const DocumentCard = ({ document }) => {
   const dispatch = useDispatch();
@@ -42,6 +44,7 @@ const DocumentCard = ({ document }) => {
 
   const handleRemove = async (e) => {
     e.stopPropagation();
+
     if (document?.owner_id === user.id) {
       await dispatch(deleteDocument(document?.id));
     } else {
@@ -64,7 +67,15 @@ const DocumentCard = ({ document }) => {
       }}
       onClick={openDocument}
     >
-      <Box sx={{ height: "263px", borderBottom: "1px solid #DEE1E5" }}></Box>
+      <Box sx={{ height: "263px", borderBottom: "1px solid #DEE1E5" }}>
+        {document?.thumbnail && (
+          <Screenshot
+            src={document?.thumbnail}
+            alt={"document preview"}
+            maxHeight={"262px"}
+          />
+        )}
+      </Box>
       <Box padding="12px">
         <Typography variant="body2" noWrap>
           {document?.name}
@@ -88,7 +99,7 @@ const DocumentCard = ({ document }) => {
               open={Boolean(menuAnchor)}
               onClose={closeMenu}
             >
-              <MenuItem onClick={handleRemove}>
+              <MenuItem onClick={handleRemove} disabled={document?.id < 4}>
                 <ListItemIcon>
                   <DeleteIcon />
                 </ListItemIcon>

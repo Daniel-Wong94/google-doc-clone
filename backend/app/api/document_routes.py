@@ -101,11 +101,9 @@ def create_document():
   '''
   form = DocumentForm()
   form['csrf_token'].data = request.cookies['csrf_token']
-  print("FORMMMMMM", form)
 
   if form.validate_on_submit():
     text = form.data['text']
-    print("TEXTTTTTTT", form.data)
     document = Document(owner_id = current_user.id, text=text)
     db.session.add(document)
     db.session.commit()
@@ -122,10 +120,9 @@ def edit_document(document):
   if form.validate_on_submit():
     for key, val in form.data.items():
       if val:
-        print("HEREEEEEEEEEE", key, val)
         setattr(document, key, val)
     db.session.commit()
-    return document.to_dict()
+    return document.to_dict_detail()
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

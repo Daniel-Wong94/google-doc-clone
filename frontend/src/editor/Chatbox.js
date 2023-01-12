@@ -35,6 +35,7 @@ const Chatbox = ({ socket }) => {
   // socket emit for outgoing message
   const sendMessage = async (e) => {
     e.preventDefault();
+    if (!message.length) return;
 
     socket.emit("message", {
       message,

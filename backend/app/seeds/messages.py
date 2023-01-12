@@ -3,38 +3,38 @@ from app.models import db, Document, User, Message, environment, SCHEMA
 messages = [
     {
         # id: 1
-        "user_id": 1,
+        "user_id": 2,
         "document_id": 1,
         "message": "This is a live chat box!"
     },
     {
         # id: 2
         "user_id": 2,
-        "document_id": 1,
+        "document_id": 3,
         "message": "Click the share button on top to add users to this document."
     },
     {
         # id: 3
         "user_id": 3,
-        "document_id": 1,
+        "document_id": 3,
         "message": "All users that enter this document will be up to date with the currently unsaved changes."
     },
     {
         # id: 4
         "user_id": 3,
         "document_id": 3,
-        "message": "Stanley Ou messages in document 3"
+        "message": "You can check if you're allowed to edit by clicking the Share button."
     },
     {
         # id: 5
         "user_id": 2,
         "document_id": 2,
-        "message": "Daniel Wong messages in document 2"
+        "message": "I figured I would just sneak my resume into here :)"
     },
     {
         # id: 6
         "user_id": 4,
-        "document_id": 1,
+        "document_id": 3,
         "message": "Try pasting an image into the document!"
     },
 ]
