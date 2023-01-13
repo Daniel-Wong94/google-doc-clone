@@ -20,11 +20,7 @@ const TextEditor = ({
 }) => {
   const { documentId } = useParams();
   const dispatch = useDispatch();
-  // const quillRef = useRef(null);
   // const canvasRef = useRef(null);
-  // const [text, setText] = useState(document?.text || "");
-  // const editor = quillRef.current.getEditor();
-  // const [editor, setEditor] = useState(null);
   const Delta = Quill.import("delta");
   const change = useRef(new Delta());
 
@@ -134,34 +130,6 @@ const TextEditor = ({
   // handler to update text state
   const handleChange = (value) => setText(value);
 
-  // const logSelection = (e) => {
-  //   e.preventDefault();
-
-  //   const selectedRange = editor.getSelection();
-  //   console.log("selectedRange: ", selectedRange);
-
-  //   const pageBounds = editor.getBounds(0, 0);
-
-  //   const selectedText = editor.getText(
-  //     selectedRange.index,
-  //     selectedRange.length
-  //   );
-  //   console.log("SELECTED TEXT: ", selectedText);
-
-  //   const selectedLine = editor.getLine(selectedRange.index);
-  //   const selectedLineNumber = selectedLine[0].offset(editor.scroll);
-  //   console.log("SELECTED LINE NUMBER: ", selectedLineNumber);
-
-  //   const selectedBounds = editor.getBounds(
-  //     selectedRange.index,
-  //     selectedRange.length
-  //   );
-  //   const rowNumber =
-  //     Math.floor((selectedBounds.top - pageBounds.top) / pageBounds.height) + 1;
-
-  //   console.log("ROW NUMBER: ", rowNumber);
-  // };
-
   // auto-save
   // useEffect(() => {
   //   if (!change || !editor) return;
@@ -232,7 +200,7 @@ const TextEditor = ({
         readOnly={readOnly}
       />
       {/* <canvas ref={canvasRef} /> */}
-      <button onClick={saveDocument}>Save Document</button>
+      {/* <button onClick={saveDocument}>Save Document</button> */}
       {/* <button onClick={logSelection}>Log Selection</button> */}
     </Box>
   );

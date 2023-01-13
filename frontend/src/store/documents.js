@@ -42,16 +42,22 @@ export const loadAllDocuments =
 
 export const loadCurrentDocument = (documentId) => async (dispatch) => {
   const response = await fetch(`/api/documents/${documentId}`);
-  const { Document: document } = await response.json();
 
   if (response.ok) {
+    const { Document: document } = await response.json();
     await dispatch(setCurrentDocument(document));
+  } else {
+    throw new Error();
   }
 };
 
-export const createDocument = () => async (dispatch) => {
+export const createDocument = (text) => async (dispatch) => {
+  const form = new FormData();
+  form.append("text", text);
+
   const response = await fetch(`/api/documents/`, {
     method: "POST",
+    body: form,
   });
 
   if (response.ok) {

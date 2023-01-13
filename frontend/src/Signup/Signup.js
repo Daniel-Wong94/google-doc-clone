@@ -25,6 +25,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -34,8 +35,10 @@ const Signup = () => {
         await dispatch(signUp(fullName, email, password));
         return history.push("/documents");
       } catch (e) {
-        console.log("error", e);
+        setErrors(e.errors);
       }
+    } else {
+      setErrors({ confirmPassword: "Password does not match" });
     }
   };
 
@@ -114,6 +117,8 @@ const Signup = () => {
               name="fullName"
               size="small"
               autoFocus
+              helperText={errors?.full_name && errors?.full_name}
+              error={Boolean(errors?.full_name)}
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
             />
@@ -126,6 +131,8 @@ const Signup = () => {
               name="email"
               autoComplete="email"
               size="small"
+              helperText={errors?.email && errors?.email}
+              error={Boolean(errors?.email)}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -138,6 +145,8 @@ const Signup = () => {
               type={showPassword ? "text" : "password"}
               id="password"
               size="small"
+              helperText={errors?.password && errors?.password}
+              error={Boolean(errors?.password)}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -150,6 +159,8 @@ const Signup = () => {
               type={showPassword ? "text" : "password"}
               id="confirm"
               size="small"
+              helperText={errors?.confirmPassword && errors?.confirmPassword}
+              error={Boolean(errors?.confirmPassword)}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />

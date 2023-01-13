@@ -25,13 +25,15 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    await dispatch(login(email, password));
-
-    // error handler here
+    try {
+      await dispatch(login(email, password));
+    } catch (e) {
+      setErrors(e.errors);
+    }
   };
 
   if (user) {
@@ -126,6 +128,8 @@ const Login = () => {
               label="Email"
               name="email"
               autoComplete="email"
+              helperText={errors?.email}
+              error={Boolean(errors?.email)}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               autoFocus
@@ -140,6 +144,8 @@ const Login = () => {
               type={showPassword ? "text" : "password"}
               id="password"
               value={password}
+              helperText={errors?.password}
+              error={Boolean(errors?.password)}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
               size="small"

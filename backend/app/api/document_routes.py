@@ -19,7 +19,9 @@ def authorized_user(cb):
   '''
   def wrapper(*args, **kwargs):
     document_id = kwargs.get("document_id")
-    document = Document.query.get_or_404(document_id)
+    document = Document.query.get(document_id)
+    if document is None:
+      return {'message': "Document does not exist"}, 404
     users = list(map(lambda x: x.user_id, document.users))
 
     if document.owner_id == current_user.id or current_user.id in users:
@@ -56,11 +58,6 @@ def documents():
     Query for documents based on search params and
     returns a list of document dictionaries
   '''
-  # documents = Document.query\
-  #             .join(User_Document, Document.id == User_Document.document_id)\
-  #             .filter(or_(User_Document.user_id == current_user.id,
-  #                     Document.owner_id == current_user.id))\
-  #             .all()
 
   owned_by = request.args.get('owned_by')
   query = Document.query.outerjoin(User_Document, Document.id == User_Document.document_id)
@@ -99,10 +96,14 @@ def create_document():
 
     User does not have to send a form
   '''
+  form = DocumentForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
 
-  document = Document(owner_id = current_user.id)
-  db.session.add(document)
-  db.session.commit()
+  if form.validate_on_submit():
+    text = form.data['text']
+    document = Document(owner_id = current_user.id, text=text)
+    db.session.add(document)
+    db.session.commit()
   return{"Document": document.to_dict()}
 
 
@@ -116,10 +117,9 @@ def edit_document(document):
   if form.validate_on_submit():
     for key, val in form.data.items():
       if val:
-        print("HEREEEEEEEEEE", key, val)
         setattr(document, key, val)
     db.session.commit()
-    return document.to_dict()
+    return document.to_dict_detail()
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -154,7 +154,8 @@ def add_user(document_id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-      user = User.query.filter_by(email=form.data['email']).first()
+      email = form.data['email']
+      user = User.query.filter(User.email.ilike(email)).first()
       user_document = User_Document(document_id=document.id, user_id=user.id, role=form.data['role'])
       db.session.add(user_document)
       db.session.commit()

@@ -12,11 +12,14 @@ import {
   CardContent,
   Grid,
   Typography,
+  Stack,
+  IconButton,
 } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addComment, createComment } from "../store/comments";
+import { addComment, createComment, deleteComment } from "../store/comments";
 
 const CommentBox = ({ socket, editor }) => {
   const dispatch = useDispatch();
@@ -88,6 +91,11 @@ const CommentBox = ({ socket, editor }) => {
     setComment("");
   };
 
+  const handleDeleteComment = async (e, commentId) => {
+    e.preventDefault();
+    await dispatch(deleteComment(documentId, commentId));
+  };
+
   useEffect(() => {
     if (!socket) return;
 
@@ -125,9 +133,27 @@ const CommentBox = ({ socket, editor }) => {
                 </Avatar>
                 <Card sx={{ margin: "0 10px", width: "100%" }}>
                   <CardContent>
-                    <Typography variant="h4" fontSize={14}>
-                      {user.full_name} commented on:
-                    </Typography>
+                    <Stack position="relative">
+                      <Typography variant="h4" fontSize={14}>
+                        {user.full_name} commented on:
+                      </Typography>
+                      {isOwner && (
+                        <IconButton
+                          onClick={(e) => handleDeleteComment(e, comment.id)}
+                          size="small"
+                          sx={{
+                            position: "absolute",
+                            right: "-16px",
+                            top: "-12px",
+                            "&:hover": {
+                              bgcolor: "transparent",
+                            },
+                          }}
+                        >
+                          <ClearIcon />
+                        </IconButton>
+                      )}
+                    </Stack>
                     <Typography
                       variant="h4"
                       fontSize={18}

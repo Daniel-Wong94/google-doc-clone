@@ -9,7 +9,7 @@ const SplashNav = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleLogOut = () => dispatch(logout());
+  const handleLogout = () => dispatch(logout());
 
   return (
     <>
@@ -26,7 +26,7 @@ const SplashNav = () => {
             Google Docs
           </IconButton>
           {user ? (
-            <Button color="inherit" onClick={handleLogOut}>
+            <Button color="inherit" onClick={handleLogout}>
               Logout
             </Button>
           ) : (
