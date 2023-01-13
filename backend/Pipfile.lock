@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a9887a4bf85eb7671e0e53de057ccc0600fde3c86edcaf52fd39adc1f33396d5"
+            "sha256": "aeffd0ddcf114a4b644516278abdf2631e09e1f791eccf8b24857bb6eb5f96a3"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -31,6 +31,22 @@
             ],
             "index": "pypi",
             "version": "==7.1.2"
+        },
+        "dnspython": {
+            "hashes": [
+                "sha256:0f7569a4a6ff151958b64304071d370daa3243d15941a7beedf0c9fe5105603e",
+                "sha256:a851e51367fb93e9e1361732c1d60dab63eff98712e503ea7d92e6eccb109b4f"
+            ],
+            "markers": "python_version >= '3.6' and python_version < '4.0'",
+            "version": "==2.2.1"
+        },
+        "eventlet": {
+            "hashes": [
+                "sha256:82c382c2a2c712f1a8320378a9120ac9589d9f1131c36a63780f0b8504afa5bc",
+                "sha256:96039b9389dbb4431b1c0a6e42ea1326628cc7ad63a6280b02947f111d3d8e04"
+            ],
+            "index": "pypi",
+            "version": "==0.33.2"
         },
         "flask": {
             "hashes": [
@@ -271,11 +287,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:57f6f22bde4e042978bcd50176fdb381d7c21a9efa4041202288d3737a0c6a54",
-                "sha256:a7620757bf984b58deaf32fc8a4577a9bbc0850cf92c20e1ce41c38c19e5fb75"
+                "sha256:4d3c92fac8f1118bb77a22181355e29c239cabfe2b9effdaa665c66b711136d7",
+                "sha256:8ab4f1dbf2b4a65f7eec5ad0c620e84c34111a68d3349833494b9088212214dd"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==65.6.3"
+            "version": "==65.7.0"
         },
         "six": {
             "hashes": [
