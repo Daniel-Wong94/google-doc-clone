@@ -2,7 +2,6 @@ import {
   Box,
   List,
   ListItem,
-  ListItemText,
   TextField,
   Button,
   Container,
@@ -35,7 +34,7 @@ const Chatbox = ({ socket }) => {
         return history.push("/");
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, documentId, history]);
 
   // socket emit for outgoing message
   const sendMessage = async (e) => {
@@ -58,7 +57,7 @@ const Chatbox = ({ socket }) => {
     socket.on("receive-message", getMessage);
 
     return () => socket.off(getMessage);
-  }, [socket]);
+  }, [socket, dispatch]);
 
   // scroll to bottom on new message
   useEffect(() => {
