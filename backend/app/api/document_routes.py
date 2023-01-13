@@ -19,7 +19,9 @@ def authorized_user(cb):
   '''
   def wrapper(*args, **kwargs):
     document_id = kwargs.get("document_id")
-    document = Document.query.get_or_404(document_id)
+    document = Document.query.get(document_id)
+    if document is None:
+      return {'message': "Document does not exist"}, 404
     users = list(map(lambda x: x.user_id, document.users))
 
     if document.owner_id == current_user.id or current_user.id in users:
@@ -56,11 +58,6 @@ def documents():
     Query for documents based on search params and
     returns a list of document dictionaries
   '''
-  # documents = Document.query\
-  #             .join(User_Document, Document.id == User_Document.document_id)\
-  #             .filter(or_(User_Document.user_id == current_user.id,
-  #                     Document.owner_id == current_user.id))\
-  #             .all()
 
   owned_by = request.args.get('owned_by')
   query = Document.query.outerjoin(User_Document, Document.id == User_Document.document_id)

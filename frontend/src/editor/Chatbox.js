@@ -15,11 +15,12 @@ import {
 import SendIcon from "@mui/icons-material/Send";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getMessages, addMessage } from "../store/messages";
 
 const Chatbox = ({ socket }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const messages = useSelector((state) => state.messages);
   const chatboxRef = useRef(null);
@@ -28,7 +29,11 @@ const Chatbox = ({ socket }) => {
 
   useEffect(() => {
     (async () => {
-      await dispatch(getMessages(documentId));
+      try {
+        await dispatch(getMessages(documentId));
+      } catch (e) {
+        return history.push("/");
+      }
     })();
   }, [dispatch]);
 

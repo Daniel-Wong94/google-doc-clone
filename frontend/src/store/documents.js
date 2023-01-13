@@ -47,8 +47,7 @@ export const loadCurrentDocument = (documentId) => async (dispatch) => {
     const { Document: document } = await response.json();
     await dispatch(setCurrentDocument(document));
   } else {
-    const data = await response.json();
-    console.log("RESPONSE", data);
+    throw new Error();
   }
 };
 
