@@ -33,3 +33,15 @@ def add_comment(document_id):
 
     return {"Comment": new_comment.to_dict()}
   return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
+@comment_routes.route('/<int:comment_id>', methods=["DELETE"])
+@login_required
+def delete_comment(document_id, comment_id):
+  comment = Comment.query.get_or_404(comment_id)
+
+  if (comment.user_id == current_user.id):
+    db.session.delete(comment)
+    db.session.commit();
+    return {"message": "Sucessfully deleted comment"}
+  return {"message": "Must be owner to delete comment"}, 403

@@ -10,16 +10,24 @@ import {
 } from "@mui/material";
 import DescriptionIcon from "@mui/icons-material/Description";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
-import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { editCurrentDocument } from "../store/documents";
+import { ProfileMenu } from "../homepage";
 
 const EditorNavBar = ({ document, setShowModal, text }) => {
   const user = useSelector((state) => state.session.user);
+  const { documentId } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (e) => setAnchorEl(e.currentTarget);
+  const handleClose = () => setAnchorEl(null);
 
   useEffect(() => {
     setName(document?.name);
@@ -32,12 +40,12 @@ const EditorNavBar = ({ document, setShowModal, text }) => {
     );
   };
 
-  // const saveDocument = async () => {
-  //   console.log("UPDATING", document?.name, documentId);
-  //   await dispatch(
-  //     editCurrentDocument({ name: document?.name, text }, documentId)
-  //   );
-  // };
+  const saveDocument = async () => {
+    console.log("UPDATING", document?.name, documentId);
+    await dispatch(
+      editCurrentDocument({ name: document?.name, text }, documentId)
+    );
+  };
 
   return (
     <>
@@ -77,16 +85,17 @@ const EditorNavBar = ({ document, setShowModal, text }) => {
             sx={{
               display: "flex",
               alignItems: "center",
+              gap: "24px",
             }}
           >
-            {/* <Button variant="contained" onClick={() => setShowModal(true)}>
+            <Button variant="contained" onClick={saveDocument}>
               <Typography variant="button">Save</Typography>
-            </Button> */}
+            </Button>
             <Button variant="contained" onClick={() => setShowModal(true)}>
               <PeopleOutlineOutlinedIcon />
               <Typography variant="button">Share</Typography>
             </Button>
-            <IconButton>
+            <IconButton onClick={handleClick}>
               <Avatar
                 sx={{ bgcolor: user?.color, height: "32px", width: "32px" }}
               >
@@ -96,6 +105,12 @@ const EditorNavBar = ({ document, setShowModal, text }) => {
           </Box>
         </Toolbar>
       </AppBar>
+      <ProfileMenu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+      />
     </>
   );
 };

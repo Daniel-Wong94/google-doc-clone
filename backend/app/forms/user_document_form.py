@@ -9,7 +9,7 @@ def valid_user(form, field):
     # Check if user is already part of the document and if user exists
     email = field.data
     document_id = request.view_args['document_id']
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter(User.email.ilike(email)).first()
 
     if user is None:
         raise ValidationError('Email provided not found')

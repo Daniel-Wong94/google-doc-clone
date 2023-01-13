@@ -30,8 +30,8 @@ const ShareModal = ({ document, onClose }) => {
 
   const closeUpdate = () => setShowUpdate(false);
 
-  console.log("owner", owner);
-  console.log("user docs", userDocuments);
+  // console.log("owner", owner);
+  // console.log("user docs", userDocuments);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,7 +76,7 @@ const ShareModal = ({ document, onClose }) => {
             sx={{ flex: "1", marginRight: "8px" }}
             helperText={errors?.email && errors?.email}
             disabled={!isOwner}
-            error={errors?.email}
+            error={Boolean(errors?.email)}
             autoFocus
           />
           <Select

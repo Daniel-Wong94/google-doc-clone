@@ -16,8 +16,9 @@ export const getMessages = (documentId) => async (dispatch) => {
 
   if (response.ok) {
     const { Messages: messages } = await response.json();
-
     dispatch(setMessages(messages));
+  } else {
+    throw new Error();
   }
 };
 

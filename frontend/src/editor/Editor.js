@@ -2,11 +2,10 @@ import { Box, CssBaseline, Modal } from "@mui/material";
 import EditorNavBar from "./EditorNavBar";
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import TextEditor from "./TextEditor";
 import { loadCurrentDocument } from "../store/documents";
 import { loadUserDocuments } from "../store/userDocuments";
-import Chatbox from "./Chatbox";
 import ShareModal from "./ShareModal";
 import styles from "./Editor.module.css";
 import { io } from "socket.io-client";
@@ -15,6 +14,7 @@ import SideBar from "./SideBar";
 
 const Editor = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { documentId } = useParams();
   const user = useSelector((state) => state.session.user);
   const document = useSelector((state) => state.documents[documentId]);
@@ -30,9 +30,13 @@ const Editor = () => {
 
   useEffect(() => {
     (async () => {
-      await dispatch(loadCurrentDocument(documentId));
-      await dispatch(loadUserDocuments(documentId));
-      await dispatch(getComments(documentId));
+      try {
+        await dispatch(loadCurrentDocument(documentId));
+        await dispatch(loadUserDocuments(documentId));
+        await dispatch(getComments(documentId));
+      } catch (e) {
+        return history.push("/");
+      }
     })();
   }, [dispatch, documentId]);
 
