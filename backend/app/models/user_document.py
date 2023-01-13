@@ -10,7 +10,7 @@ class User_Document(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
     document_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('documents.id')), primary_key=True)
-    role = db.Column(db.Enum("Editor", "Viewer"), nullable=False, server_default="Viewer")
+    role = db.Column(db.Enum("Editor", "Viewer", name="role"), nullable=False, server_default="Viewer")
 
     user = db.relationship("User", back_populates="documents")
     document = db.relationship("Document", back_populates="users")
