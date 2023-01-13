@@ -41,7 +41,6 @@ const EditorNavBar = ({ document, setShowModal, text }) => {
   };
 
   const saveDocument = async () => {
-    console.log("UPDATING", document?.name, documentId);
     await dispatch(
       editCurrentDocument({ name: document?.name, text }, documentId)
     );

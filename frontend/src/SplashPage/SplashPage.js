@@ -44,7 +44,6 @@ const SplashPage = () => {
   const user = useSelector((state) => state.session.user);
 
   const handleGoToDocs = () => history.push(user ? `/documents` : `/login`);
-  console.log("HERE", heroImage);
 
   return (
     <CssBaseline>

@@ -13,7 +13,8 @@ const CreateDocument = () => {
       const document = await dispatch(createDocument(text));
       if (document) return history.push(`/documents/${document.id}`);
     } catch (e) {
-      console.log("ERROR", e);
+      // console.log("ERROR", e);
+      return;
     }
   };
 

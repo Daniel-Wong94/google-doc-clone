@@ -46,12 +46,10 @@ const CommentBox = ({ socket, editor }) => {
         selectedRange.index,
         selectedRange.length
       );
-      // console.log("SELECTED TEXT: ", selectedText);
       setDocumentText(selectedText);
 
       const selectedLine = editor.getLine(selectedRange.index);
       const selectedLineNumber = selectedLine[0].offset(editor.scroll);
-      // console.log("SELECTED LINE NUMBER: ", selectedLineNumber);
       setLineNumber(selectedLineNumber);
 
       const selectedBounds = editor.getBounds(
@@ -62,7 +60,6 @@ const CommentBox = ({ socket, editor }) => {
         Math.floor((selectedBounds.top - pageBounds.top) / pageBounds.height) +
         1;
 
-      // console.log("ROW NUMBER: ", rowNumber);
       setRowNumber(rowNumber);
     }
   };
@@ -78,8 +75,6 @@ const CommentBox = ({ socket, editor }) => {
       user_id: sessionUser.id,
       document_id: documentId,
     };
-
-    console.log("payload", payload);
 
     const data = await dispatch(createComment(documentId, payload));
 

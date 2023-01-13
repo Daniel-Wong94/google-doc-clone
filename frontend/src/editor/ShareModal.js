@@ -30,9 +30,6 @@ const ShareModal = ({ document, onClose }) => {
 
   const closeUpdate = () => setShowUpdate(false);
 
-  // console.log("owner", owner);
-  // console.log("user docs", userDocuments);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 

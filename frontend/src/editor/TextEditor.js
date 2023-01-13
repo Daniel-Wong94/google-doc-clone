@@ -36,7 +36,6 @@ const TextEditor = ({
     const onChange = (delta, _oldDelta, source) => {
       if (source === "user") {
         change.current = change.current.compose(delta);
-        console.log("CHANGE", change.current);
         socket.emit("send-changes", { delta, room: documentId });
       }
     };
@@ -51,10 +50,8 @@ const TextEditor = ({
     if (!socket || !quillRef) return;
 
     const onUpdate = (delta) => {
-      console.log("receiving changes", delta);
       editor.updateContents(delta);
       change.current = change.current.compose(delta);
-      // setText(editor.getContents());
     };
 
     socket.on("receive-changes", onUpdate);
@@ -67,10 +64,7 @@ const TextEditor = ({
     if (!socket || !quillRef) return;
 
     const onRoomJoined = (data) => {
-      console.log("CHANGE", change);
       socket.emit("sync-document", { change, room: documentId });
-      console.log("room joined", data);
-      // setText(editor.getText());
     };
 
     socket.on("room-joined", onRoomJoined);
@@ -102,7 +96,7 @@ const TextEditor = ({
 
     const onLeftRoom = (message) => {
       // saveDocument();
-      console.log(message);
+      // console.log(message);
     };
 
     socket.on("left-room", onLeftRoom);
@@ -111,16 +105,14 @@ const TextEditor = ({
   }, [socket, quillRef]);
 
   // handler to save document
-  const saveDocument = async () => {
-    console.log("SAVING DOCUMENT");
+  // const saveDocument = async () => {
+  //   console.log("SAVING DOCUMENT");
 
-    const data = await dispatch(
-      editCurrentDocument({ name: document?.name, text }, documentId)
-    );
-    change.current = new Delta();
-
-    console.log("SAVE DOCUMENT: ", data);
-  };
+  //   const data = await dispatch(
+  //     editCurrentDocument({ name: document?.name, text }, documentId)
+  //   );
+  //   change.current = new Delta();
+  // };
 
   // sets the document text on mount
   useEffect(() => {

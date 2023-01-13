@@ -40,7 +40,6 @@ export const loadUserDocuments = (documentId) => async (dispatch) => {
 
 export const createUserDocuments =
   (documentId, payload) => async (dispatch) => {
-    console.log("PAYLOAD", payload);
     const response = await fetch(`/api/documents/${documentId}/users`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
