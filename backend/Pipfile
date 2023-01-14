@@ -26,8 +26,10 @@ python-editor = "==1.0.4"
 greenlet = "==1.1.0"
 Mako = "==1.1.4"
 eventlet = "*"
+flask-socketio = "*"
+email-validator = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.9.4"

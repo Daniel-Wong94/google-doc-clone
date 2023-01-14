@@ -3,14 +3,12 @@ import {
   Box,
   List,
   ListItem,
-  ListItemText,
   TextField,
   Container,
   Button,
   Divider,
   Card,
   CardContent,
-  Grid,
   Typography,
   Stack,
   IconButton,
@@ -98,7 +96,7 @@ const CommentBox = ({ socket, editor }) => {
     socket.on("receive-comment", getComment);
 
     return () => socket.off(getComment);
-  }, [socket]);
+  }, [socket, dispatch]);
 
   return (
     <>

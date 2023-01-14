@@ -38,7 +38,7 @@ const Editor = () => {
         return history.push("/");
       }
     })();
-  }, [dispatch, documentId]);
+  }, [dispatch, documentId, history]);
 
   // create socket, assign room
   useEffect(() => {
@@ -51,7 +51,7 @@ const Editor = () => {
       sio.disconnect({
         query: { room: documentId, name: user.full_name },
       });
-  }, []);
+  }, [documentId, user?.full_name]);
 
   const onClose = () => setShowModal(false);
 

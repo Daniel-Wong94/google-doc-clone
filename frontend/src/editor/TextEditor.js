@@ -1,9 +1,7 @@
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useRef, useEffect } from "react";
 import styles from "./TextEditor.module.css";
-import { editCurrentDocument } from "../store/documents";
 import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import _ from "lodash";
@@ -19,14 +17,13 @@ const TextEditor = ({
   readOnly = false,
 }) => {
   const { documentId } = useParams();
-  const dispatch = useDispatch();
   // const canvasRef = useRef(null);
   const Delta = Quill.import("delta");
   const change = useRef(new Delta());
 
   useEffect(() => {
     setEditor(quillRef.current.getEditor());
-  }, []);
+  }, [quillRef, setEditor]);
 
   // sends delta whenever there's a change
   // store all changes until save
@@ -43,7 +40,7 @@ const TextEditor = ({
     editor.on("text-change", onChange);
 
     return () => editor.off(onChange);
-  }, [socket, quillRef]);
+  }, [socket, quillRef, documentId, editor]);
 
   // receives the delta and updates the quill instance
   useEffect(() => {
@@ -57,7 +54,7 @@ const TextEditor = ({
     socket.on("receive-changes", onUpdate);
 
     return () => socket.off(onUpdate);
-  }, [socket, quillRef]);
+  }, [socket, quillRef, editor]);
 
   // when user joins room:
   useEffect(() => {
@@ -70,7 +67,7 @@ const TextEditor = ({
     socket.on("room-joined", onRoomJoined);
 
     return () => socket.off(onRoomJoined);
-  }, [socket, quillRef]);
+  }, [socket, quillRef, documentId]);
 
   useEffect(() => {
     if (!socket || !quillRef) return;
@@ -88,7 +85,7 @@ const TextEditor = ({
     socket.on("sync-document", onSyncDocument);
 
     return () => socket.off(onSyncDocument);
-  }, [socket, quillRef]);
+  }, [socket, quillRef, Delta, editor, setText]);
 
   // when user leaves
   useEffect(() => {
@@ -117,7 +114,7 @@ const TextEditor = ({
   // sets the document text on mount
   useEffect(() => {
     setText(document?.text);
-  }, [document]);
+  }, [document, setText]);
 
   // handler to update text state
   const handleChange = (value) => setText(value);
@@ -160,7 +157,7 @@ const TextEditor = ({
     paper.classList.add(styles.quillPaper);
 
     editingArea.parentNode.childNodes[0].classList.add(styles.quillToolbar);
-  }, []);
+  }, [quillRef]);
 
   // const handleClick = () => {
   //   // create a hidden canvas for 2D image creation
