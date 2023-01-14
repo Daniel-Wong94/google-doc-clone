@@ -42,8 +42,8 @@ origins = []
 if os.environ.get('FLASK_ENV') == 'production':
     origins = [
         # http/https urls of rendered application
-        "https://docusync.onrender.com/",
-        "http://docusync.onrender.com/"
+        "https://docusync.onrender.com",
+        "http://docusync.onrender.com"
     ]
 else:
     origins = '*'
