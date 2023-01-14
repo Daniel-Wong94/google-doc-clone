@@ -1,12 +1,11 @@
-import { Menu, MenuItem, Divider, Fade } from "@mui/material";
+import { Menu, MenuItem } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { logout } from "../store/session";
-import { useState } from "react";
 // import ThemePickerModal from "./ThemePickerModal";
 
 const ProfileMenu = ({ anchorEl, open, onClose, onClick }) => {
   const dispatch = useDispatch();
-  const [openThemePicker, setOpenThemePicker] = useState(false);
+  // const [openThemePicker, setOpenThemePicker] = useState(false);
 
   const handleLogout = () => dispatch(logout());
 

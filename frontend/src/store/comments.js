@@ -70,7 +70,7 @@ const commentsReducer = (state = initialState, action) => {
       newState.push(action.payload);
       return newState;
     case REMOVE_COMMENT:
-      return newState.filter((comment) => comment.id != action.payload);
+      return newState.filter((comment) => comment.id !== action.payload);
     default:
       return state;
   }

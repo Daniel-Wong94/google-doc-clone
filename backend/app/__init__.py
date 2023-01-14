@@ -12,7 +12,7 @@ from .api.document_routes import document_routes
 from .seeds import seed_commands
 from .config import Config
 
-app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
+app = Flask(__name__, static_folder='../../frontend/build', static_url_path='/')
 
 # Setup login manager
 login = LoginManager(app)
@@ -37,18 +37,26 @@ Migrate(app, db)
 # Application Security
 CORS(app)
 
-origins = []
+# origins = []
 
-if os.environ.get('FLASK_ENV') == 'production':
-    origins = [
-        # http/https urls of rendered application
-        "https://docusync.onrender.com",
-        "http://docusync.onrender.com"
-    ]
-else:
-    origins = '*'
+# if os.environ.get('FLASK_ENV') == 'production':
+#     origins = [
+#         # http/https urls of rendered application
+#         "https://docusync.onrender.com",
+#         "http://docusync.onrender.com"
+#     ]
+# else:
+#     origins = '*'
 
-socketio = SocketIO(app, cors_allowed_origins=origins)
+# socketio = SocketIO(app, cors_allowed_origins=origins)
+
+# socket setup
+
+socketio = SocketIO();
+socketio.init_app(app)
+
+if __name__ == '__main__':
+    socketio.run(app)
 
 
 # Since we are deploying with Docker and Flask,
@@ -106,6 +114,7 @@ def react_root(path):
 def not_found(e):
     return app.send_static_file('index.html')
 
+
 @socketio.on("connect")
 def on_connect():
     room = request.args.get('room')
@@ -158,6 +167,3 @@ def sync_document(data):
     change = data['change']
     print(f'SYNC DOCUMENT WITH CHANGE OBJECT: {data}')
     emit('sync-document', change, to=room, include_self=False)
-
-if __name__ == '__main__':
-    socketio.run(app)

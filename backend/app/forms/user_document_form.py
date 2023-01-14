@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask import request
 from wtforms import StringField, SelectField
-from wtforms.validators import DataRequired, Email, ValidationError, InputRequired
+from wtforms.validators import DataRequired, ValidationError, InputRequired
 from app.models import User, User_Document
 
 
@@ -20,7 +20,7 @@ def valid_user(form, field):
 
 class UserDocumentForm(FlaskForm):
     email = StringField('email', validators=[DataRequired(), valid_user])
-    role = SelectField('role', choices=["Editor", "Viewer"])
+    role = SelectField('role', choices=[("Editor", "Editor"), ("Viewer", "Viewer")])
 
 class UpdateUserDocumentForm(FlaskForm):
-    role = SelectField('role', choices=["Editor", "Viewer"])
+    role = SelectField('role', choices=[("Editor", "Editor"), ("Viewer", "Viewer")])
