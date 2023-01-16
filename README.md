@@ -43,7 +43,7 @@ DocuSync is a clone of Google Docs, a collaborative document editing tool that a
 <br />
 <div align="center">
   <a href="https://https://github.com/Daniel-Wong94/google-doc-clone">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Google_Docs_logo_%282014-2020%29.svg/1481px-Google_Docs_logo_%282014-2020%29.svg.png" alt="Logo" width="80" height="80">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Google_Docs_logo_%282014-2020%29.svg/1481px-Google_Docs_logo_%282014-2020%29.svg.png" alt="Logo">
   </a>
 
 <h3 align="center">DocuSync (Google Docs Clone)</h3>
