@@ -100,7 +100,7 @@ DocuSync is a clone of Google Docs, a collaborative document editing tool that a
 ## About The Project
 <!-- <img width="1638" alt="Screen Shot 2022-10-04 at 8 59 15 PM" src="https://user-images.githubusercontent.com/90014250/193957812-22cd83df-f0b3-4479-b593-129798382a1d.png"> -->
 
-<img width="2477" alt="Screenshot 2022-12-12 at 5 13 41 PM" src="https://user-images.githubusercontent.com/90014250/207166502-437e5fbf-8908-4157-9349-7b0dda7af1d9.png">
+![DocuSync-HomePageGif](https://media.giphy.com/media/y1M3iS4uhIoecrq3qq/giphy.gif)
 
 Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
 
