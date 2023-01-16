@@ -56,7 +56,7 @@ DocuSync is a clone of Google Docs, a collaborative document editing tool that a
     <br />
     <a href="https://docusync.onrender.com/">Live Link</a>
        ·
-    <a href="">DB Schema</a>
+    <a href="https://github.com/Daniel-Wong94/google-doc-clone/wiki/DB-Schema">DB Schema</a>
        ·
     <a href="">API Documentation</a>
     
