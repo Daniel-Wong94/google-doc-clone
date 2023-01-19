@@ -177,6 +177,7 @@ def update_user(document_id, user_id):
     if document.owner_id == current_user.id:
       user_documents = User_Document.query.filter_by(document_id=document_id, user_id=user_id).first()
       user_documents.role = form.data['role'];
+      user_documents.is_online = form.data['is_online'];
       db.session.commit();
       return user_documents.to_dict();
 

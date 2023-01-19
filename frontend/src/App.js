@@ -8,7 +8,7 @@ import { authenticate } from "./store/session";
 import { Signup } from "./Signup";
 import { HomePage } from "./homepage";
 import { Box } from "@mui/material";
-import { Editor } from "./Editor";
+import { Editor } from "./editor";
 
 function App() {
   const [loaded, setLoaded] = useState(false);

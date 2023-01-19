@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Badge,
   Toolbar,
   IconButton,
   TextField,
@@ -7,6 +8,7 @@ import {
   Box,
   Button,
   Typography,
+  AvatarGroup,
 } from "@mui/material";
 import DescriptionIcon from "@mui/icons-material/Description";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
@@ -15,9 +17,44 @@ import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { editCurrentDocument } from "../store/documents";
 import { ProfileMenu } from "../homepage";
+import ChatIcon from "@mui/icons-material/Chat";
+import { styled } from "@mui/material/styles";
 
-const EditorNavBar = ({ document, setShowModal, text }) => {
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    backgroundColor: "#44b700",
+    color: "#44b700",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    "&::after": {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
+      content: '""',
+    },
+  },
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
+      opacity: 1,
+    },
+    "100%": {
+      transform: "scale(2.4)",
+      opacity: 0,
+    },
+  },
+}));
+
+const EditorNavBar = ({ document, setShowModal, text, socket }) => {
   const user = useSelector((state) => state.session.user);
+  const userDocuments = useSelector((state) =>
+    Object.values(state.userDocuments)
+  );
+  const onlineUsers = userDocuments.filter((user) => user.is_online);
   const { documentId } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -88,6 +125,25 @@ const EditorNavBar = ({ document, setShowModal, text }) => {
               gap: "24px",
             }}
           >
+            <AvatarGroup>
+              {onlineUsers.map((user) => (
+                <StyledBadge
+                  overlap="circular"
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  variant="dot"
+                >
+                  <Avatar
+                    sx={{
+                      bgcolor: user?.user?.color,
+                      height: "32px",
+                      width: "32px",
+                    }}
+                  >
+                    {user?.user?.full_name[0]}
+                  </Avatar>
+                </StyledBadge>
+              ))}
+            </AvatarGroup>
             <Button variant="contained" onClick={saveDocument}>
               <Typography variant="button">Save</Typography>
             </Button>

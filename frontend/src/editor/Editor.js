@@ -69,6 +69,7 @@ const Editor = () => {
           document={document}
           setShowModal={setShowModal}
           text={text}
+          socket={socket}
         />
         <Box
           sx={{

@@ -11,6 +11,7 @@ class User_Document(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
     document_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('documents.id')), primary_key=True)
     role = db.Column(db.Enum("Editor", "Viewer"), nullable=False, server_default="Viewer")
+    is_online = db.Column(db.Boolean, default=False)
 
     user = db.relationship("User", back_populates="documents")
     document = db.relationship("Document", back_populates="users")
@@ -20,6 +21,7 @@ class User_Document(db.Model):
         'user_id': self.user_id,
         'document_id': self.document_id,
         'role': self.role,
+        'is_online': self.is_online,
         # 'user': self.user.to_dict(),
         'user': User.query.get(self.user_id).to_dict()
       }

@@ -23,6 +23,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     color = db.Column(db.String(7), default=random.choice(color_choices))
+    is_online = db.Column(db.Boolean, default=False)
 
     owned_documents = db.relationship("Document", back_populates="owner", cascade="all, delete-orphan")
     documents = db.relationship("User_Document", back_populates="user", cascade="all, delete-orphan")
@@ -45,5 +46,6 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'full_name': self.full_name,
             'email': self.email,
-            'color': self.color
+            'color': self.color,
+            'is_online': self.is_online
         }
