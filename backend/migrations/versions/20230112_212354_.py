@@ -1,12 +1,16 @@
 """empty message
 
 Revision ID: a8b0631e416a
-Revises: 
+Revises:
 Create Date: 2023-01-12 21:23:54.517216
 
 """
 from alembic import op
 import sqlalchemy as sa
+
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
@@ -70,6 +74,12 @@ def upgrade():
     sa.PrimaryKeyConstraint('user_id', 'document_id')
     )
     # ### end Alembic commands ###
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE documents SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE messages SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE user_documents SET SCHEMA {SCHEMA};")
 
 
 def downgrade():
