@@ -23,7 +23,7 @@ const SplashNav = () => {
         >
           <IconButton color="inherit">
             <DescriptionIcon fontSize="large" />
-            Google Docs
+            DocuSync
           </IconButton>
           {user ? (
             <Button color="inherit" onClick={handleLogout}>

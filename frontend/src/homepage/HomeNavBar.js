@@ -39,7 +39,7 @@ const HomeNavBar = () => {
                 component="span"
                 sx={{ display: { xs: "none", sm: "block" } }}
               >
-                Docs
+                DocuSync
               </Typography>
             </IconButton>
             {/* <Search>
