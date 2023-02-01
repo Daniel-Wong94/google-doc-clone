@@ -55,7 +55,7 @@ export const createUserDocuments =
         const [k, v] = err.split(" : ");
         errors[k] = v;
       });
-      console.log("HERE", errors);
+      // console.log("HERE", errors);
       const err = new Error();
       err.errors = errors;
       throw err;
