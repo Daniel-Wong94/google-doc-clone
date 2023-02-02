@@ -18,6 +18,7 @@ import { ProfileMenu } from "../homepage";
 
 const EditorNavBar = ({ document, setShowModal, text }) => {
   const user = useSelector((state) => state.session.user);
+  const documentUsers = useSelector((state) => state.userDocuments);
   const { documentId } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -25,6 +26,10 @@ const EditorNavBar = ({ document, setShowModal, text }) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  const isOwner = document?.owner?.id === user.id;
+  const role = documentUsers?.[user.id]?.role;
+  const readOnly = !isOwner && role === "Viewer";
 
   const handleClick = (e) => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
@@ -74,10 +79,11 @@ const EditorNavBar = ({ document, setShowModal, text }) => {
             </IconButton>
             <TextField
               variant="standard"
-              value={name}
+              value={readOnly ? name + " (View Mode)" : name}
               sx={{ width: "300px" }}
               onChange={(e) => setName(e.target.value)}
               onBlur={handleUpdateName}
+              disabled={readOnly}
             />
           </Box>
           <Box

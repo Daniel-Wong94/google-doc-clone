@@ -1,8 +1,14 @@
 import { Box } from "@mui/material";
 
 const Screenshot = ({ src, alt, maxWidth, maxHeight, width = "100%" }) => {
+  console.log(src);
   return (
-    <Box maxWidth={maxWidth} maxHeight={maxHeight} width={width}>
+    <Box
+      maxWidth={maxWidth}
+      maxHeight={maxHeight}
+      width={width}
+      sx={{ overflow: "hidden" }}
+    >
       <img
         src={src}
         style={{

@@ -7,7 +7,6 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { authenticate } from "./store/session";
 import { Signup } from "./Signup";
 import { HomePage } from "./homepage";
-import { Box } from "@mui/material";
 import { Editor } from "./editor";
 
 function App() {
@@ -32,24 +31,10 @@ function App() {
           <SplashPage />
         </Route>
         <Route path="/login" exact={true}>
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            minHeight="100vh"
-          >
-            <Login />
-          </Box>
+          <Login />
         </Route>
         <Route path="/sign-up" exact={true}>
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            minHeight="100vh"
-          >
-            <Signup />
-          </Box>
+          <Signup />
         </Route>
         <ProtectedRoute path="/documents" exact={true}>
           <HomePage />

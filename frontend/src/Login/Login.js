@@ -10,13 +10,10 @@ import {
   Typography,
   Container,
 } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { login } from "../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-
-const theme = createTheme();
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -47,7 +44,12 @@ const Login = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+    >
       <Container
         component="main"
         maxWidth="xs"
@@ -192,7 +194,7 @@ const Login = () => {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    </Box>
   );
 };
 

@@ -8,9 +8,9 @@ const CreateDocument = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleCreateDocument = async (text) => {
+  const handleCreateDocument = async ({ text, src }) => {
     try {
-      const document = await dispatch(createDocument(text));
+      const document = await dispatch(createDocument(text, src));
       if (document) return history.push(`/documents/${document.id}`);
     } catch (e) {
       // console.log("ERROR", e);
@@ -28,7 +28,7 @@ const CreateDocument = () => {
           {templates.map((template, idx) => (
             <Box key={idx}>
               <Box
-                onClick={() => handleCreateDocument(template.text)}
+                onClick={() => handleCreateDocument(template)}
                 sx={{
                   width: "133px",
                   height: "169px",

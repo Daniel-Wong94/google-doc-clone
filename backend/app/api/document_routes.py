@@ -98,10 +98,10 @@ def create_document():
   '''
   form = DocumentForm()
   form['csrf_token'].data = request.cookies['csrf_token']
-
   if form.validate_on_submit():
     text = form.data['text']
-    document = Document(owner_id = current_user.id, text=text)
+    thumbnail = form.data['thumbnail']
+    document = Document(owner_id = current_user.id, text=text, thumbnail=thumbnail)
     db.session.add(document)
     db.session.commit()
   return{"Document": document.to_dict()}
