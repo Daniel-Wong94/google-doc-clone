@@ -8,9 +8,14 @@ const CreateDocument = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleCreateDocument = async ({ text, src }) => {
+  const handleCreateDocument = async ({ name, text, src }) => {
     try {
-      const document = await dispatch(createDocument(text, src));
+      let document;
+      if (name === "Blank") {
+        document = await dispatch(createDocument(text));
+      } else {
+        document = await dispatch(createDocument(text, src));
+      }
       if (document) return history.push(`/documents/${document.id}`);
     } catch (e) {
       // console.log("ERROR", e);

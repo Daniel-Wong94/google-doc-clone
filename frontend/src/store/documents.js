@@ -51,21 +51,23 @@ export const loadCurrentDocument = (documentId) => async (dispatch) => {
   }
 };
 
-export const createDocument = (text, thumbnail) => async (dispatch) => {
-  const form = new FormData();
-  form.append("text", text);
-  form.append("thumbnail", thumbnail);
+export const createDocument =
+  (text, thumbnail = "") =>
+  async (dispatch) => {
+    const form = new FormData();
+    form.append("text", text);
+    form.append("thumbnail", thumbnail);
 
-  const response = await fetch(`/api/documents/`, {
-    method: "POST",
-    body: form,
-  });
+    const response = await fetch(`/api/documents/`, {
+      method: "POST",
+      body: form,
+    });
 
-  if (response.ok) {
-    const { Document: document } = await response.json();
-    return document;
-  }
-};
+    if (response.ok) {
+      const { Document: document } = await response.json();
+      return document;
+    }
+  };
 
 export const editCurrentDocument =
   (payload, documentId) => async (dispatch) => {
