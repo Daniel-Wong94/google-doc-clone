@@ -116,18 +116,7 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [![HTML5][HTML5]][HTML-url]
-* [![CSS][CSS]][CSS-url]
-* [![Javascript][Javascript]][Javascript-url]
-* [![Python][Python]][Python-url]
-* [![Flask][Flask]][Flask-url]
-* [![Express.js][Express.js]][Express-url]
-* [![React][React.js]][React-url]
-* [![Node.js][Node.js]][Node-url]
-* [![SQLite][SQLite]][SQLite-url]
-* [![NPM][NPM]][NPM-url]
-* [![Git][Git]][Git-url]
-* [![Github][Github]][Github-url]
+[![HTML5][HTML5]][HTML-url][![CSS][CSS]][CSS-url][![Javascript][Javascript]][Javascript-url][![Python][Python]][Python-url][![Flask][Flask]][Flask-url][![Express.js][Express.js]][Express-url][![React][React.js]][React-url][![Node.js][Node.js]][Node-url][![SQLite][SQLite]][SQLite-url][![NPM][NPM]][NPM-url][![Git][Git]][Git-url][![Github][Github]][Github-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
