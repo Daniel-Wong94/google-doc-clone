@@ -101,8 +101,9 @@ DocuSync is a clone of Google Docs, a collaborative document editing tool that a
 <!-- <img width="1638" alt="Screen Shot 2022-10-04 at 8 59 15 PM" src="https://user-images.githubusercontent.com/90014250/193957812-22cd83df-f0b3-4479-b593-129798382a1d.png"> -->
 
 <!-- ![DocuSync-HomePageGif](https://media.giphy.com/media/y1M3iS4uhIoecrq3qq/giphy.gif) -->
-https://user-images.githubusercontent.com/90014250/212744028-6273778d-8ad7-42b5-b39c-38309bcc564d.mp4
-
+<video height="100%" width="100%" controls loop autoplay>
+  <source src="https://user-images.githubusercontent.com/90014250/212744028-6273778d-8ad7-42b5-b39c-38309bcc564d.mp4" type="video/mp4" />
+</video>
 
 
 
@@ -116,7 +117,7 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-[![HTML5][HTML5]][HTML-url][![CSS][CSS]][CSS-url][![Javascript][Javascript]][Javascript-url][![Python][Python]][Python-url][![Flask][Flask]][Flask-url][![Express.js][Express.js]][Express-url][![React][React.js]][React-url][![Node.js][Node.js]][Node-url][![SQLite][SQLite]][SQLite-url][![NPM][NPM]][NPM-url][![Git][Git]][Git-url][![Github][Github]][Github-url]
+[![HTML5][HTML5]][HTML-url][![CSS][CSS]][CSS-url][![Javascript][Javascript]][Javascript-url][![Python][Python]][Python-url][![Flask][Flask]][Flask-url][![Express.js][Express.js]][Express-url][![React][React.js]][React-url]![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)[![Node.js][Node.js]]![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)[Node-url][![SQLite][SQLite]][SQLite-url][![NPM][NPM]][NPM-url][![Git][Git]][Git-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
