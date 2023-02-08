@@ -164,7 +164,8 @@ Users can signup and login to their account.
 When multiple users are working on the same document, updates to the document are edited live to all users.
 
 
-https://user-images.githubusercontent.com/90014250/217601297-472e35dd-420e-4c0a-be00-bab3fa99edf1.mp4
+
+https://user-images.githubusercontent.com/90014250/217601601-54c118ec-ea50-452b-84f3-19669dab2cc3.mov
 
 
 Creating a document is easy. Simply click on any of the templates to create a new document.
