@@ -165,6 +165,7 @@ https://user-images.githubusercontent.com/90014250/217602517-dfa46210-5fb6-415c-
 
 When multiple users are working on the same document, updates to the document are edited live to all users.
 
+https://user-images.githubusercontent.com/90014250/217603831-6323c5c5-fbe6-4247-b809-f903f17b6e4d.mov
 
 Creating a document is easy. Simply click on any of the templates to create a new document.
 
