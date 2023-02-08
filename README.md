@@ -163,8 +163,11 @@ Users can signup and login to their account.
 
 When multiple users are working on the same document, updates to the document are edited live to all users.
 
+
+https://user-images.githubusercontent.com/90014250/217601297-472e35dd-420e-4c0a-be00-bab3fa99edf1.mp4
+
+
 Creating a document is easy. Simply click on any of the templates to create a new document.
-https://www.kapwing.com/videos/63e3d5d78d993800c0f7a8cc
 
 There are two tools to enhance collaboration:
 
