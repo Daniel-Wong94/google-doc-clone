@@ -161,17 +161,14 @@ This is an example of how to list things you need to use the software and how to
 
 Users can signup and login to their account.
 
+https://user-images.githubusercontent.com/90014250/217602517-dfa46210-5fb6-415c-b55f-011be0f81cf7.mov
+
 When multiple users are working on the same document, updates to the document are edited live to all users.
-
-<video autoplay loop muted playsinline>
-  <source src="https://user-images.githubusercontent.com/90014250/217601601-54c118ec-ea50-452b-84f3-19669dab2cc3.mov" type="video/mp4">
-</video>
-
-
-<!-- https://user-images.githubusercontent.com/90014250/217601601-54c118ec-ea50-452b-84f3-19669dab2cc3.mov -->
 
 
 Creating a document is easy. Simply click on any of the templates to create a new document.
+
+https://user-images.githubusercontent.com/90014250/217601601-54c118ec-ea50-452b-84f3-19669dab2cc3.mov
 
 There are two tools to enhance collaboration:
 
