@@ -117,7 +117,7 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-[![HTML5][HTML5]][HTML-url][![CSS][CSS]][CSS-url][![Javascript][Javascript]][Javascript-url][![Python][Python]][Python-url][![Flask][Flask]][Flask-url][![Express.js][Express.js]][Express-url][![React][React.js]][React-url]![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)[![Node.js][Node.js]]![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)[Node-url][![SQLite][SQLite]][SQLite-url][![NPM][NPM]][NPM-url][![Git][Git]][Git-url]
+[![HTML5][HTML5]][HTML-url][![CSS][CSS]][CSS-url][![Javascript][Javascript]][Javascript-url][![Python][Python]][Python-url][![Flask][Flask]][Flask-url][![Express.js][Express.js]][Express-url][![React][React.js]][React-url]![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)[![Node.js][Node.js]][Node-url]![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)[![SQLite][SQLite]][SQLite-url][![NPM][NPM]][NPM-url][![Git][Git]][Git-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
