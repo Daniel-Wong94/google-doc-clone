@@ -163,9 +163,12 @@ Users can signup and login to their account.
 
 When multiple users are working on the same document, updates to the document are edited live to all users.
 
+<video autoplay loop muted playsinline>
+  <source src="https://user-images.githubusercontent.com/90014250/217601601-54c118ec-ea50-452b-84f3-19669dab2cc3.mov" type="video/mp4">
+</video>
 
 
-https://user-images.githubusercontent.com/90014250/217601601-54c118ec-ea50-452b-84f3-19669dab2cc3.mov
+<!-- https://user-images.githubusercontent.com/90014250/217601601-54c118ec-ea50-452b-84f3-19669dab2cc3.mov -->
 
 
 Creating a document is easy. Simply click on any of the templates to create a new document.
