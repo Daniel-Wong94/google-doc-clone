@@ -101,7 +101,7 @@ DocuSync is a clone of Google Docs, a collaborative document editing tool that a
 <!-- <img width="1638" alt="Screen Shot 2022-10-04 at 8 59 15 PM" src="https://user-images.githubusercontent.com/90014250/193957812-22cd83df-f0b3-4479-b593-129798382a1d.png"> -->
 
 <!-- ![DocuSync-HomePageGif](https://media.giphy.com/media/y1M3iS4uhIoecrq3qq/giphy.gif) -->
-<video height="100%" width="100%" controls loop autoplay>
+<video controls loop autoplay>
   <source src="https://user-images.githubusercontent.com/90014250/212744028-6273778d-8ad7-42b5-b39c-38309bcc564d.mp4" type="video/mp4" />
 </video>
 
