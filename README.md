@@ -59,10 +59,6 @@ DocuSync is a clone of Google Docs, a collaborative document editing tool that a
     <a href="https://github.com/Daniel-Wong94/google-doc-clone/wiki/DB-Schema">DB Schema</a>
        ·
     <a href="">API Documentation</a>
-    
-   <!-- <a href="https://github.com/github_username/repo_name/issues">Report Bug</a> -->
-   <!-- · -->
-   <!-- <a href="https://github.com/github_username/repo_name/issues">Request Feature</a> -->
   </p>
 </div>
 
@@ -105,9 +101,7 @@ DocuSync is a clone of Google Docs, a collaborative document editing tool that a
 https://user-images.githubusercontent.com/90014250/212744028-6273778d-8ad7-42b5-b39c-38309bcc564d.mp4
 
 
-
-
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+<!-- Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description` -->
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -165,9 +159,17 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Users can signup and login to their account.
 
-_For more examples, please refer to the [Documentation]("https://github.com/Daniel-Wong94/meetup_Project/wiki/API-Documentation")_
+When multiple users are working on the same document, updates to the document are edited live to all users.
+
+Creating a document is easy. Simply click on any of the templates to create a new document.
+
+There are two tools to enhance collaboration:
+
+1. The chat box is a great way for users to communicate without having to use an external messenging app/device or the document itself.
+
+2. The commenting box allows the user to highlight a particular text in the document and to make a comment about it.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
