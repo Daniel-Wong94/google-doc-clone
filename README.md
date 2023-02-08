@@ -164,6 +164,7 @@ Users can signup and login to their account.
 When multiple users are working on the same document, updates to the document are edited live to all users.
 
 Creating a document is easy. Simply click on any of the templates to create a new document.
+https://www.kapwing.com/videos/63e3d5d78d993800c0f7a8cc
 
 There are two tools to enhance collaboration:
 
