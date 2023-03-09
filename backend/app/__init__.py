@@ -120,35 +120,29 @@ def on_connect():
     room = request.args.get('room')
     name = request.args.get('name')
     join_room(room)
-    print("JOINED ROOM", (room))
     emit('room-joined', {'message': f'{name} has joined room {room}!'}, to=room, include_self=False)
+
 
 @socketio.on('disconnect')
 def on_disconnect():
-    print("DISCONNECTED")
     name = request.args.get('name')
     room = request.args.get('room')
-    print("NAME", name, "ROOM", room)
     emit('left-room', {'message': f'{name} has left room {room}!'}, to=room, include_self=False)
     if room is not None:
         leave_room(room)
-        print("LEFT ROOM")
 
 
 @socketio.on("message")
 def handle_message(data):
-    print("message data: ", data)
     message = Message(**data)
     db.session.add(message)
     db.session.commit()
     room = str(message.document_id)
-    print('new message created', message)
     emit('receive-message', message.to_dict(), to=room)
 
 
 @socketio.on("comment")
 def handle_comment(data):
-    print("COMMENT DATA: ", data)
     room = str(data['document_id'])
     emit("receive-comment", data, to=room, include_self=False)
 
@@ -157,7 +151,6 @@ def handle_comment(data):
 def handle_changes(data):
     room = data['room']
     delta = data['delta']
-    print(f'SENDING DELTA({delta}) TO ROOM {room}')
     emit('receive-changes',  delta, to=room, include_self=False)
 
 
@@ -165,5 +158,4 @@ def handle_changes(data):
 def sync_document(data):
     room = data['room']
     change = data['change']
-    print(f'SYNC DOCUMENT WITH CHANGE OBJECT: {data}')
     emit('sync-document', change, to=room, include_self=False)

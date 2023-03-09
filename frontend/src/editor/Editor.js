@@ -22,11 +22,11 @@ const Editor = () => {
   const [showModal, setShowModal] = useState(false);
   const [socket, setSocket] = useState();
   const [text, setText] = useState(document?.text);
+  const [editor, setEditor] = useState(null);
   const isOwner = document?.owner?.id === user?.id;
   const isEditor = userRole && userRole.role === "Editor";
   const readOnly = !isOwner && !isEditor;
   const quillRef = useRef(null);
-  const [editor, setEditor] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -62,7 +62,6 @@ const Editor = () => {
           display: "flex",
           flexDirection: "column",
           height: "100vh",
-          // border: "1px solid red",
         }}
       >
         <EditorNavBar
@@ -72,7 +71,6 @@ const Editor = () => {
         />
         <Box
           sx={{
-            // border: "1px solid red",
             display: "flex",
             position: "relative",
             flex: "1",
@@ -86,7 +84,7 @@ const Editor = () => {
             setText={setText}
             editor={editor}
             setEditor={setEditor}
-            quillRef={quillRef}
+            ref={quillRef}
             readOnly={readOnly}
           />
           <SideBar socket={socket} editor={editor} />
