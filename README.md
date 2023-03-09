@@ -58,11 +58,7 @@ DocuSync is a clone of Google Docs, a collaborative document editing tool that a
        ·
     <a href="https://github.com/Daniel-Wong94/google-doc-clone/wiki/DB-Schema">DB Schema</a>
        ·
-    <a href="">API Documentation</a>
-    
-   <!-- <a href="https://github.com/github_username/repo_name/issues">Report Bug</a> -->
-   <!-- · -->
-   <!-- <a href="https://github.com/github_username/repo_name/issues">Request Feature</a> -->
+    <a href="https://github.com/Daniel-Wong94/google-doc-clone/wiki/API">API Documentation</a>
   </p>
 </div>
 
@@ -101,13 +97,11 @@ DocuSync is a clone of Google Docs, a collaborative document editing tool that a
 <!-- <img width="1638" alt="Screen Shot 2022-10-04 at 8 59 15 PM" src="https://user-images.githubusercontent.com/90014250/193957812-22cd83df-f0b3-4479-b593-129798382a1d.png"> -->
 
 <!-- ![DocuSync-HomePageGif](https://media.giphy.com/media/y1M3iS4uhIoecrq3qq/giphy.gif) -->
+
 https://user-images.githubusercontent.com/90014250/212744028-6273778d-8ad7-42b5-b39c-38309bcc564d.mp4
 
 
-
-
-
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+<!-- Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description` -->
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -116,18 +110,7 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [![HTML5][HTML5]][HTML-url]
-* [![CSS][CSS]][CSS-url]
-* [![Javascript][Javascript]][Javascript-url]
-* [![Python][Python]][Python-url]
-* [![Flask][Flask]][Flask-url]
-* [![Express.js][Express.js]][Express-url]
-* [![React][React.js]][React-url]
-* [![Node.js][Node.js]][Node-url]
-* [![SQLite][SQLite]][SQLite-url]
-* [![NPM][NPM]][NPM-url]
-* [![Git][Git]][Git-url]
-* [![Github][Github]][Github-url]
+[![HTML5][HTML5]][HTML-url][![CSS][CSS]][CSS-url][![Javascript][Javascript]][Javascript-url][![Python][Python]][Python-url][![Flask][Flask]][Flask-url][![Express.js][Express.js]][Express-url][![React][React.js]][React-url]![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)[![Node.js][Node.js]][Node-url]![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)[![SQLite][SQLite]][SQLite-url][![NPM][NPM]][NPM-url][![Git][Git]][Git-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -176,9 +159,27 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Users can signup and login to their account.
 
-_For more examples, please refer to the [Documentation]("https://github.com/Daniel-Wong94/meetup_Project/wiki/API-Documentation")_
+https://user-images.githubusercontent.com/90014250/217602517-dfa46210-5fb6-415c-b55f-011be0f81cf7.mov
+
+When multiple users are working on the same document, updates to the document are edited live to all users.
+
+https://user-images.githubusercontent.com/90014250/217603831-6323c5c5-fbe6-4247-b809-f903f17b6e4d.mov
+
+Creating a document is easy. Simply click on any of the templates to create a new document.
+
+https://user-images.githubusercontent.com/90014250/217601601-54c118ec-ea50-452b-84f3-19669dab2cc3.mov
+
+There are two tools to enhance collaboration:
+
+1. The chat box is a great way for users to communicate without having to use an external messenging app/device or the document itself.
+
+2. The commenting box allows the user to highlight a particular text in the document and to make a comment about it.
+
+
+https://user-images.githubusercontent.com/90014250/217607274-455c6deb-94a5-403b-8f44-9f85e786626f.mov
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
