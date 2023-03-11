@@ -48,7 +48,7 @@ const TextEditor = forwardRef(
 
       socket.on("receive-changes", onUpdate);
 
-      return () => socket.off(onUpdate);
+      return () => socket.off("receive-changes", onUpdate);
     }, [socket, quillRef, editor]);
 
     // when user joins room:
@@ -61,7 +61,7 @@ const TextEditor = forwardRef(
 
       socket.on("room-joined", onRoomJoined);
 
-      return () => socket.off(onRoomJoined);
+      return () => socket.off("room-joined", onRoomJoined);
     }, [socket, quillRef, documentId]);
 
     useEffect(() => {
@@ -79,7 +79,7 @@ const TextEditor = forwardRef(
 
       socket.on("sync-document", onSyncDocument);
 
-      return () => socket.off(onSyncDocument);
+      return () => socket.off("sync-document", onSyncDocument);
     }, [socket, quillRef, Delta, editor, setText]);
 
     // when user leaves
@@ -93,7 +93,7 @@ const TextEditor = forwardRef(
 
       socket.on("left-room", onLeftRoom);
 
-      return () => socket.off(onLeftRoom);
+      return () => socket.off("left-room", onLeftRoom);
     }, [socket, quillRef]);
 
     // handler to save document

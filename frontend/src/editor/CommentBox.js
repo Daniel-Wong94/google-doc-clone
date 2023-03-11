@@ -62,6 +62,7 @@ const CommentBox = ({ socket, editor }) => {
     }
   };
 
+  // send a comment
   const handleComment = async (e) => {
     e.preventDefault();
 
@@ -95,7 +96,7 @@ const CommentBox = ({ socket, editor }) => {
     const getComment = (comment) => dispatch(addComment(comment));
     socket.on("receive-comment", getComment);
 
-    return () => socket.off(getComment);
+    return () => socket.off("receive-comment", getComment);
   }, [socket, dispatch]);
 
   return (

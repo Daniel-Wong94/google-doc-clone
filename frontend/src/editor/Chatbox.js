@@ -57,7 +57,7 @@ const Chatbox = ({ socket }) => {
 
     socket.on("receive-message", getMessage);
 
-    return () => socket.off(getMessage);
+    return () => socket.off("receive-message", getMessage);
   }, [socket, dispatch]);
 
   // scroll to bottom on new message
